@@ -171,9 +171,15 @@ class SurveillanceSystem(object):
 
    def remove_camera(self, camID):
         """remove a camera to the System and kill its processing thread"""
-        self.cameras.pop(camID)
-        self.cameraProcessingThreads.pop(camID)
-        self.captureThread.stop = False
+        logger.info('Removing camera from the cam array by popping id:' + camID)
+        iCam = int(camID)
+        # we need to set flag captureThread to false for the thread capturing
+        self.cameras[iCam].captureThread.stop = True
+        self.cameraProcessingThreads[iCam].stop = True
+
+        self.cameras.pop(iCam)
+        self.cameraProcessingThreads.pop(iCam)
+        self.cameras[iCam].video.release()
 
    def process_frame(self,camera):
         """This function performs all the frame proccessing.
@@ -187,7 +193,7 @@ class SurveillanceSystem(object):
         start = time.time()
         stop = camera.captureThread.stop
         
-        while not stop:
+        while not camera.captureThread.stop:
 
              frame_count +=1
              logger.debug("Reading Frame")

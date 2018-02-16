@@ -108,7 +108,7 @@ class IPCamera(object):
 		#fpsTweak = 0  # set that to 1 if you want to enable Brandon's fps tweak. that break most video feeds so recommend not to
 		FPSstart = time.time()
 
-		while True:
+		while not self.captureThread.stop:
 			success, frame = self.video.read()
 			self.captureEvent.clear() 
 			if success:		

@@ -168,10 +168,9 @@ def remove_camera():
         data = {"camNum": len(HomeSurveillance.cameras) - 1}
         with HomeSurveillance.camerasLock:
             HomeSurveillance.remove_camera(camID)
-        app.logger.info("Removing camera number : " + data)
-        data = {"alert_status": "removed"}
-        return jsonify(data)
-    return render_template('index.html')
+        app.logger.info("Removing camera number : " + str(camID))
+        message = "Camera removed succesfully"
+    return render_template('index.html', message=message)
 
 @app.route('/create_alert', methods = ['GET','POST'])
 def create_alert():
