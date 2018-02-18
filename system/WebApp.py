@@ -171,7 +171,7 @@ def remove_camera():
             HomeSurveillance.remove_camera(camID)
         app.logger.info("Removing camera number : " + str(camID))
         message = "Camera removed succesfully"
-    socketio.emit('refresh', json.dumps(data), namespace='/surveillance', broadcast=True)
+    #socketio.emit('refresh', json.dumps(data), namespace='/surveillance', broadcast=True)
     return render_template('index.html', message=message)
 
 @app.route('/create_alert', methods = ['GET','POST'])
