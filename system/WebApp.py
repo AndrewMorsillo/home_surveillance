@@ -105,7 +105,7 @@ def gen(camera):
     however slows down streaming and therefore read_jpg()
     is recommended"""
     while True:
-        frame = camera.read_processed()    # read_jpg()  # read_processed()    
+        frame = camera.read_jpg()    # read_jpg()  # read_processed()    
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')  # Builds 'jpeg' data with header and payload
 
@@ -157,6 +157,7 @@ def add_camera():
         app.logger.info(camURL)
         app.logger.info(fpsTweak)
         return jsonify(data)
+        
     return render_template('index.html')
 
 @app.route('/remove_camera', methods = ['GET','POST'])
@@ -170,6 +171,7 @@ def remove_camera():
             HomeSurveillance.remove_camera(camID)
         app.logger.info("Removing camera number : " + str(camID))
         message = "Camera removed succesfully"
+    socketio.emit('refresh', json.dumps(data), namespace='/surveillance', broadcast=True)
     return render_template('index.html', message=message)
 
 @app.route('/create_alert', methods = ['GET','POST'])
@@ -347,7 +349,57 @@ def test_message(message):   # Custom events deliver JSON payload
 def test_message(message):
     emit('my response', {'data': message['data']}, broadcast=True) # broadcast=True optional argument all clients connected to the namespace receive the message
 
-                   
+@socketio.on('refresh', namespace='/surveillance') 
+def refresh(): 
+    
+    # Need visibility of global thread object                
+    global alarmStateThread
+    global facesUpdateThread 
+    global monitoringThread
+
+    #print "\n\nclient connected\n\n"
+    app.logger.info("client refresh requested")
+
+    if not alarmStateThread.isAlive():
+        #print "Starting alarmStateThread"
+        app.logger.info("Starting alarmStateThread")
+        alarmStateThread = threading.Thread(name='alarmstate_process_thread_',target= alarm_state, args=())
+        alarmStateThread.start()
+   
+    if not facesUpdateThread.isAlive():
+        #print "Starting facesUpdateThread"
+        app.logger.info("Starting facesUpdateThread")
+        facesUpdateThread = threading.Thread(name='websocket_process_thread_',target= update_faces, args=())
+        facesUpdateThread.start()
+
+    if not monitoringThread.isAlive():
+        #print "Starting monitoringThread"
+        app.logger.info("Starting monitoringThread")
+        monitoringThread = threading.Thread(name='monitoring_process_thread_',target= system_monitoring, args=())
+        monitoringThread.start()
+
+    cameraData = {}
+    cameras = []
+
+    with HomeSurveillance.camerasLock :
+        for i, camera in enumerate(HomeSurveillance.cameras):
+            with HomeSurveillance.cameras[i].peopleDictLock:
+                cameraData = {'camNum': i , 'url': camera.url}
+                #print cameraData
+                app.logger.info(cameraData)
+                cameras.append(cameraData)
+    alertData = {}
+    alerts = []
+    for i, alert in enumerate(HomeSurveillance.alerts):
+        with HomeSurveillance.alertsLock:
+            alertData = {'alert_id': alert.id , 'alert_message':  "Alert if " + alert.alertString}
+            #print alertData
+            app.logger.info(alertData)
+            alerts.append(alertData)
+   
+    systemData = {'camNum': len(HomeSurveillance.cameras) , 'people': HomeSurveillance.peopleDB, 'cameras': cameras, 'alerts': alerts, 'onConnect': True}
+    socketio.emit('system_data', json.dumps(systemData) ,namespace='/surveillance')                   
+
 @socketio.on('connect', namespace='/surveillance') 
 def connect(): 
     

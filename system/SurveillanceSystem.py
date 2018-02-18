@@ -179,7 +179,7 @@ class SurveillanceSystem(object):
 
         self.cameras.pop(iCam)
         self.cameraProcessingThreads.pop(iCam)
-        self.cameras[iCam].video.release()
+        # self.cameras[iCam].video.release()
 
    def process_frame(self,camera):
         """This function performs all the frame proccessing.

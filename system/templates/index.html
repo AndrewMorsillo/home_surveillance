@@ -627,20 +627,24 @@
 <script type="text/javascript" charset="utf-8">
 
             function removeCamera(camID) {
+                            var socket = io.connect('http://' + document.domain + ':' + location.port + '/surveillance');
                             console.log("Removing camera: " + camID);
                             $.ajax({
                                   type: "POST",
                                   url: "{{ url_for('remove_camera') }}",
                                   data : {'camID': camID},
                                   success: function(cam) {
-                                    console.log(cam);
-                                        var element = document.getElementById("camID");
+                                    //console.log(cam);
+                                        var element = document.getElementById(camID);
                                         element.parentNode.removeChild(element);
+                                        // socket.emit('refresh');
+                                        location.reload();
                                   },
                                   error: function(error) {
                                     console.log(error);
                                   }
                             });
+                            
             }
 
 
@@ -1219,7 +1223,7 @@
                         });
 
                       socket.on('system_data', function(json) {   
-
+                               console.log("RdL Test");
                                console.log("System Data: " + json);
                                var system_data = JSON.parse(json);
                                var person;

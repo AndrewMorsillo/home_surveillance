@@ -79,15 +79,16 @@ eyecascade = cv2.CascadeClassifier("cascades/haarcascade_eye.xml")
 detector = dlib.get_frontal_face_detector()
     
 def resize(frame):
-    r = 640.0 / frame.shape[1]
-    dim = (640, int(frame.shape[0] * r))
+    r = 1280.0 / frame.shape[1]
+    dim = (1280, int(frame.shape[0] * r))
     # Resize frame to be processed
     frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)    
     return frame 
 
 def resize_mjpeg(frame):
-    r = 320.0 / frame.shape[1]
-    dim = (320, 200)#int(frame.shape[0] * r))
+    #RDl =. Was 320,200
+    r = 1280.0 / frame.shape[1]
+    dim = (1280, 800)#int(frame.shape[0] * r))
     # perform the actual resizing of the image and show it
     frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)    
     return frame  
