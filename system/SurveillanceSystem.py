@@ -149,9 +149,27 @@ class SurveillanceSystem(object):
         self.get_face_database_names() # Gets people in database for web client
 
         #//////////////////////////////////////////////////// Camera Examples ////////////////////////////////////////////////////
-        #self.cameras.append(Camera.IPCamera("testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False)) # Video Example - uncomment and run code
+        self.cameras.append(Camera.IPCamera("TestCamera","testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False,False)) # Video Example - uncomment and run code
         # self.cameras.append(Camera.IPCamera("http://192.168.1.33/video.mjpg","detect_recognise_track",False))
         
+        #RdL Add alerts from Alerts.cfg
+	alertparser = SafeConfigParser()
+	alertparser.read('Alerts.cfg')
+        for each_section in alertparser.sections():
+          alarmstate = alertparser.get(each_section, 'alarmstate')
+          camera = alertparser.get(each_section, 'camera')
+          event = alertparser.get(each_section, 'event')
+          person = alertparser.get(each_section, 'person')
+          action_push_alert = alertparser.get(each_section, 'action_push_alert')
+          action_email_alert = alertparser.get(each_section, 'action_email_alert')
+          action_trigger_alarm = alertparser.get(each_section, 'action_trigger_alarm')
+          action_notify_police = alertparser.get(each_section, 'action_notify_police')
+          emailAddress = alertparser.get(each_section, 'emailAddress')
+          confidence = alertparser.get(each_section, 'confidence')
+          actions = {'push_alert': action_push_alert , 'email_alert':action_email_alert , 'trigger_alarm':action_trigger_alarm , 'notify_police':action_notify_police}
+	  self.alerts.append(Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence))) 
+
+
 	#RdL Add cameras from Cameras.cfg
 	cameraparser = SafeConfigParser()
 	cameraparser.read('Cameras.cfg')
@@ -193,6 +211,27 @@ class SurveillanceSystem(object):
         parser.write(new_config_file)
         new_config_file.close()
 
+   def update_alerts_cfg(self):
+        parser = SafeConfigParser()
+        parser.read('Alerts.cfg')
+        for each_section in parser.sections():
+          parser.remove_section(each_section)
+        for i, al in enumerate(self.alerts):
+          parser.add_section('Alert_'+str(i))
+          parser.set('Alert_'+str(i), 'alarmState', al.alarmState)
+          parser.set('Alert_'+str(i), 'camera', al.camera)
+          parser.set('Alert_'+str(i), 'event', al.event)
+          parser.set('Alert_'+str(i), 'person', al.person)
+          parser.set('Alert_'+str(i), 'action_push_alert', al.actions['push_alert'])
+          parser.set('Alert_'+str(i), 'action_email_alert', al.actions['email_alert'])
+          parser.set('Alert_'+str(i), 'action_trigger_alarm', al.actions['trigger_alarm'])
+          parser.set('Alert_'+str(i), 'action_notify_police', al.actions['notify_police'])
+          parser.set('Alert_'+str(i), 'emailAddress', al.emailAddress)
+          parser.set('Alert_'+str(i), 'confidence', str(al.confidence))
+        new_config_file = open('Alerts.cfg', 'w')
+        parser.write(new_config_file)
+        new_config_file.close()
+     
 
    def add_camera(self, camera):
         """Adds new camera to the System and generates a 

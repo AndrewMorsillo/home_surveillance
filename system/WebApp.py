@@ -195,6 +195,7 @@ def create_alert():
         actions = {'push_alert': push_alert , 'email_alert':email_alert , 'trigger_alarm':trigger_alarm , 'notify_police':notify_police}
         with HomeSurveillance.alertsLock:
             HomeSurveillance.alerts.append(SurveillanceSystem.Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence))) 
+            HomeSurveillance.update_alerts_cfg()
         HomeSurveillance.alerts[-1].id 
         data = {"alert_id": HomeSurveillance.alerts[-1].id, "alert_message": "Alert if " + HomeSurveillance.alerts[-1].alertString}
         return jsonify(data)
@@ -208,6 +209,7 @@ def remove_alert():
             for i, alert in enumerate(HomeSurveillance.alerts):
                 if alert.id == alertID:
                     del HomeSurveillance.alerts[i]
+                    HomeSurveillance.update_alerts_cfg()
                     break
            
         data = {"alert_status": "removed"}
