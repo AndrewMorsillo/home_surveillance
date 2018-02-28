@@ -60,6 +60,8 @@ import ImageUtils
 import random
 import psutil
 import math
+from ConfigParser import SafeConfigParser
+import urllib2
 
 # Get paths for models
 # //////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +152,23 @@ class SurveillanceSystem(object):
         #self.cameras.append(Camera.IPCamera("testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False)) # Video Example - uncomment and run code
         # self.cameras.append(Camera.IPCamera("http://192.168.1.33/video.mjpg","detect_recognise_track",False))
         
+	#RdL Add cameras from Cameras.cfg
+	cameraparser = SafeConfigParser()
+	cameraparser.read('Cameras.cfg')
+        for each_section in cameraparser.sections():
+          camname = cameraparser.get(each_section, 'camname')
+          camurl = cameraparser.get(each_section, 'url')
+          camfunction = cameraparser.get(each_section, 'function')
+          camDlibDetection = cameraparser.get(each_section, 'DlibDetection')
+          camfpsTweak = cameraparser.get(each_section, 'fpsTweak')
+        
+	  ret = urllib2.urlopen(camurl)
+	  if ret.code == 200:
+             print(ret.code)
+	     self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
+             print('Camera added: '+camurl)  
+  
+
         # processing frame threads 
         for i, cam in enumerate(self.cameras):       
           thread = threading.Thread(name='frame_process_thread_' + str(i),target=self.process_frame,args=(cam,))
@@ -157,10 +176,30 @@ class SurveillanceSystem(object):
           self.cameraProcessingThreads.append(thread)
           thread.start()
 
+
+   def update_cameras_cfg(self):
+        parser = SafeConfigParser()
+        parser.read('Cameras.cfg')
+        for each_section in parser.sections():
+          parser.remove_section(each_section)
+        for i, cam in enumerate(self.cameras):
+          parser.add_section('Camera_'+str(i))
+          parser.set('Camera_'+str(i), 'camname', cam.camName)
+          parser.set('Camera_'+str(i), 'url', cam.url)
+          parser.set('Camera_'+str(i), 'function', cam.cameraFunction)
+          parser.set('Camera_'+str(i), 'DlibDetection', cam.dlibDetection)
+          parser.set('Camera_'+str(i), 'fpsTweak', cam.fpsTweak)
+        new_config_file = open('Cameras.cfg', 'w')
+        parser.write(new_config_file)
+        new_config_file.close()
+
+
    def add_camera(self, camera):
         """Adds new camera to the System and generates a 
         frame processing thread"""
+        
         self.cameras.append(camera)
+        self.update_cameras_cfg()
         thread = threading.Thread(name='frame_process_thread_' + 
                                  str(len(self.cameras)),
                                  target=self.process_frame,
@@ -168,6 +207,7 @@ class SurveillanceSystem(object):
         thread.daemon = False
         self.cameraProcessingThreads.append(thread)
         thread.start()
+        
 
    def remove_camera(self, camID):
         """remove a camera to the System and kill its processing thread"""
@@ -179,7 +219,8 @@ class SurveillanceSystem(object):
 
         self.cameras.pop(iCam)
         self.cameraProcessingThreads.pop(iCam)
-        # self.cameras[iCam].video.release()
+        self.update_cameras_cfg()
+
 
    def process_frame(self,camera):
         """This function performs all the frame proccessing.

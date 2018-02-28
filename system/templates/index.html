@@ -277,6 +277,10 @@
                             <div class="col-md-4">
 
                             <div class="form-group">
+                                 <label>Camera Name</label>
+                                 <input class="form-control" id="camName" value="" placeholder="Enter Camera Name">
+                            </div>
+			    <div class="form-group">
                                  <label>IP Camera URL</label>
                                  <input class="form-control" id="camURL" value="" placeholder="Enter stream URL">
                             </div>
@@ -651,7 +655,7 @@
              function addCamera() {
                             //getting selected option from dropdowns
                             var camURL = document.getElementById("camURL").value;
-                       
+                            var camName = document.getElementById("camName").value;
                             var e1 = document.getElementById("application");
                             var application = e1.options[e1.selectedIndex].value; 
                             var e2 = document.getElementById("detectionMethod");
@@ -680,11 +684,11 @@
 
                             $('#addcam').html('<i class="fa fa-spin fa-cog fa-3x fa-fw" style="font-size:12px;"></i> Adding Camera');
 
-                            console.log("Front end logging:"  + camURL + " " + application + " " + detectionMethod + " FPS Tweak: " + fpstweak);
+                            console.log("Front end logging:"  + camName  + " " + camURL + " " + application + " " + detectionMethod + " FPS Tweak: " + fpstweak);
                             $.ajax({
                                   type: "POST",
                                   url: "{{ url_for('add_camera') }}",
-                                  data : {'camURL': camURL, 'application': application, 'detectionMethod': dlibDetection, 'fpstweak': fpstweak},
+                                  data : {'camName': camName, 'camURL': camURL, 'application': application, 'detectionMethod': dlibDetection, 'fpstweak': fpstweak},
                                   success: function(cam) {
                                     console.log(cam);
 
@@ -698,7 +702,7 @@
                                         btn.setAttribute("onclick","removeCamera(" + cam.camNum + ")");
                                         btn.setAttribute("id","camera_" + cam.camNum);
                                         btn.innerHTML = "&times;";
-                                        camdiv.innerHTML = '<div class="text-center"><span>' + icon + '<div><strong>Camera '+ cam.camNum + ' FPS: <strong id="camera_' + cam.camNum+ '_fps">' + "Loading... </strong></div><div>" +'<font size="0.9">' + camURL+'<font></span></div>';
+                                        camdiv.innerHTML = '<div class="text-center"><span>' + icon + '<div><strong>Camera '+ cam.camNum + ' Name:'+ camName +' FPS: <strong id="camera_' + cam.camNum+ '_fps">' + "Loading... </strong></div><div>" +'<font size="0.9">' + camURL+'<font></span></div>';
                                         camdiv.appendChild(btn);
                                         document.getElementById("system-cameras").appendChild(camdiv);
 
@@ -1271,7 +1275,7 @@
                                           btn.setAttribute("onclick","removeCamera(" + system_data.cameras[i].camNum + ")");
                                           btn.setAttribute("id","camera_" + system_data.cameras[i].camNum);  
                                           btn.innerHTML = "&times;";
-                                          camdiv.innerHTML = '<div class="text-center"><span>' + icon + '<div><strong>Camera '+ system_data.cameras[i].camNum + ' FPS: <strong id="camera_' + system_data.cameras[i].camNum+ '_fps">' + "Loading... </strong></div><div>" +'<font size="0.9">' + system_data.cameras[i].url +'<font>'+'</span></div>';
+                                          camdiv.innerHTML = '<div class="text-center"><span>' + icon + '<div><strong>Camera '+ system_data.cameras[i].camNum + ' Name:'+ system_data.cameras[i].camName + ' FPS: <strong id="camera_' + system_data.cameras[i].camNum+ '_fps">' + "Loading... </strong></div><div>" +'<font size="0.9">' + system_data.cameras[i].url +'<font>'+'</span></div>';
                                           camdiv.appendChild(btn);
                                           document.getElementById("system-cameras").appendChild(camdiv);
 

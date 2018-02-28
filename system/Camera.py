@@ -61,7 +61,7 @@ class IPCamera(object):
 	detect_recognise_track. These can be found in the 
 	SureveillanceSystem object, within the process_frame function"""
 
-	def __init__(self,camURL, cameraFunction, dlibDetection, fpsTweak):
+	def __init__(self,camName, camURL, cameraFunction, dlibDetection, fpsTweak):
 		logger.info("Loading Stream From IP Camera: " + camURL)
 		self.motionDetector = MotionDetector.MotionDetector()
 		self.faceDetector = FaceDetector.FaceDetector()
@@ -86,6 +86,7 @@ class IPCamera(object):
 		self.video = cv2.VideoCapture(camURL) # VideoCapture object used to capture frames from IP camera
 		logger.info("We are opening the video feed.")
 	 	self.url = camURL
+                self.camName = camName
 		if not self.video.isOpened():
 			self.video.open()
 		logger.info("Video feed open.")
