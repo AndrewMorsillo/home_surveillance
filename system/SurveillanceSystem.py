@@ -61,7 +61,10 @@ import random
 import psutil
 import math
 from ConfigParser import SafeConfigParser
+import ConfigParser
 import urllib2
+import io
+import shutil
 
 # Get paths for models
 # //////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,6 +133,7 @@ class SurveillanceSystem(object):
         self.camerasLock  = threading.Lock() # Used to block concurrent access of cameras []
         self.cameraProcessingThreads = []
         self.peopleDB = []
+	self.BroadcastDB = []
         self.confidenceThreshold = 20 # Used as a threshold to classify a person as unknown
 
         # Initialization of alert processing thread 
@@ -147,6 +151,7 @@ class SurveillanceSystem(object):
         ####################################
 
         self.get_face_database_names() # Gets people in database for web client
+	self.get_Broadcast_messages()  # Gets the latest broadcasts for Web client
 
         #//////////////////////////////////////////////////// Camera Examples ////////////////////////////////////////////////////
         self.cameras.append(Camera.IPCamera("TestCamera","testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False,False)) # Video Example - uncomment and run code
@@ -182,9 +187,9 @@ class SurveillanceSystem(object):
         
 	  ret = urllib2.urlopen(camurl)
 	  if ret.code == 200:
-             print(ret.code)
+             #print(ret.code)
 	     self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
-             print('Camera added: '+camurl)  
+             #print('Camera added: '+camurl)  
   
 
         # processing frame threads 
@@ -193,6 +198,84 @@ class SurveillanceSystem(object):
           thread.daemon = False
           self.cameraProcessingThreads.append(thread)
           thread.start()
+
+   def broadcast_message_log(self,broadcastmessage):
+	broadcastmessage = datetime.now().strftime("%I:%M%p on %B %d, %Y") +": "+broadcastmessage+"\n"	
+	#print(broadcastmessage)	
+	#broadcastmessage = "This is a test broadcast"
+	if not os.path.exists('broadcast.log'):
+    	  with open('broadcast.log', 'w'): pass
+	#filetemp.close()        
+	f = open('broadcast.log','r+')
+	lines = f.readlines() # read old content
+	f.seek(0) # go back to the beginning of the file
+	f.write(broadcastmessage) # write new content at the beginning
+	for line in lines: # write old content after new
+    	   f.write(line)
+	f.close()
+	self.get_Broadcast_messages()
+
+   def get_Broadcast_messages(self):
+	with open('broadcast.log') as my_file:
+           self.BroadcastDB = my_file.readlines()
+	print(self.BroadcastDB)
+   
+   def create_persona(self,personname):
+        parser = SafeConfigParser()
+        parser.add_section('persona')
+        parser.set('persona', 'nickname', personname)
+        parser.set('persona', 'fullname', personname)
+        parser.set('persona', 'phonemac', '00:00:00:00:00:00')
+        personafile = os.path.join(os.path.abspath("./aligned-images/"), personname, "Persona.cfg")
+        new_config_file = open(personafile, 'w')
+        parser.write(new_config_file)
+        new_config_file.close()
+        self.get_face_database_names()
+
+   def remove_person(self,personname):
+        path = os.path.join(os.path.abspath("./aligned-images"), personname)
+        shutil.rmtree(path, ignore_errors=True)
+        path2 = os.path.join(os.path.abspath("./training-images"), personname)
+        shutil.rmtree(path2, ignore_errors=True)
+        self.get_face_database_names()
+        
+   def update_person(self, personID, personName, personFullname, personMacaddress):
+        personafile = os.path.join(os.path.abspath("./aligned-images/"), personName, "Persona.cfg")
+        parser = SafeConfigParser()
+        parser.read(personafile)
+        parser.set('persona', 'fullname', personFullname)
+        parser.set('persona', 'phonemac', personMacaddress)
+        new_config_file = open(personafile, 'w')
+        parser.write(new_config_file)
+        new_config_file.close()
+        self.get_face_database_names()
+
+   def get_person_images(self,name):
+
+        path = fileDir + "/aligned-images/" + name +"/"
+        self.personimageDB = []
+        for filename in os.listdir(path):
+          if (filename == 'Persona.cfg'):
+            continue
+          imagepath = path+filename
+          imageurl = "static/aligned-images/"+ name +"/" + filename
+          self.personimageDB.append([imagepath,imageurl])
+        logger.info("Images loaded in personimageDB for: " + name + " ")
+        return self.personimageDB 
+
+   def update_person_images(self,personimages):
+        data = json.loads(personimages)
+	pos = 0
+        while pos <= len(data)-1:
+          url = data[str(pos)]
+          i = url.index("/static")
+          url1 = url[i:]
+          url1 = url1.replace("/static", "")
+	  url2 = fileDir + url1
+          os.remove(url2)
+          pos+=1
+        logger.info("Images updated in personimageDB for: " + "dummyname" + " ")
+        return personimages 
 
 
    def update_cameras_cfg(self):
@@ -852,16 +935,17 @@ class SurveillanceSystem(object):
    def take_action(self,alert): 
         """Sends email alert and/or triggers the alarm"""
 
-        logger.info( "Taking action: ==" + alert.actions)
+        #logger.info( "Taking action: ==" + alert.actions)
         if alert.action_taken == False: # Only take action if alert hasn't accured - Alerts reinitialise every 5 min for now
             alert.eventTime = time.time()  
             if alert.actions['email_alert'] == 'true':
                 logger.info( "email notification being sent")
                 self.send_email_notification_alert(alert)
             if alert.actions['trigger_alarm'] == 'true':
-                logger.info( "triggering alarm1")
-                self.trigger_alarm()
-                logger.info( "alarm1 triggered")
+                logger.info( "triggering alarm1/broadcast")
+                #self.trigger_alarm()
+                self.broadcast_message_log(alert.alertString)
+                logger.info( "alarm1/broadcast triggered")
             alert.action_taken = True
 
    def send_email_notification_alert(self,alert):
@@ -918,6 +1002,8 @@ class SurveillanceSystem(object):
 
       logger.info( "Writing Image To Directory: " + name)
       cv2.imwrite(path+name+"/"+ name + "_"+str(num) + ".png", image)
+      #create persona file
+      self.create_persona(name)
       self.get_face_database_names()
 
       return True
@@ -932,9 +1018,17 @@ class SurveillanceSystem(object):
       for name in os.listdir(path):
         if (name == 'cache.t7' or name == '.DS_Store' or name[0:7] == 'unknown'):
           continue
-        self.peopleDB.append(name)
-        logger.info("Known faces in our db for: " + name + " ")
-      self.peopleDB.append('unknown')
+        if os.path.isfile(os.path.join(os.path.abspath("./aligned-images"), name,"Persona.cfg")):
+                with open(os.path.join(os.path.abspath("./aligned-images"), name,"Persona.cfg")) as f:
+                    persona_config = f.read()
+                    config = ConfigParser.RawConfigParser(allow_no_value=True)
+                    config.readfp(io.BytesIO(persona_config))
+                    fullname = config.get('persona', 'fullname')                                 
+                    macaddress = config.get('persona', 'phonemac')                                 
+                    self.peopleDB.append([name,fullname,macaddress])
+                    #print(name + " " + fullname + " " + macaddress)
+                    logger.info("Known faces in our db for: " + name + " ")
+      self.peopleDB.append(['unknown','unknown','unknown'])
 
    def change_alarm_state(self):
       """Sends Raspberry PI a resquest to change the alarm state.

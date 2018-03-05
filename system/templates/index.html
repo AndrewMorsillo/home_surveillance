@@ -53,8 +53,9 @@
   <link rel="stylesheet" href="static/plugins/ionslider/ion.rangeSlider.skinNice.css">
   <!-- bootstrap slider -->
   <link rel="stylesheet" href="static/plugins/bootstrap-slider/slider.css">
+ 
 
-
+  <link href="static/css/sortable/app.css" rel="stylesheet" type="text/css"/>
   <link href="static/css/main.css" rel="stylesheet">
 
   
@@ -325,8 +326,8 @@
                <!-- ================================================================================================================================== -->
         </section>
 
-      <section class="col-lg-3 connectedSortable">
   <!-- ============================================================================================================================== -->
+      <section class="col-lg-3 connectedSortable">
           <div class="box box-solid bg-yellow-gradient">
               <div class="box-header with-border">
                 <h3 class="box-title">Create New Alert</h3>
@@ -456,10 +457,73 @@
                            </div>      
                 </div>
             </div>
-                <!-- ============================================================================================================================== -->
 
-        </section>
+  <!-- RdL MessageBox START============================================================================================================================== -->
+      
+      
+          <div class="box box-solid bg-yellow-gradient">
+              <div class="box-header with-border">
+                <h3 class="box-title">Message Broadcast Box</h3>
 
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                  <div class="btn-group">
+                    <!-- <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-wrench"></i></button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">Action</a></li>
+                      <li><a href="#">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                    </ul> -->
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-md-12">
+                          <div class="col-md-12">
+                            <div class="box box-solid bg-yellow-gradient">
+                              <div class="box-header with-border">
+                               Broadcasted Messages
+                              </div>
+                              <!-- /.box-header -->
+                              <div class="box-body">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="panel-body" id="messagebroadcast-list" >
+                              <!-- /.list-group -->
+                              <!-- <a href="#" class="btn btn-default btn-block">Add Alerts Alerts</a> -->
+                                      </div>     
+                                  </div>
+                                  <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                              </div>
+                              <!-- ./box-body -->
+                                <!-- /.row -->
+                              </div>
+                              <!-- /.box-footer -->
+                            </div>
+                            
+                                  
+                        </div>
+                      </div>
+                        
+                  </div>
+                  <!-- /.col -->
+                  <div class="box-footer text-center">
+                            <div class="btn-group pull-right" id = "facedetectbtn">
+                               
+                           </div>      
+                </div>
+            </div>
+
+  <!-- RdL MessageBox END============================================================================================================================== -->
+         </section>
          <section class="col-lg-3 connectedSortable">
 
              <div class="box box-solid bg-red-gradient">
@@ -543,7 +607,7 @@
                               <p class="text-black">{{message}}</p>
                             </div>
                             <div class="btn-group pull-right">
-                               <button type="button" id="retrain" onclick="retrainClassifier()" class="btn btn-primary btn-xs" >
+                               <button type="button" id="retrainupload" onclick="retrainClassifier()" class="btn btn-primary btn-xs" >
                                         <i class="fa fa-refresh fa-fw"></i> Retrain Database
                                 </button>
                            
@@ -552,6 +616,144 @@
             <!-- /.box-footer -->
               </div>
           <!--/.box -->
+
+                            <!-- =============================================================================================================================== -->
+
+             <div class="box box-solid bg-light-blue-gradient">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">People Management</h3>
+                      <div class="btn-group pull-right">
+                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      </div>
+                 </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">               
+                      
+                         <div class=row>
+                              <div class="col-md-12 col-sm-10 col-xs-10" >
+                                <div class="form-group">
+                                                <label>Select Person</label>
+                                                <select id="personpeoplelist"  id="disabledSelect" onclick="queryperson()" class="form-control">
+                                                    <option>Intruder</option>
+                                                    <option>brandon-joffe</option>
+                                                    <option>Benji Lewis</option>
+                                                    <option>robby-katz</option>
+                                                </select>
+                                        </div>  
+                              </div> 
+                              
+                         </div>  
+                                             
+                      <div class="col-md-12 col-sm-10 col-xs-10">
+                         <div id="person-Details">
+                  <!-- /.info-box-content --> 
+                       <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+                         <div class=row>
+                            <div class="form-group">
+                                 <label>Full Name</label>
+                                 <input class="form-control" id="perfullname" value="" placeholder="Enter Full Name of Person">
+                            </div>
+			    <div class="form-group">
+                                 <label>Phone Mac Address</label>
+                                 <input class="form-control" id="permacaddress" value="" placeholder="Enter Mac Address of Person Phone">
+                            </div>
+			     	
+                         </div>  
+                       </form>    
+                      </div> 
+                       
+                    </div>     <!-- /.users-list -->
+                  </div>
+                    <!-- /.box-body -->
+                  <div class="box-footer text-center">
+                  
+                            <div class="pull-left">
+                              <p class="text-black">{{message}}</p>
+                            </div>
+                            <div class="btn-group pull-right">
+                               <button type="button" id="updateper" onclick="updateperson()" style="margin-right: 3px" class="btn btn-primary btn-xs" >
+                                        <i class="fa fa-refresh fa-fw"></i> Update 
+                                </button>
+                               <button type="button" id="deleteper" onclick="deleteperson()" style="margin-right: 3px" style="margin-left: 3px" class="btn btn-primary btn-xs" >
+                                        <i class="fa fa-refresh fa-fw"></i> Delete
+                                </button>
+                               <button type="button" id="deleteper_retrain" onclick="deleteperson_retrain()" style="margin-right: 1px" style="margin-left: 3px" class="btn btn-primary btn-xs" >
+                                        <i class="fa fa-refresh fa-fw"></i> Delete&Retrain
+                                </button>
+                               <button type="button" id="managepersonimages" data-toggle="modal" data-target="#ManagePersonImages" style="margin-left: 1px" class="btn btn-primary btn-xs" >
+                                        <i class="fa fa-refresh fa-fw"></i> Manage Images
+                                </button>
+                           
+                          </div>
+                  </div>
+            <!-- /.box-footer -->
+              </div>
+          <!--/.box -->
+
+
+            <!-- =========MODAL MANAGE PERSON IMAGES DIALOGUE PLACEHOLDER START========= -->
+            <div id="ManagePersonImages" class="modal fade" role="dialog">
+             <div class="modal-dialog">
+
+               <!-- Modal content-->
+               <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Manage Person Images</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Move images to trash to remove them from Training Data</p>
+                  	<!-- Connected lists (RdL for some reason to be included to have multi work. No time yet to fin out why-->
+				<div hidden class="container" style="height: 0px" style="width: 0px">
+						<ul id="foo" class="block__list block__list_words">
+						</ul>
+						<ul id="bar" class="block__list block__list_tags">
+						</ul>
+				</div>
+   
+                  <!-- Multi connected lists -->
+			<a name="m"></a>
+			<div class="container">
+				<div id="multi" style="margin-left: 0px">
+					<div><div data-force="5" class="layer title title_xl"></div></div>
+
+					<div class="layer tile" data-force="30">
+						<div class="tile__name">Person Images</div>
+						<div id="personimageslist" class="tile__list">
+						 
+							<img src="https://static.turbosquid.com/Preview/2014/05/18__23_52_58/Obama_Signature.jpg9ac8f7e2-59ad-4333-aab5-ea6266569776Small.jpg"/><!--
+							--><img src="https://static.turbosquid.com/Preview/2014/05/18__23_52_58/Obama_Signature.jpg9ac8f7e2-59ad-4333-aab5-ea6266569776Small.jpg"/><!--
+							--><img src="https://static.turbosquid.com/Preview/2014/05/18__23_52_58/Obama_Signature.jpg9ac8f7e2-59ad-4333-aab5-ea6266569776Small.jpg"/><!--
+							--><img src="https://static.turbosquid.com/Preview/2014/05/18__23_52_58/Obama_Signature.jpg9ac8f7e2-59ad-4333-aab5-ea6266569776Small.jpg"/>
+						
+						</div>
+					</div>
+
+					<div class="layer tile" data-force="25">
+						<div class="tile__name">Trash</div>
+						<div id="personimagestrash" class="tile__list">
+							
+						</div>
+					</div>
+
+				
+
+				</div>
+			</div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="updateretrainpersonimages()">Update & Retrain</button>
+                    <button type="button" class="btn btn-default" onclick="updatepersonimages()">Update & Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel & Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            
+            <!-- =========MODAL MANAGE PERSON IMAGES DIALOGUE PLACEHOLDER END========= -->
+
 
                             <!-- =============================================================================================================================== -->
 
@@ -630,6 +832,7 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
 <script type="text/javascript" charset="utf-8">
 
+            
             function removeCamera(camID) {
                             var socket = io.connect('http://' + document.domain + ':' + location.port + '/surveillance');
                             console.log("Removing camera: " + camID);
@@ -730,6 +933,8 @@
             function retrainClassifier(){
                     
                       $('#retrain').html('<i class="fa fa-refresh fa-spin fa-3x fa-fw" style="font-size:12px;"></i> Retraining Database');
+                      $('#deleteper_retrain').html('<i class="fa fa-refresh fa-spin fa-3x fa-fw" style="font-size:12px;"></i> Retrain Dbase ');
+                      $('#retrainupload').html('<i class="fa fa-refresh fa-spin fa-3x fa-fw" style="font-size:12px;"></i> Retrain Dbase ');
 
                       $.ajax({
                                   type: "POST",
@@ -739,7 +944,8 @@
                                     console.log(results.finished);
                                    
                                     $('#retrain').html('<i class="fa fa-refresh fa-fw"></i> Retrain Database');
-
+                                    $('#deleteper_retrain').html('<i class="fa fa-refresh fa-fw"></i> Delete&Retrain');
+				    $('#retrainupload').html('<i class="fa fa-refresh fa-fw"></i> Delete&Retrain');
                                   },
                                   error: function(error) {
                                     console.log(error);
@@ -892,6 +1098,153 @@
                         });
                  }
 
+                 function queryperson() {
+                      personId = document.getElementById("personpeoplelist").selectedIndex;
+                      $.ajax({
+                              type: "POST",
+                              url: "{{ url_for('get_persondetails') }}",
+                              data : {'person_id': personId}, 
+                              success: function(results) {
+                                console.log(results);
+                                var person_data = JSON.parse(results);
+                                //document.getElementById("perfullname").setAttribute("value",person_data.fullname);
+                                //document.getElementById("permacaddress").setAttribute("value",person_data.macaddress);
+                                document.getElementById("perfullname").value = person_data.fullname;
+                                document.getElementById("permacaddress").value = person_data.macaddress;
+
+                              },
+                              error: function(error) {
+                                console.log(error);
+                              }
+                        });
+                      
+                 }
+
+                 function getpersonimages() {
+                      personId = document.getElementById("personpeoplelist").selectedIndex;
+		      personName = document.getElementById("personpeoplelist").value;
+                      $.ajax({
+                              type: "POST",
+                              url: "{{ url_for('get_person_images') }}",
+                              data : {'person_name': personName}, 
+                              success: function(results) {
+                                console.log(results);
+                                var person_data = JSON.parse(results);
+                                var person;
+                                var i = 0;
+                                person_string = '';
+                                for (; i < person_data.personimages.length;i++) {
+                                     person_string = person_string + '<img src="' + person_data.personimages[i][1]+ '" height="50" width="50"/>';
+                                }
+                                $('#personimageslist').html(person_string);
+                                var trashparent = document.getElementById("personimagestrash");  
+				while (trashparent.firstChild) {
+    				   trashparent.removeChild(trashparent.firstChild);
+				}
+                                
+
+                              },
+                              error: function(error) {
+				console.log("checklog");                               
+				console.log(error);
+                              }
+                        });
+                      
+                 }
+
+                 function updatepersonimages() {
+                      var t = document.getElementById("personimagestrash").childNodes;
+		      var tt = {}
+                      for(i=0; i<t.length; i++) tt[i]= t[i].src;
+                      $.ajax({
+                              type: "POST",
+                              url: "{{ url_for('update_person_images') }}",
+                              data : {'person_images': JSON.stringify(tt)}, 
+                              success: function(results) {
+                                console.log(results);
+                                $('#ManagePersonImages').modal('hide');
+                              },
+                              error: function(error) {
+				console.log(error);
+                                $('#ManagePersonImages').modal('hide');
+                              }
+                        });
+                      
+                      
+                 }
+		
+		 function updateretrainpersonimages() {
+                      var t = document.getElementById("personimagestrash").childNodes;
+		      var tt = {}
+                      for(i=0; i<t.length; i++) tt[i]= t[i].src;
+                      $.ajax({
+                              type: "POST",
+                              url: "{{ url_for('update_person_images') }}",
+                              data : {'person_images': JSON.stringify(tt)}, 
+                              success: function(results) {
+                                console.log(results);
+                                $('#ManagePersonImages').modal('hide');
+                                retrainClassifier();
+                              },
+                              error: function(error) {
+				console.log(error);
+                                $('#ManagePersonImages').modal('hide');
+
+                              }
+                        });
+                      
+                      
+                 }
+
+                 function updateperson() {
+                      personId = document.getElementById("personpeoplelist").selectedIndex;
+                      personName = document.getElementById("personpeoplelist").value;
+                      personFullname = document.getElementById("perfullname").value;
+                      personMacaddress = document.getElementById("permacaddress").value;
+                      $.ajax({
+                              type: "POST",
+                              url: "{{ url_for('update_person') }}",
+                              data : {'person_id': personId, 'person_name': personName, 'person_fullname': personFullname, 'person_macaddress': personMacaddress}, 
+                              success: function(results) {
+                                console.log(results);
+                                
+                              },
+                              error: function(error) {
+                                console.log(error);
+                              }
+                        });
+                      
+                 }
+
+
+                 function deleteperson() {
+                      personId = document.getElementById("personpeoplelist").selectedIndex;
+                      $.ajax({
+                              type: "POST",
+                              url: "{{ url_for('delete_person') }}",
+                              data : {'person_id': personId}, 
+                              success: function(results) {
+                                console.log(results);
+                                document.getElementById("personpeoplelist").remove(document.getElementById("personpeoplelist").selectedIndex);
+                                queryperson();
+
+                              },
+                              error: function(error) {
+                                console.log(error);
+                              }
+                        });
+                      
+                 }
+
+                 function deleteperson_retrain() {
+                      deleteperson();
+                      queryperson();
+                      retrainClassifier()
+                      
+                      
+                      
+                 }
+
                 $(document).ready(function(){
 
                     var socket = io.connect('http://' + document.domain + ':' + location.port + '/surveillance');
@@ -908,6 +1261,11 @@
                         socket.emit('panic');
                         return false;
                      }); 
+
+                    $('#ManagePersonImages').on('show.bs.modal', function() {
+                        getpersonimages();
+                        return true;
+                     });
 
                     socket.on('my response', function(msg) {           //socket.on used to define event handeler
                         $('#log').append('<p>' + msg.data + '</p>');
@@ -1223,20 +1581,50 @@
                               
                                document.getElementById("cpu_usage").value = systemState.cpu;
                                document.getElementById("memory_usage").value = systemState.memory;
+			       
+			       var bcast = document.getElementById("messagebroadcast-list");
+			       bcast.innerHTML = '';
+			       var i = 0;
+                               for (; i < systemState.broadcastMessages.length;i++) {
+
+                                    var alertdiv = document.createElement("div");
+                                    alertdiv.setAttribute("class","alert alert-dismissable alert-danger");  
+                                          var btn = document.createElement("BUTTON");        
+                                          btn.setAttribute("type","button");    
+                                          btn.setAttribute("class", "close"); 
+                                          btn.setAttribute("data-dismiss", "broadcast");  
+                                          btn.setAttribute("aria-hidden","true"); 
+                                         // btn.setAttribute("onclick","removeAlert(this.id)"); 
+                                         // btn.setAttribute("id", system_data.alerts[i].alert_id);  
+                                          btn.innerHTML = "&times;";
+  
+                                    //console.log("message added: " + systemState.broadcastMessages[i]) 
+                                    alertdiv.innerHTML = systemState.broadcastMessages[i];
+				    alertdiv.appendChild(btn);
+                                    document.getElementById("messagebroadcast-list").appendChild(alertdiv);
+			
+                                     }
                                
                         });
+
 
                       socket.on('system_data', function(json) {   
                                console.log("RdL Test");
                                console.log("System Data: " + json);
+                               // SORTABLE TEMP
+                              
+			       // SORTABLE TEMP END
                                var system_data = JSON.parse(json);
                                var person;
                                var i = 0;
                                people_string = '';
                                for (; i < system_data.people.length;i++) {
-                                    people_string = people_string + '<option>' + system_data.people[i]+ '</option>';
+                                    people_string = people_string + '<option>' + system_data.people[i][0]+ '</option>';
                                }
                                 $('#people').html(people_string);
+                                $('#personpeoplelist').html(people_string);
+                                document.getElementById("perfullname").setAttribute("value",system_data.people[0][1]);
+                                document.getElementById("permacaddress").setAttribute("value",system_data.people[0][2]);
 
                                var i = 0;
                                camera_string = '';
@@ -1369,5 +1757,8 @@
 <script src="static/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="static/dist/js/demo.js"></script>
+<!-- Sortable Script -->
+<script src="static/plugins/sortable/Sortable.js"></script>
+<script src="static/plugins/sortable/app.js"></script>
 </body>
 </html>

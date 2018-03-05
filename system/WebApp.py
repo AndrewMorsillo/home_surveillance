@@ -124,7 +124,9 @@ def system_monitoring():
             cameraProcessingFPS.append("{0:.2f}".format(camera.processingFPS))
             #print "FPS: " +str(camera.processingFPS) + " " + str(camera.streamingFPS)
             app.logger.info("FPS: " +str(camera.processingFPS) + " " + str(camera.streamingFPS))
-        systemState = {'cpu':cpu_usage(),'memory':memory_usage(), 'processingFPS': cameraProcessingFPS}
+        #print(HomeSurveillance.BroadcastDB)
+        systemState = {'cpu':cpu_usage(),'memory':memory_usage(), 'processingFPS': cameraProcessingFPS, 'broadcastMessages': HomeSurveillance.BroadcastDB}
+#        systemState = {'cpu':cpu_usage(),'memory':memory_usage(), 'processingFPS': cameraProcessingFPS}
         socketio.emit('system_monitoring', json.dumps(systemState) ,namespace='/surveillance')
         time.sleep(3)
 
@@ -215,6 +217,59 @@ def remove_alert():
         data = {"alert_status": "removed"}
         return jsonify(data)
     return render_template('index.html')
+
+@app.route('/get_persondetails', methods = ['GET','POST'])
+def get_persondetails():
+    if request.method == 'POST':
+        personID = int(request.form.get('person_id'))
+        data = {"fullname": HomeSurveillance.peopleDB[personID][1] , "macaddress": HomeSurveillance.peopleDB[personID][2]}
+        #print(data)
+        return json.dumps(data)
+    return render_template('index.html')
+
+@app.route('/delete_person', methods = ['GET','POST'])
+def delete_person():
+    if request.method == 'POST':
+        personID = int(request.form.get('person_id'))
+        personname = HomeSurveillance.peopleDB[personID][0]
+        #print(personname)
+        HomeSurveillance.remove_person(personname)
+        data = {"person_status": "removed from database"}
+        return json.dumps(data)
+    return render_template('index.html')
+
+@app.route('/update_person', methods = ['GET','POST'])
+def update_person():
+    if request.method == 'POST':
+        personID = int(request.form.get('person_id'))
+        personName = request.form.get('person_name')
+        personFullname = request.form.get('person_fullname')
+        personMacaddress = request.form.get('person_macaddress')
+        HomeSurveillance.update_person(personID, personName, personFullname, personMacaddress)
+        data = {"person_status": "person details updated in DB"}
+        return json.dumps(data)
+    return render_template('index.html')
+
+@app.route('/get_person_images', methods = ['GET','POST'])
+def get_person_images():
+    if request.method == 'POST':
+        personName = request.form.get('person_name')
+        data = HomeSurveillance.get_person_images(personName)
+        imagedata = {'personimages': data}
+        #print(imagedata)
+        return json.dumps(imagedata)
+    return render_template('index.html')
+
+@app.route('/update_person_images', methods = ['GET','POST'])
+def update_person_images():
+    if request.method == 'POST':
+        personImages = request.form.get('person_images')
+        dummy = HomeSurveillance.update_person_images(personImages)
+        data = "Person Images Updated"
+        print(data)
+        return data
+    return render_template('index.html')
+
 
 @app.route('/remove_face', methods = ['GET','POST'])
 def remove_face():
@@ -351,57 +406,7 @@ def test_message(message):   # Custom events deliver JSON payload
 @socketio.on('my broadcast event', namespace='/surveillance')
 def test_message(message):
     emit('my response', {'data': message['data']}, broadcast=True) # broadcast=True optional argument all clients connected to the namespace receive the message
-
-@socketio.on('refresh', namespace='/surveillance') 
-def refresh(): 
-    
-    # Need visibility of global thread object                
-    global alarmStateThread
-    global facesUpdateThread 
-    global monitoringThread
-
-    #print "\n\nclient connected\n\n"
-    app.logger.info("client refresh requested")
-
-    if not alarmStateThread.isAlive():
-        #print "Starting alarmStateThread"
-        app.logger.info("Starting alarmStateThread")
-        alarmStateThread = threading.Thread(name='alarmstate_process_thread_',target= alarm_state, args=())
-        alarmStateThread.start()
-   
-    if not facesUpdateThread.isAlive():
-        #print "Starting facesUpdateThread"
-        app.logger.info("Starting facesUpdateThread")
-        facesUpdateThread = threading.Thread(name='websocket_process_thread_',target= update_faces, args=())
-        facesUpdateThread.start()
-
-    if not monitoringThread.isAlive():
-        #print "Starting monitoringThread"
-        app.logger.info("Starting monitoringThread")
-        monitoringThread = threading.Thread(name='monitoring_process_thread_',target= system_monitoring, args=())
-        monitoringThread.start()
-
-    cameraData = {}
-    cameras = []
-
-    with HomeSurveillance.camerasLock :
-        for i, camera in enumerate(HomeSurveillance.cameras):
-            with HomeSurveillance.cameras[i].peopleDictLock:
-                cameraData = {'camNum': i , 'url': camera.url}
-                #print cameraData
-                app.logger.info(cameraData)
-                cameras.append(cameraData)
-    alertData = {}
-    alerts = []
-    for i, alert in enumerate(HomeSurveillance.alerts):
-        with HomeSurveillance.alertsLock:
-            alertData = {'alert_id': alert.id , 'alert_message':  "Alert if " + alert.alertString}
-            #print alertData
-            app.logger.info(alertData)
-            alerts.append(alertData)
-   
-    systemData = {'camNum': len(HomeSurveillance.cameras) , 'people': HomeSurveillance.peopleDB, 'cameras': cameras, 'alerts': alerts, 'onConnect': True}
-    socketio.emit('system_data', json.dumps(systemData) ,namespace='/surveillance')                   
+                  
 
 @socketio.on('connect', namespace='/surveillance') 
 def connect(): 
