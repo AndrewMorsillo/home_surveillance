@@ -32,6 +32,7 @@ import sys
 import cv2
 import psutil
 
+
 LOG_FILE = 'logs/WebApp.log'
 
 # Initialises system variables, this object is the heart of the application
@@ -50,6 +51,7 @@ socketio = SocketIO(app)
 photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'uploads/imgs'
 configure_uploads(app, photos)
+
 
 
 @app.route('/', methods=['GET','POST'])
@@ -125,6 +127,7 @@ def system_monitoring():
             #print "FPS: " +str(camera.processingFPS) + " " + str(camera.streamingFPS)
             app.logger.info("FPS: " +str(camera.processingFPS) + " " + str(camera.streamingFPS))
         #print(HomeSurveillance.BroadcastDB)
+        HomeSurveillance.get_Broadcast_messages()
         systemState = {'cpu':cpu_usage(),'memory':memory_usage(), 'processingFPS': cameraProcessingFPS, 'broadcastMessages': HomeSurveillance.BroadcastDB}
 #        systemState = {'cpu':cpu_usage(),'memory':memory_usage(), 'processingFPS': cameraProcessingFPS}
         socketio.emit('system_monitoring', json.dumps(systemState) ,namespace='/surveillance')
@@ -190,13 +193,13 @@ def create_alert():
         trigger_alarm = request.form.get('trigger_alarm')
         notify_police = request.form.get('notify_police')
         confidence = request.form.get('confidence')
-
+	camname = HomeSurveillance.cameras[int(camera)].camName
         #print "unknownconfidence: " + confidence
         app.logger.info("unknownconfidence: " + confidence)
 
         actions = {'push_alert': push_alert , 'email_alert':email_alert , 'trigger_alarm':trigger_alarm , 'notify_police':notify_police}
         with HomeSurveillance.alertsLock:
-            HomeSurveillance.alerts.append(SurveillanceSystem.Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence))) 
+            HomeSurveillance.alerts.append(SurveillanceSystem.Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence),camname)) 
             HomeSurveillance.update_alerts_cfg()
         HomeSurveillance.alerts[-1].id 
         data = {"alert_id": HomeSurveillance.alerts[-1].id, "alert_message": "Alert if " + HomeSurveillance.alerts[-1].alertString}
@@ -473,6 +476,7 @@ if __name__ == '__main__':
      handler.setFormatter(formatter)
      app.logger.addHandler(handler)
      app.logger.setLevel(logging.DEBUG)
+
 
      log = logging.getLogger('werkzeug')
      log.setLevel(logging.DEBUG)

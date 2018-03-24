@@ -855,6 +855,8 @@
             }
 
 
+
+
              function addCamera() {
                             //getting selected option from dropdowns
                             var camURL = document.getElementById("camURL").value;
@@ -1565,6 +1567,8 @@
                                }         
 
                         });
+
+
                      
 
                        socket.on('system_monitoring', function(json) {   
@@ -1585,7 +1589,10 @@
 			       var bcast = document.getElementById("messagebroadcast-list");
 			       bcast.innerHTML = '';
 			       var i = 0;
-                               for (; i < systemState.broadcastMessages.length;i++) {
+			       var ii = 5;
+			       if (ii>systemState.broadcastMessages.length){ 
+			          ii= systemState.broadcastMessages.length; }
+                               for (; i < ii;i++) {
 
                                     var alertdiv = document.createElement("div");
                                     alertdiv.setAttribute("class","alert alert-dismissable alert-danger");  

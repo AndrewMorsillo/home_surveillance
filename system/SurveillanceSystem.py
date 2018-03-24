@@ -24,6 +24,7 @@
 import time
 import argparse
 import cv2
+import cv2.cv as cv
 import os
 import pickle
 from operator import itemgetter
@@ -65,6 +66,10 @@ import ConfigParser
 import urllib2
 import io
 import shutil
+import paho.mqtt.client as mqtt
+import MQTTClient
+import Presence
+
 
 # Get paths for models
 # //////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,12 +140,21 @@ class SurveillanceSystem(object):
         self.peopleDB = []
 	self.BroadcastDB = []
         self.confidenceThreshold = 20 # Used as a threshold to classify a person as unknown
+        self.MQTTClient = MQTTClient.MQTTClient("1","192.168.178.100")
+#        self.MQTTClient.client.on_message = self.on_message
+#	self.MQTTClient.subscribe("camera/keuken/")
 
         # Initialization of alert processing thread 
         self.alertsLock = threading.Lock()
         self.alertThread = threading.Thread(name='alerts_process_thread_',target=self.alert_engine,args=())
         self.alertThread.daemon = False
         self.alertThread.start()
+
+        # Initialization of arpnetworkscan processing thread 
+        self.arpThread = threading.Thread(name='arp_process_thread_',target=Presence.arpnetworkscan,args=())
+        self.arpThread.daemon = False
+        self.arpThread.start()
+
 
         # Used for testing purposes
         ###################################
@@ -152,11 +166,31 @@ class SurveillanceSystem(object):
 
         self.get_face_database_names() # Gets people in database for web client
 	self.get_Broadcast_messages()  # Gets the latest broadcasts for Web client
+        #self.client =mqtt.Client("HomeSurveillance")
+	#self.client.connect("192.168.178.100")
 
         #//////////////////////////////////////////////////// Camera Examples ////////////////////////////////////////////////////
-        self.cameras.append(Camera.IPCamera("TestCamera","testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False,False)) # Video Example - uncomment and run code
+        #self.cameras.append(Camera.IPCamera("TestCamera","testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False,False)) # Video Example - uncomment and run code
         # self.cameras.append(Camera.IPCamera("http://192.168.1.33/video.mjpg","detect_recognise_track",False))
         
+	#RdL Add cameras from Cameras.cfg
+        cameraparser = SafeConfigParser()
+	cameraparser.read('Cameras.cfg')
+        for each_section in cameraparser.sections():
+          camname = cameraparser.get(each_section, 'camname')
+          camurl = cameraparser.get(each_section, 'url')
+          camfunction = cameraparser.get(each_section, 'function')
+          camDlibDetection = cameraparser.get(each_section, 'DlibDetection')
+          camfpsTweak = cameraparser.get(each_section, 'fpsTweak')
+          if camurl[:4] == "http":
+	     ret = urllib2.urlopen(camurl)
+	     if ret.code == 200:
+                #print(ret.code)
+	        self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
+                #print('Camera added: '+camurl)  
+          else:
+             self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak))    
+
         #RdL Add alerts from Alerts.cfg
 	alertparser = SafeConfigParser()
 	alertparser.read('Alerts.cfg')
@@ -172,35 +206,29 @@ class SurveillanceSystem(object):
           emailAddress = alertparser.get(each_section, 'emailAddress')
           confidence = alertparser.get(each_section, 'confidence')
           actions = {'push_alert': action_push_alert , 'email_alert':action_email_alert , 'trigger_alarm':action_trigger_alarm , 'notify_police':action_notify_police}
-	  self.alerts.append(Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence))) 
+	  camname = self.cameras[int(camera)].camName
+	  self.alerts.append(Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence),camname)) 
 
 
-	#RdL Add cameras from Cameras.cfg
-	cameraparser = SafeConfigParser()
-	cameraparser.read('Cameras.cfg')
-        for each_section in cameraparser.sections():
-          camname = cameraparser.get(each_section, 'camname')
-          camurl = cameraparser.get(each_section, 'url')
-          camfunction = cameraparser.get(each_section, 'function')
-          camDlibDetection = cameraparser.get(each_section, 'DlibDetection')
-          camfpsTweak = cameraparser.get(each_section, 'fpsTweak')
-        
-	  ret = urllib2.urlopen(camurl)
-	  if ret.code == 200:
-             #print(ret.code)
-	     self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
-             #print('Camera added: '+camurl)  
-  
 
-        # processing frame threads 
+         # processing frame threads 
         for i, cam in enumerate(self.cameras):       
           thread = threading.Thread(name='frame_process_thread_' + str(i),target=self.process_frame,args=(cam,))
           thread.daemon = False
           self.cameraProcessingThreads.append(thread)
           thread.start()
 
+
    def broadcast_message_log(self,broadcastmessage):
-	broadcastmessage = datetime.now().strftime("%I:%M%p on %B %d, %Y") +": "+broadcastmessage+"\n"	
+	temp = broadcastmessage.split("@")
+	person = temp[0]
+	camera = temp[1]
+	print person
+	print camera
+	mqttmessage = {'person':person,'camera':camera}
+	self.MQTTClient.publish("homesurveillance/camera",json.dumps(mqttmessage), True)
+	#client.close()
+        broadcastmessage = datetime.now().strftime("%b %d %Y %H:%M") +": "+broadcastmessage+"\n"	
 	#print(broadcastmessage)	
 	#broadcastmessage = "This is a test broadcast"
 	if not os.path.exists('broadcast.log'):
@@ -218,7 +246,7 @@ class SurveillanceSystem(object):
    def get_Broadcast_messages(self):
 	with open('broadcast.log') as my_file:
            self.BroadcastDB = my_file.readlines()
-	print(self.BroadcastDB)
+	#print(self.BroadcastDB)
    
    def create_persona(self,personname):
         parser = SafeConfigParser()
@@ -357,10 +385,10 @@ class SurveillanceSystem(object):
         stop = camera.captureThread.stop
         
         while not camera.captureThread.stop:
-
              frame_count +=1
              logger.debug("Reading Frame")
              frame = camera.read_frame()
+             
              if frame == None or np.array_equal(frame, camera.tempFrame):  # Checks to see if the new frame is the same as the previous frame
                  continue
              frame = ImageUtils.resize(frame)
@@ -944,7 +972,7 @@ class SurveillanceSystem(object):
             if alert.actions['trigger_alarm'] == 'true':
                 logger.info( "triggering alarm1/broadcast")
                 #self.trigger_alarm()
-                self.broadcast_message_log(alert.alertString)
+                self.broadcast_message_log(alert.alertString2)
                 logger.info( "alarm1/broadcast triggered")
             alert.action_taken = True
 
@@ -1144,17 +1172,20 @@ class Tracker:
 class Alert(object): 
     """Holds all the alert details and is continually checked by 
     the alert monitoring thread"""
-
+    
     alert_count = 1
 
-    def __init__(self,alarmState,camera, event, person, actions, emailAddress, confidence):   
+    def __init__(self,alarmState,camera, event, person, actions, emailAddress, confidence,camname):   
         logger.info( "alert_"+str(Alert.alert_count)+ " created")
        
 
         if  event == 'Motion':
-            self.alertString = "Motion detected in camera " + camera 
+            self.alertString = "Motion detected in " + camname
+            self.alertString2 = "Motion@" + camname 
+
         else:
-            self.alertString = person + " was recognised in camera " + camera + " with a confidence greater than " + str(confidence)
+            self.alertString = person + " was recognised in " + camname + " with a confidence greater than " + str(confidence)
+            self.alertString2 = person + "@" +camname
 
         self.id = "alert_" + str(Alert.alert_count)
         self.event_occurred = False
