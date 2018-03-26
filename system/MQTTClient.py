@@ -4,11 +4,11 @@ import time, threading, ssl
 class MQTTClient(object):
    
 
-   def __init__(self,clientId, serverhost):  
+   def __init__(self,clientId, serverhost,serverport):  
       self.client = mqtt.Client(client_id=clientId)
       self.client.on_publish = self.on_publish
       #self.client.on_message = self.on_message
-      self.client.connect(serverhost, 1883)
+      self.client.connect(serverhost, serverport)
       self.client.loop_start()
       self.receivedMessages = []
 

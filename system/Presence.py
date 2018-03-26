@@ -9,6 +9,14 @@ import json
 import time, threading, ssl
 import MQTTClient
 from datetime import datetime
+from ConfigParser import SafeConfigParser
+
+#RdL Load Params from HSConfig.cfg
+hsconfigparser = SafeConfigParser()
+hsconfigparser.read('HSConfig.cfg')
+param_mqttbroker = hsconfigparser.get('MQTT', 'broker')
+param_mqttport = hsconfigparser.get('MQTT', 'port')
+param_mqttnetworkchannel = hsconfigparser.get('MQTT', 'publishnetwork')
 
 
 # Function that gets name from all Persona.cfg files in the /aligned-images folder
@@ -23,7 +31,7 @@ def get_names():
                     persona_config = f.read()
                     config = ConfigParser.RawConfigParser(allow_no_value=True)
                     config.readfp(io.BytesIO(persona_config))
-                    persona_name.append(config.get('persona', 'fullname'))                                                                   
+                    persona_name.append(config.get('persona', 'nickname'))                                                                   
     return persona_name 
 
 # Function that gets mac address from all Persona.cfg files in the /aligned-images folder
@@ -78,7 +86,7 @@ def arpnetworkscan():
    counter = [0] * len(occupant)
    #print((os.path.dirname(os.path.abspath(__file__)))+"/aligned-images/")
    global ARPMQTTClient
-   ARPMQTTClient = MQTTClient.MQTTClient("2","192.168.178.100")
+   ARPMQTTClient = MQTTClient.MQTTClient("2",param_mqttbroker,param_mqttport)
    # Main thread
 
    try:
@@ -113,7 +121,7 @@ def broadcast_message_log(broadcastmessage):
    print person
    print network
    mqttmessage = {'person':person,'network':network}
-   ARPMQTTClient.publish("homesurveillance/network",json.dumps(mqttmessage), True)
+   ARPMQTTClient.publish(param_mqttnetworkchannel,json.dumps(mqttmessage), True)
    #client.close()
    broadcastmessage = datetime.now().strftime("%b %d %Y %H:%M") +": "+broadcastmessage+"\n"	
    #print(broadcastmessage)	

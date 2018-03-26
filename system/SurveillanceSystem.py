@@ -66,7 +66,6 @@ import ConfigParser
 import urllib2
 import io
 import shutil
-import paho.mqtt.client as mqtt
 import MQTTClient
 import Presence
 
@@ -140,9 +139,20 @@ class SurveillanceSystem(object):
         self.peopleDB = []
 	self.BroadcastDB = []
         self.confidenceThreshold = 20 # Used as a threshold to classify a person as unknown
-        self.MQTTClient = MQTTClient.MQTTClient("1","192.168.178.100")
 #        self.MQTTClient.client.on_message = self.on_message
 #	self.MQTTClient.subscribe("camera/keuken/")
+
+        #RdL Load Params from HSConfig.cfg
+        hsconfigparser = SafeConfigParser()
+	hsconfigparser.read('HSConfig.cfg')
+        self.param_networkscan = hsconfigparser.get('NETWORKSCAN', 'enabled')
+        self.param_mqttbroker = hsconfigparser.get('MQTT', 'broker')
+        self.param_mqttport = hsconfigparser.get('MQTT', 'port')
+        self.param_mqttcamerachannel = hsconfigparser.get('MQTT', 'publishcamera')
+
+        self.MQTTClient = MQTTClient.MQTTClient("1",self.param_mqttbroker,self.param_mqttport)
+
+
 
         # Initialization of alert processing thread 
         self.alertsLock = threading.Lock()
@@ -151,9 +161,10 @@ class SurveillanceSystem(object):
         self.alertThread.start()
 
         # Initialization of arpnetworkscan processing thread 
-        self.arpThread = threading.Thread(name='arp_process_thread_',target=Presence.arpnetworkscan,args=())
-        self.arpThread.daemon = False
-        self.arpThread.start()
+        if self.param_networkscan == 'true':
+           self.arpThread = threading.Thread(name='arp_process_thread_',target=Presence.arpnetworkscan,args=())
+           self.arpThread.daemon = False
+           self.arpThread.start()
 
 
         # Used for testing purposes
@@ -173,6 +184,7 @@ class SurveillanceSystem(object):
         #self.cameras.append(Camera.IPCamera("TestCamera","testing/iphoneVideos/singleTest.m4v","detect_recognise_track",False,False)) # Video Example - uncomment and run code
         # self.cameras.append(Camera.IPCamera("http://192.168.1.33/video.mjpg","detect_recognise_track",False))
         
+    
 	#RdL Add cameras from Cameras.cfg
         cameraparser = SafeConfigParser()
 	cameraparser.read('Cameras.cfg')
@@ -226,7 +238,7 @@ class SurveillanceSystem(object):
 	print person
 	print camera
 	mqttmessage = {'person':person,'camera':camera}
-	self.MQTTClient.publish("homesurveillance/camera",json.dumps(mqttmessage), True)
+	self.MQTTClient.publish(self.param_mqttcamerachannel,json.dumps(mqttmessage), True)
 	#client.close()
         broadcastmessage = datetime.now().strftime("%b %d %Y %H:%M") +": "+broadcastmessage+"\n"	
 	#print(broadcastmessage)	

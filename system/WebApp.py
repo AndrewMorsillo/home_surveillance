@@ -31,7 +31,7 @@ import os
 import sys
 import cv2
 import psutil
-
+from ConfigParser import SafeConfigParser
 
 LOG_FILE = 'logs/WebApp.log'
 
@@ -52,6 +52,10 @@ photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'uploads/imgs'
 configure_uploads(app, photos)
 
+#RdL Load Params from HSConfig.cfg
+hsconfigparser = SafeConfigParser()
+hsconfigparser.read('HSConfig.cfg')
+param_readprocessed = hsconfigparser.get('MACHINERY', 'readprocessed')
 
 
 @app.route('/', methods=['GET','POST'])
@@ -107,9 +111,15 @@ def gen(camera):
     however slows down streaming and therefore read_jpg()
     is recommended"""
     while True:
-        frame = camera.read_jpg()    # read_jpg()  # read_processed()    
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')  # Builds 'jpeg' data with header and payload
+        if param_readprocessed == 'false':
+           frame = camera.read_jpg()    # read_jpg()  # read_processed()    
+           yield (b'--frame\r\n'
+                  b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')  # Builds 'jpeg' data with header and payload
+        else:
+           frame = camera.read_processed()    # read_jpg()  # read_processed()    
+           yield (b'--frame\r\n'
+                  b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')  # Builds 'jpeg' data with header and payload
+
 
 @app.route('/video_streamer/<camNum>')
 def video_streamer(camNum):

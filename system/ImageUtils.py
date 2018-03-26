@@ -51,6 +51,7 @@ import numpy as np
 import pandas as pd
 import Camera
 import openface
+from ConfigParser import SafeConfigParser
 
 np.set_printoptions(precision=2)
 
@@ -77,18 +78,26 @@ facecascade = cv2.CascadeClassifier("cascades/haarcascade_frontalface_alt2.xml")
 uppercascade = cv2.CascadeClassifier("cascades/haarcascade_upperbody.xml")
 eyecascade = cv2.CascadeClassifier("cascades/haarcascade_eye.xml")
 detector = dlib.get_frontal_face_detector()
+
+#RdL Load Params from HSConfig.cfg
+hsconfigparser = SafeConfigParser()
+hsconfigparser.read('HSConfig.cfg')
+param_imageheight = int(hsconfigparser.get('MACHINERY', 'resizeheight'))
+param_imagewidth = int(hsconfigparser.get('MACHINERY', 'resizewidth'))
+
+
     
 def resize(frame):
-    r = 640.0 / frame.shape[1]
-    dim = (640, int(frame.shape[0] * r))
+    r = param_imagewidth / frame.shape[1]
+    dim = (param_imagewidth, int(frame.shape[0] * r))
     # Resize frame to be processed
     frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)    
     return frame 
 
 def resize_mjpeg(frame):
     #RDl =. Was 320,200, also 1280 800, also 640 400
-    r = 640.0 / frame.shape[1]
-    dim = (640, 400)#int(frame.shape[0] * r))
+    r = param_imagewidth / frame.shape[1]
+    dim = (param_imagewidth, param_imageheight)#int(frame.shape[0] * r))
     # perform the actual resizing of the image and show it
     frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)    
     return frame  

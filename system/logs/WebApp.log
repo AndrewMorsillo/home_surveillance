@@ -4858,3 +4858,761 @@
 2018-03-23 21:46:33,824 - SurveillanceWebServer - INFO - CPU Load: 25.2
 2018-03-23 21:46:33,824 - SurveillanceWebServer - INFO - System Memory Usage: 22.3
 2018-03-23 21:46:33,831 - werkzeug - INFO - 192.168.178.110 - - [23/Mar/2018 21:46:33] "GET /socket.io/?EIO=3&transport=polling&t=1521841593494-7&sid=8232fe2487e04d5d8017c23f5beb36f2 HTTP/1.1" 200 -
+2018-03-26 19:27:40,745 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 19:27:40,746 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 19:28:35,555 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:35] "GET / HTTP/1.1" 200 -
+2018-03-26 19:28:36,302 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:36] "GET /static/dist/css/AdminLTE.min.css HTTP/1.1" 304 -
+2018-03-26 19:28:36,293 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:36] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 304 -
+2018-03-26 19:28:36,323 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:36] "GET /static/plugins/iCheck/square/blue.css HTTP/1.1" 304 -
+2018-03-26 19:28:36,357 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:36] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 -
+2018-03-26 19:28:36,381 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:36] "GET /static/plugins/jQuery/jquery-2.2.3.min.js HTTP/1.1" 304 -
+2018-03-26 19:28:36,387 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:36] "GET /static/plugins/iCheck/icheck.min.js HTTP/1.1" 304 -
+2018-03-26 19:28:37,334 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:37] "GET /static/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 304 -
+2018-03-26 19:28:37,438 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:37] "GET /static/plugins/iCheck/square/blue.png HTTP/1.1" 304 -
+2018-03-26 19:28:37,714 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:37] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:28:43,629 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:43] "POST / HTTP/1.1" 302 -
+2018-03-26 19:28:43,833 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:43] "GET /home HTTP/1.1" 200 -
+2018-03-26 19:28:44,379 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/dist/css/skins/_all-skins.min.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,449 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/iCheck/flat/blue.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,450 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/sparkline/jquery.sparkline.min.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,451 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/morris/morris.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,451 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,501 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/jvectormap/jquery-jvectormap-1.2.2.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,534 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/morris/morris.min.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,549 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/jvectormap/jquery-jvectormap-world-mill-en.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,572 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/datepicker/datepicker3.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,605 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/ionslider/ion.rangeSlider.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,611 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/knob/jquery.knob.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,617 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/daterangepicker/daterangepicker.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,634 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/ionslider/ion.rangeSlider.skinNice.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,644 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,651 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/dist/js/app.min.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,654 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/bootstrap-slider/slider.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,654 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/datepicker/bootstrap-datepicker.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,660 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/slimScroll/jquery.slimscroll.min.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,661 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/fastclick/fastclick.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,676 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/css/sortable/app.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,696 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/dist/js/pages/dashboard.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,717 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/dist/js/demo.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,744 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/sortable/Sortable.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,753 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/css/main.css HTTP/1.1" 304 -
+2018-03-26 19:28:44,779 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/sortable/app.js HTTP/1.1" 200 -
+2018-03-26 19:28:44,787 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/ionslider/ion.rangeSlider.min.js HTTP/1.1" 304 -
+2018-03-26 19:28:44,789 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/plugins/bootstrap-slider/bootstrap-slider.js HTTP/1.1" 304 -
+2018-03-26 19:28:44,818 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:44] "GET /static/dist/img/brandonjoffe.png HTTP/1.1" 304 -
+2018-03-26 19:28:46,072 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:46] "GET /socket.io/?EIO=3&transport=polling&t=1522092526058-0 HTTP/1.1" 200 -
+2018-03-26 19:28:46,674 - SurveillanceWebServer - INFO - client connected
+2018-03-26 19:28:46,675 - SurveillanceWebServer - INFO - Starting alarmStateThread
+2018-03-26 19:28:46,677 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:46] "POST /socket.io/?EIO=3&transport=polling&t=1522092526596-1&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:46,698 - SurveillanceWebServer - INFO - Starting facesUpdateThread
+2018-03-26 19:28:46,700 - SurveillanceWebServer - INFO - Starting monitoringThread
+2018-03-26 19:28:46,717 - SurveillanceWebServer - INFO - FPS: 11.8446023987 12.0671754038
+2018-03-26 19:28:46,737 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:46] "GET /socket.io/?EIO=3&transport=polling&t=1522092526600-2&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:46,747 - SurveillanceWebServer - INFO - {'url': 'http://192.168.178.56:8889/video.mjpg', 'camNum': 0, 'camName': 'Keuken'}
+2018-03-26 19:28:46,748 - SurveillanceWebServer - INFO - {'alert_id': 'alert_1', 'alert_message': 'Alert if Ronald was recognised in Keuken with a confidence greater than 50'}
+2018-03-26 19:28:46,748 - SurveillanceWebServer - INFO - {'alert_id': 'alert_2', 'alert_message': 'Alert if Motion detected in Keuken'}
+2018-03-26 19:28:46,940 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:46] "GET /socket.io/?EIO=3&transport=polling&t=1522092526916-3&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:47,084 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:47] "GET /video_streamer/0 HTTP/1.1" 200 -
+2018-03-26 19:28:48,924 - SurveillanceWebServer - INFO - CPU Load: 98.4
+2018-03-26 19:28:48,929 - SurveillanceWebServer - INFO - System Memory Usage: 26.8
+2018-03-26 19:28:48,979 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:48] "GET /socket.io/?EIO=3&transport=polling&t=1522092527042-4&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:49,785 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:49] "GET /socket.io/?EIO=3&transport=polling&t=1522092529094-5&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:50,771 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:50] "GET /socket.io/?EIO=3&transport=polling&t=1522092529908-6&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:51,957 - SurveillanceWebServer - INFO - FPS: 9.76829501187 11.7285263842
+2018-03-26 19:28:52,829 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:52] "GET /socket.io/?EIO=3&transport=polling&t=1522092530834-7&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:54,094 - SurveillanceWebServer - INFO - CPU Load: 94.6
+2018-03-26 19:28:54,095 - SurveillanceWebServer - INFO - System Memory Usage: 27.0
+2018-03-26 19:28:54,127 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:54] "GET /socket.io/?EIO=3&transport=polling&t=1522092533438-8&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:54,750 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:54] "GET /socket.io/?EIO=3&transport=polling&t=1522092534354-9&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:55,973 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:55] "GET /socket.io/?EIO=3&transport=polling&t=1522092535958-10&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:57,118 - SurveillanceWebServer - INFO - FPS: 11.9856662507 12.552940599
+2018-03-26 19:28:58,758 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:28:58] "GET /socket.io/?EIO=3&transport=polling&t=1522092537244-11&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:28:59,247 - SurveillanceWebServer - INFO - CPU Load: 97.8
+2018-03-26 19:28:59,248 - SurveillanceWebServer - INFO - System Memory Usage: 27.4
+2018-03-26 19:29:01,135 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:01] "GET /socket.io/?EIO=3&transport=polling&t=1522092541124-12&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:01,847 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:01] "GET /socket.io/?EIO=3&transport=polling&t=1522092541584-13&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:02,256 - SurveillanceWebServer - INFO - FPS: 10.0374058114 12.6163908548
+2018-03-26 19:29:02,761 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:02] "GET /socket.io/?EIO=3&transport=polling&t=1522092542050-14&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:04,394 - SurveillanceWebServer - INFO - CPU Load: 94.6
+2018-03-26 19:29:04,396 - SurveillanceWebServer - INFO - System Memory Usage: 27.2
+2018-03-26 19:29:04,449 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:04] "GET /socket.io/?EIO=3&transport=polling&t=1522092543048-15&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:05,342 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:05] "GET /socket.io/?EIO=3&transport=polling&t=1522092545320-16&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:07,405 - SurveillanceWebServer - INFO - FPS: 8.10853383563 11.053780625
+2018-03-26 19:29:07,617 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:07] "GET /socket.io/?EIO=3&transport=polling&t=1522092547598-17&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:07,881 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:07] "GET /socket.io/?EIO=3&transport=polling&t=1522092547696-18&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:09,576 - SurveillanceWebServer - INFO - CPU Load: 97.5
+2018-03-26 19:29:09,623 - SurveillanceWebServer - INFO - System Memory Usage: 27.5
+2018-03-26 19:29:09,625 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:29:09] "GET /socket.io/?EIO=3&transport=polling&t=1522092549138-19&sid=d278b4a496a44442a8d374ae5d375281 HTTP/1.1" 200 -
+2018-03-26 19:29:12,636 - SurveillanceWebServer - INFO - FPS: 10.3639618566 14.050074131
+2018-03-26 19:29:14,764 - SurveillanceWebServer - INFO - CPU Load: 40.7
+2018-03-26 19:29:14,791 - SurveillanceWebServer - INFO - System Memory Usage: 20.9
+2018-03-26 19:35:28,426 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 19:35:28,427 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 19:35:36,256 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:36] "GET / HTTP/1.1" 200 -
+2018-03-26 19:35:36,983 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:36] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 -
+2018-03-26 19:35:36,988 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:36] "GET /static/plugins/iCheck/icheck.min.js HTTP/1.1" 200 -
+2018-03-26 19:35:37,376 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:37] "GET /static/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+2018-03-26 19:35:37,493 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:37] "GET /static/plugins/iCheck/square/blue.png HTTP/1.1" 200 -
+2018-03-26 19:35:37,628 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:37] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:35:44,769 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:44] "POST / HTTP/1.1" 302 -
+2018-03-26 19:35:44,994 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:44] "GET /home HTTP/1.1" 200 -
+2018-03-26 19:35:45,394 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:45] "GET /static/plugins/ionslider/ion.rangeSlider.min.js HTTP/1.1" 200 -
+2018-03-26 19:35:45,411 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:45] "GET /static/dist/css/skins/_all-skins.min.css HTTP/1.1" 200 -
+2018-03-26 19:35:45,416 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:45] "GET /static/plugins/morris/morris.min.js HTTP/1.1" 200 -
+2018-03-26 19:35:45,417 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:45] "GET /static/plugins/iCheck/flat/blue.css HTTP/1.1" 200 -
+2018-03-26 19:35:46,976 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:46] "GET /socket.io/?EIO=3&transport=polling&t=1522092946924-0 HTTP/1.1" 200 -
+2018-03-26 19:35:47,800 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:47] "POST /socket.io/?EIO=3&transport=polling&t=1522092947770-1&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:47,802 - SurveillanceWebServer - INFO - client connected
+2018-03-26 19:35:47,811 - SurveillanceWebServer - INFO - Starting alarmStateThread
+2018-03-26 19:35:47,812 - SurveillanceWebServer - INFO - Starting facesUpdateThread
+2018-03-26 19:35:47,824 - SurveillanceWebServer - INFO - Starting monitoringThread
+2018-03-26 19:35:47,826 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:47] "GET /socket.io/?EIO=3&transport=polling&t=1522092947776-2&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:47,832 - SurveillanceWebServer - INFO - FPS: 3.64026427178 11.5396725216
+2018-03-26 19:35:47,833 - SurveillanceWebServer - INFO - {'url': 'http://192.168.178.56:8889/video.mjpg', 'camNum': 0, 'camName': 'Keuken'}
+2018-03-26 19:35:47,851 - SurveillanceWebServer - INFO - {'alert_id': 'alert_1', 'alert_message': 'Alert if Ronald was recognised in Keuken with a confidence greater than 50'}
+2018-03-26 19:35:47,854 - SurveillanceWebServer - INFO - {'alert_id': 'alert_2', 'alert_message': 'Alert if Motion detected in Keuken'}
+2018-03-26 19:35:47,870 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:47] "GET /socket.io/?EIO=3&transport=polling&t=1522092947864-3&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:47,912 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:47] "GET /socket.io/?EIO=3&transport=polling&t=1522092947880-4&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:48,058 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:48] "GET /video_streamer/0 HTTP/1.1" 200 -
+2018-03-26 19:35:49,992 - SurveillanceWebServer - INFO - CPU Load: 93.4
+2018-03-26 19:35:49,993 - SurveillanceWebServer - INFO - System Memory Usage: 28.4
+2018-03-26 19:35:50,010 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:50] "GET /socket.io/?EIO=3&transport=polling&t=1522092947998-5&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:52,229 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:52] "GET /socket.io/?EIO=3&transport=polling&t=1522092952192-6&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:52,997 - SurveillanceWebServer - INFO - FPS: 3.63357547714 11.4358629279
+2018-03-26 19:35:54,222 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:54] "GET /socket.io/?EIO=3&transport=polling&t=1522092954200-7&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:55,127 - SurveillanceWebServer - INFO - CPU Load: 94.7
+2018-03-26 19:35:55,128 - SurveillanceWebServer - INFO - System Memory Usage: 28.8
+2018-03-26 19:35:55,536 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:35:55] "GET /socket.io/?EIO=3&transport=polling&t=1522092955514-8&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:35:58,137 - SurveillanceWebServer - INFO - FPS: 4.38217820472 10.9180549258
+2018-03-26 19:36:00,271 - SurveillanceWebServer - INFO - CPU Load: 97.7
+2018-03-26 19:36:00,278 - SurveillanceWebServer - INFO - System Memory Usage: 34.0
+2018-03-26 19:36:03,289 - SurveillanceWebServer - INFO - FPS: 2.9960180991 14.1505558599
+2018-03-26 19:36:05,458 - SurveillanceWebServer - INFO - CPU Load: 94.0
+2018-03-26 19:36:05,459 - SurveillanceWebServer - INFO - System Memory Usage: 42.7
+2018-03-26 19:36:08,481 - SurveillanceWebServer - INFO - FPS: 3.08645494757 13.7887249674
+2018-03-26 19:36:10,639 - SurveillanceWebServer - INFO - CPU Load: 96.4
+2018-03-26 19:36:10,645 - SurveillanceWebServer - INFO - System Memory Usage: 31.9
+2018-03-26 19:36:13,664 - SurveillanceWebServer - INFO - FPS: 3.02681757962 12.145827397
+2018-03-26 19:36:15,855 - SurveillanceWebServer - INFO - CPU Load: 94.7
+2018-03-26 19:36:15,858 - SurveillanceWebServer - INFO - System Memory Usage: 44.7
+2018-03-26 19:36:15,865 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:15] "GET /socket.io/?EIO=3&transport=polling&t=1522092975846-9&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:16,139 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:16] "POST /socket.io/?EIO=3&transport=polling&t=1522092976066-10&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:18,868 - SurveillanceWebServer - INFO - FPS: 3.81577932675 15.4208702711
+2018-03-26 19:36:19,514 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:19] "GET /socket.io/?EIO=3&transport=polling&t=1522092979508-11&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:21,041 - SurveillanceWebServer - INFO - CPU Load: 92.9
+2018-03-26 19:36:21,044 - SurveillanceWebServer - INFO - System Memory Usage: 29.5
+2018-03-26 19:36:24,051 - SurveillanceWebServer - INFO - FPS: 3.6856007933 11.4176329483
+2018-03-26 19:36:24,521 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:24] "GET /socket.io/?EIO=3&transport=polling&t=1522092984498-12&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:26,284 - SurveillanceWebServer - INFO - CPU Load: 95.7
+2018-03-26 19:36:26,285 - SurveillanceWebServer - INFO - System Memory Usage: 30.3
+2018-03-26 19:36:26,976 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:26] "GET /socket.io/?EIO=3&transport=polling&t=1522092986918-13&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:29,292 - SurveillanceWebServer - INFO - FPS: 3.64284997754 12.7633707463
+2018-03-26 19:36:31,430 - SurveillanceWebServer - INFO - CPU Load: 93.3
+2018-03-26 19:36:31,440 - SurveillanceWebServer - INFO - System Memory Usage: 33.2
+2018-03-26 19:36:34,453 - SurveillanceWebServer - INFO - FPS: 4.43595329507 12.2469797937
+2018-03-26 19:36:36,001 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:36] "GET /socket.io/?EIO=3&transport=polling&t=1522092995982-14&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:36,581 - SurveillanceWebServer - INFO - CPU Load: 92.2
+2018-03-26 19:36:36,582 - SurveillanceWebServer - INFO - System Memory Usage: 26.7
+2018-03-26 19:36:39,594 - SurveillanceWebServer - INFO - FPS: 3.94082982562 12.1762071977
+2018-03-26 19:36:41,739 - SurveillanceWebServer - INFO - CPU Load: 90.5
+2018-03-26 19:36:41,740 - SurveillanceWebServer - INFO - System Memory Usage: 41.4
+2018-03-26 19:36:43,156 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:43] "GET /socket.io/?EIO=3&transport=polling&t=1522093003140-15&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:44,777 - SurveillanceWebServer - INFO - FPS: 3.43138945656 11.7472896928
+2018-03-26 19:36:46,906 - SurveillanceWebServer - INFO - CPU Load: 95.6
+2018-03-26 19:36:46,915 - SurveillanceWebServer - INFO - System Memory Usage: 28.1
+2018-03-26 19:36:47,002 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:47] "GET /socket.io/?EIO=3&transport=polling&t=1522093006994-16&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:47,377 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:47] "GET /socket.io/?EIO=3&transport=polling&t=1522093007334-17&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:49,534 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:49] "GET /socket.io/?EIO=3&transport=polling&t=1522093009524-18&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:49,925 - SurveillanceWebServer - INFO - FPS: 3.5415113744 12.1176569836
+2018-03-26 19:36:51,453 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093011408-19&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:51,536 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093011524-20&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:51,841 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093011796-21&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:52,059 - SurveillanceWebServer - INFO - CPU Load: 96.9
+2018-03-26 19:36:52,060 - SurveillanceWebServer - INFO - System Memory Usage: 25.9
+2018-03-26 19:36:52,770 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:52] "GET /socket.io/?EIO=3&transport=polling&t=1522093012736-22&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:53,362 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:53] "GET /socket.io/?EIO=3&transport=polling&t=1522093013336-23&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:54,182 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:54] "GET /socket.io/?EIO=3&transport=polling&t=1522093014170-24&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:54,814 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:54] "GET /socket.io/?EIO=3&transport=polling&t=1522093014792-25&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:55,119 - SurveillanceWebServer - INFO - FPS: 2.95146030049 12.2429045047
+2018-03-26 19:36:55,529 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:55] "GET /socket.io/?EIO=3&transport=polling&t=1522093015516-26&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:56,142 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:56] "GET /socket.io/?EIO=3&transport=polling&t=1522093016094-27&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:56,486 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:56] "GET /socket.io/?EIO=3&transport=polling&t=1522093016442-28&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:56,563 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:36:56] "GET /socket.io/?EIO=3&transport=polling&t=1522093016552-29&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:36:57,266 - SurveillanceWebServer - INFO - CPU Load: 94.8
+2018-03-26 19:36:57,267 - SurveillanceWebServer - INFO - System Memory Usage: 27.1
+2018-03-26 19:37:00,273 - SurveillanceWebServer - INFO - FPS: 4.54692894954 12.0835148322
+2018-03-26 19:37:02,403 - SurveillanceWebServer - INFO - CPU Load: 95.5
+2018-03-26 19:37:02,404 - SurveillanceWebServer - INFO - System Memory Usage: 27.6
+2018-03-26 19:37:03,958 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:03] "GET /socket.io/?EIO=3&transport=polling&t=1522093023936-30&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:05,411 - SurveillanceWebServer - INFO - FPS: 3.6949136367 12.5762767564
+2018-03-26 19:37:07,547 - SurveillanceWebServer - INFO - CPU Load: 93.0
+2018-03-26 19:37:07,548 - SurveillanceWebServer - INFO - System Memory Usage: 26.9
+2018-03-26 19:37:08,142 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:08] "GET /socket.io/?EIO=3&transport=polling&t=1522093028128-31&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:09,572 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:09] "GET /socket.io/?EIO=3&transport=polling&t=1522093029566-32&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:10,080 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:10] "GET /socket.io/?EIO=3&transport=polling&t=1522093030032-33&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:10,553 - SurveillanceWebServer - INFO - FPS: 3.53210248306 12.5748515202
+2018-03-26 19:37:12,682 - SurveillanceWebServer - INFO - CPU Load: 95.8
+2018-03-26 19:37:12,683 - SurveillanceWebServer - INFO - System Memory Usage: 29.0
+2018-03-26 19:37:14,559 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:14] "GET /socket.io/?EIO=3&transport=polling&t=1522093034554-34&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:15,654 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:15] "GET /socket.io/?EIO=3&transport=polling&t=1522093035636-35&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:15,701 - SurveillanceWebServer - INFO - FPS: 3.97312289707 12.3559650476
+2018-03-26 19:37:16,922 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:16] "GET /socket.io/?EIO=3&transport=polling&t=1522093036912-36&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:16,932 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:16] "POST /socket.io/?EIO=3&transport=polling&t=1522093036924-37&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:17,239 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:17] "GET /socket.io/?EIO=3&transport=polling&t=1522093037212-38&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:17,837 - SurveillanceWebServer - INFO - CPU Load: 96.8
+2018-03-26 19:37:17,838 - SurveillanceWebServer - INFO - System Memory Usage: 26.9
+2018-03-26 19:37:18,958 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:18] "GET /socket.io/?EIO=3&transport=polling&t=1522093038936-39&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:19,274 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:19] "GET /socket.io/?EIO=3&transport=polling&t=1522093039246-40&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:19,607 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:19] "GET /socket.io/?EIO=3&transport=polling&t=1522093039490-41&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:19,691 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:19] "GET /socket.io/?EIO=3&transport=polling&t=1522093039660-42&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:20,135 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:20] "GET /socket.io/?EIO=3&transport=polling&t=1522093040126-43&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:20,506 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:20] "GET /socket.io/?EIO=3&transport=polling&t=1522093040474-44&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:20,844 - SurveillanceWebServer - INFO - FPS: 2.74697744136 11.681508404
+2018-03-26 19:37:21,574 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:21] "GET /socket.io/?EIO=3&transport=polling&t=1522093041564-45&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:23,008 - SurveillanceWebServer - INFO - CPU Load: 85.3
+2018-03-26 19:37:23,008 - SurveillanceWebServer - INFO - System Memory Usage: 26.6
+2018-03-26 19:37:23,072 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:23] "GET /socket.io/?EIO=3&transport=polling&t=1522093041810-46&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:24,038 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:24] "GET /socket.io/?EIO=3&transport=polling&t=1522093043848-47&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:24,335 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:24] "GET /socket.io/?EIO=3&transport=polling&t=1522093044330-48&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:26,022 - SurveillanceWebServer - INFO - FPS: 1.41972076223 7.23535593508
+2018-03-26 19:37:27,058 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:27] "GET /socket.io/?EIO=3&transport=polling&t=1522093044384-49&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:28,077 - SurveillanceWebServer - INFO - {'confidence': 61, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:37:24PM', 'identity': 'Ronald'}
+2018-03-26 19:37:28,098 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:28] "GET /socket.io/?EIO=3&transport=polling&t=1522093047200-50&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:28,148 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:28] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:28,167 - SurveillanceWebServer - INFO - CPU Load: 92.6
+2018-03-26 19:37:28,167 - SurveillanceWebServer - INFO - System Memory Usage: 26.4
+2018-03-26 19:37:28,186 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:28] "GET /socket.io/?EIO=3&transport=polling&t=1522093048144-51&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:28,210 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:28] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:30,089 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:30] "GET /socket.io/?EIO=3&transport=polling&t=1522093048748-52&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:31,177 - SurveillanceWebServer - INFO - FPS: 2.96419548138 8.65194196647
+2018-03-26 19:37:32,096 - SurveillanceWebServer - INFO - {'confidence': 61, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:37:24PM', 'identity': 'Ronald'}
+2018-03-26 19:37:32,121 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:32] "GET /socket.io/?EIO=3&transport=polling&t=1522093050756-53&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:32,983 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:32] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:33,051 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:33] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:33,075 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:33] "GET /socket.io/?EIO=3&transport=polling&t=1522093052790-54&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:33,334 - SurveillanceWebServer - INFO - CPU Load: 86.6
+2018-03-26 19:37:33,334 - SurveillanceWebServer - INFO - System Memory Usage: 26.6
+2018-03-26 19:37:33,371 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:33] "GET /socket.io/?EIO=3&transport=polling&t=1522093053174-55&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:36,128 - SurveillanceWebServer - INFO - {'confidence': 61, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:37:24PM', 'identity': 'Ronald'}
+2018-03-26 19:37:36,180 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:36] "GET /socket.io/?EIO=3&transport=polling&t=1522093053402-56&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:36,420 - SurveillanceWebServer - INFO - FPS: 4.61487696662 11.4521809171
+2018-03-26 19:37:36,544 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:36] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:36,561 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:36] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:38,624 - SurveillanceWebServer - INFO - CPU Load: 86.7
+2018-03-26 19:37:38,625 - SurveillanceWebServer - INFO - System Memory Usage: 26.8
+2018-03-26 19:37:38,628 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:38] "GET /socket.io/?EIO=3&transport=polling&t=1522093056536-57&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:39,205 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:39] "GET /socket.io/?EIO=3&transport=polling&t=1522093058998-58&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:40,145 - SurveillanceWebServer - INFO - {'confidence': 61, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:37:24PM', 'identity': 'Ronald'}
+2018-03-26 19:37:40,177 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:40] "GET /socket.io/?EIO=3&transport=polling&t=1522093059266-59&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:40,639 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:40] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:40,660 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:40] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:41,629 - SurveillanceWebServer - INFO - FPS: 3.16436492276 10.6087042738
+2018-03-26 19:37:42,264 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:42] "GET /socket.io/?EIO=3&transport=polling&t=1522093060528-60&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:43,899 - SurveillanceWebServer - INFO - CPU Load: 94.3
+2018-03-26 19:37:43,899 - SurveillanceWebServer - INFO - System Memory Usage: 27.7
+2018-03-26 19:37:43,901 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:43] "GET /socket.io/?EIO=3&transport=polling&t=1522093062746-61&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:44,149 - SurveillanceWebServer - INFO - {'confidence': 61, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:37:24PM', 'identity': 'Ronald'}
+2018-03-26 19:37:44,486 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:44] "GET /socket.io/?EIO=3&transport=polling&t=1522093064390-62&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:44,851 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:44] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:44,872 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:44] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:37:45,242 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:45] "GET /socket.io/?EIO=3&transport=polling&t=1522093064804-63&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:45,961 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:45] "POST /socket.io/?EIO=3&transport=polling&t=1522093065946-64&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:46,278 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:46] "GET /socket.io/?EIO=3&transport=polling&t=1522093066268-65&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:37:46,933 - SurveillanceWebServer - INFO - FPS: 2.54886066165 12.4086107268
+2018-03-26 19:37:48,153 - SurveillanceWebServer - INFO - {'confidence': 61, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:37:24PM', 'identity': 'Ronald'}
+2018-03-26 19:37:48,204 - werkzeug - INFO - 127.0.0.1 - - [26/Mar/2018 19:37:48] "GET /socket.io/?EIO=3&transport=polling&t=1522093066710-66&sid=87bda164d3a94be39bd1ff04e3bc0ff2 HTTP/1.1" 200 -
+2018-03-26 19:38:39,387 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 19:38:39,388 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 19:38:46,550 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:46] "GET / HTTP/1.1" 200 -
+2018-03-26 19:38:46,976 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:46] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 -
+2018-03-26 19:38:47,002 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/dist/css/AdminLTE.min.css HTTP/1.1" 200 -
+2018-03-26 19:38:47,008 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/plugins/iCheck/icheck.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:47,117 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/plugins/jQuery/jquery-2.2.3.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:47,128 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/plugins/iCheck/square/blue.css HTTP/1.1" 200 -
+2018-03-26 19:38:47,131 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:47,580 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 -
+2018-03-26 19:38:47,892 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:47] "GET /static/plugins/iCheck/square/blue.png HTTP/1.1" 200 -
+2018-03-26 19:38:48,314 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:48] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:38:48,637 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:48] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:38:52,953 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:52] "POST / HTTP/1.1" 302 -
+2018-03-26 19:38:53,303 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /home HTTP/1.1" 200 -
+2018-03-26 19:38:53,649 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/dist/css/skins/_all-skins.min.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,659 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/iCheck/flat/blue.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,682 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/jvectormap/jquery-jvectormap-1.2.2.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,686 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/morris/morris.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,724 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/datepicker/datepicker3.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,728 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/ionslider/ion.rangeSlider.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,741 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/bootstrap-slider/slider.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,745 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/ionslider/ion.rangeSlider.skinNice.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,757 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/css/sortable/app.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,786 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/ionslider/ion.rangeSlider.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,797 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/bootstrap-slider/bootstrap-slider.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,801 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/morris/morris.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,806 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/css/main.css HTTP/1.1" 200 -
+2018-03-26 19:38:53,833 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/sparkline/jquery.sparkline.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,926 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/datepicker/bootstrap-datepicker.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,927 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,928 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/jvectormap/jquery-jvectormap-world-mill-en.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,930 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/knob/jquery.knob.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,944 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,967 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/fastclick/fastclick.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,962 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/plugins/daterangepicker/daterangepicker.js HTTP/1.1" 200 -
+2018-03-26 19:38:53,983 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:53] "GET /static/dist/js/app.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:54,002 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:54] "GET /static/plugins/slimScroll/jquery.slimscroll.min.js HTTP/1.1" 200 -
+2018-03-26 19:38:54,008 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:54] "GET /static/dist/js/pages/dashboard.js HTTP/1.1" 200 -
+2018-03-26 19:38:54,018 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:54] "GET /static/dist/js/demo.js HTTP/1.1" 200 -
+2018-03-26 19:38:54,030 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:54] "GET /static/plugins/sortable/app.js HTTP/1.1" 200 -
+2018-03-26 19:38:54,041 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:54] "GET /static/plugins/sortable/Sortable.js HTTP/1.1" 200 -
+2018-03-26 19:38:54,043 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:54] "GET /static/dist/img/brandonjoffe.png HTTP/1.1" 200 -
+2018-03-26 19:38:55,423 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:55] "GET /socket.io/?EIO=3&transport=polling&t=1522093135418-0 HTTP/1.1" 200 -
+2018-03-26 19:38:55,833 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:55] "POST /socket.io/?EIO=3&transport=polling&t=1522093135798-1&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:38:55,867 - SurveillanceWebServer - INFO - client connected
+2018-03-26 19:38:55,868 - SurveillanceWebServer - INFO - Starting alarmStateThread
+2018-03-26 19:38:55,885 - SurveillanceWebServer - INFO - Starting facesUpdateThread
+2018-03-26 19:38:55,891 - SurveillanceWebServer - INFO - Starting monitoringThread
+2018-03-26 19:38:55,895 - SurveillanceWebServer - INFO - {'url': 'http://192.168.178.56:8889/video.mjpg', 'camNum': 0, 'camName': 'Keuken'}
+2018-03-26 19:38:55,897 - SurveillanceWebServer - INFO - {'alert_id': 'alert_1', 'alert_message': 'Alert if Ronald was recognised in Keuken with a confidence greater than 50'}
+2018-03-26 19:38:55,901 - SurveillanceWebServer - INFO - FPS: 2.98124948468 16.2258612352
+2018-03-26 19:38:55,902 - SurveillanceWebServer - INFO - {'alert_id': 'alert_2', 'alert_message': 'Alert if Motion detected in Keuken'}
+2018-03-26 19:38:55,919 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:55] "GET /socket.io/?EIO=3&transport=polling&t=1522093135810-2&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:38:56,002 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:56] "GET /socket.io/?EIO=3&transport=polling&t=1522093135982-3&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:38:56,153 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:56] "GET /video_streamer/0 HTTP/1.1" 200 -
+2018-03-26 19:38:58,114 - SurveillanceWebServer - INFO - CPU Load: 62.1
+2018-03-26 19:38:58,119 - SurveillanceWebServer - INFO - System Memory Usage: 21.8
+2018-03-26 19:38:58,169 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:58] "GET /socket.io/?EIO=3&transport=polling&t=1522093136130-4&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:38:58,936 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:58] "GET /socket.io/?EIO=3&transport=polling&t=1522093138370-5&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:38:59,941 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:38:59] "GET /socket.io/?EIO=3&transport=polling&t=1522093139038-6&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:01,135 - SurveillanceWebServer - INFO - FPS: 2.84473704141 14.8793174031
+2018-03-26 19:39:01,925 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:01] "GET /socket.io/?EIO=3&transport=polling&t=1522093139992-7&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:03,277 - SurveillanceWebServer - INFO - CPU Load: 33.2
+2018-03-26 19:39:03,279 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:39:04,092 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:04] "GET /socket.io/?EIO=3&transport=polling&t=1522093144076-8&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:04,129 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:04] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:39:04,929 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:04] "GET /socket.io/?EIO=3&transport=polling&t=1522093144254-9&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:06,288 - SurveillanceWebServer - INFO - FPS: 4.64753124723 11.3236415315
+2018-03-26 19:39:07,955 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:07] "GET /socket.io/?EIO=3&transport=polling&t=1522093144968-10&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:08,468 - SurveillanceWebServer - INFO - CPU Load: 64.8
+2018-03-26 19:39:08,482 - SurveillanceWebServer - INFO - System Memory Usage: 22.1
+2018-03-26 19:39:08,505 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:08] "GET /socket.io/?EIO=3&transport=polling&t=1522093148038-11&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:10,937 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:10] "GET /socket.io/?EIO=3&transport=polling&t=1522093148604-12&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:11,495 - SurveillanceWebServer - INFO - FPS: 3.58879374702 12.1545351329
+2018-03-26 19:39:12,048 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:12] "GET /socket.io/?EIO=3&transport=polling&t=1522093151004-13&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:13,639 - SurveillanceWebServer - INFO - CPU Load: 57.8
+2018-03-26 19:39:13,640 - SurveillanceWebServer - INFO - System Memory Usage: 22.3
+2018-03-26 19:39:13,687 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:13] "GET /socket.io/?EIO=3&transport=polling&t=1522093152196-14&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:13,954 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:13] "GET /socket.io/?EIO=3&transport=polling&t=1522093153778-15&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:15,949 - SurveillanceWebServer - INFO - {'confidence': 62, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:39:12PM', 'identity': 'Ronald'}
+2018-03-26 19:39:16,020 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:16] "GET /socket.io/?EIO=3&transport=polling&t=1522093154184-16&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:16,081 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:16] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:39:16,187 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:16] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:39:16,645 - SurveillanceWebServer - INFO - FPS: 2.65653279827 8.96573218046
+2018-03-26 19:39:16,968 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:16] "GET /socket.io/?EIO=3&transport=polling&t=1522093156082-17&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:18,858 - SurveillanceWebServer - INFO - CPU Load: 55.2
+2018-03-26 19:39:18,859 - SurveillanceWebServer - INFO - System Memory Usage: 22.3
+2018-03-26 19:39:18,932 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:18] "GET /socket.io/?EIO=3&transport=polling&t=1522093157038-18&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:19,966 - SurveillanceWebServer - INFO - {'confidence': 62, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:39:12PM', 'identity': 'Ronald'}
+2018-03-26 19:39:20,000 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:20] "GET /socket.io/?EIO=3&transport=polling&t=1522093159006-19&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:21,390 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:21] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:39:21,406 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:21] "POST /socket.io/?EIO=3&transport=polling&t=1522093161396-21&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:21,411 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:21] "GET /socket.io/?EIO=3&transport=polling&t=1522093161392-20&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:21,667 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:21] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:39:21,897 - SurveillanceWebServer - INFO - FPS: 5.06332092678 11.3345537228
+2018-03-26 19:39:23,117 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:23] "GET /socket.io/?EIO=3&transport=polling&t=1522093161578-22&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:24,041 - SurveillanceWebServer - INFO - {'confidence': 62, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:39:12PM', 'identity': 'Ronald'}
+2018-03-26 19:39:24,092 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:24] "GET /socket.io/?EIO=3&transport=polling&t=1522093163128-23&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:24,131 - SurveillanceWebServer - INFO - CPU Load: 49.6
+2018-03-26 19:39:24,135 - SurveillanceWebServer - INFO - System Memory Usage: 22.5
+2018-03-26 19:39:24,152 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:24] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:39:24,161 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:24] "GET /socket.io/?EIO=3&transport=polling&t=1522093164158-24&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:24,310 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:24] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:39:25,974 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:25] "GET /socket.io/?EIO=3&transport=polling&t=1522093164246-25&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:27,157 - SurveillanceWebServer - INFO - FPS: 1.79029397208 11.8521331728
+2018-03-26 19:39:28,048 - SurveillanceWebServer - INFO - {'confidence': 62, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:39:12PM', 'identity': 'Ronald'}
+2018-03-26 19:39:28,093 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:28] "GET /socket.io/?EIO=3&transport=polling&t=1522093166006-26&sid=66ae01e0a0f541948678f1be46211514 HTTP/1.1" 200 -
+2018-03-26 19:39:28,272 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:39:28] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:46:31,569 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 19:46:31,570 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 19:50:41,331 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 19:50:41,332 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 19:51:06,991 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:06] "GET /home HTTP/1.1" 302 -
+2018-03-26 19:51:07,157 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:07] "GET / HTTP/1.1" 200 -
+2018-03-26 19:51:13,518 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:13] "POST / HTTP/1.1" 302 -
+2018-03-26 19:51:13,839 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:13] "GET /home HTTP/1.1" 200 -
+2018-03-26 19:51:14,993 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:14] "GET /socket.io/?EIO=3&transport=polling&t=1522093874990-0 HTTP/1.1" 200 -
+2018-03-26 19:51:15,402 - SurveillanceWebServer - INFO - client connected
+2018-03-26 19:51:15,402 - SurveillanceWebServer - INFO - Starting alarmStateThread
+2018-03-26 19:51:15,403 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:15] "POST /socket.io/?EIO=3&transport=polling&t=1522093875392-1&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:15,426 - SurveillanceWebServer - INFO - Starting facesUpdateThread
+2018-03-26 19:51:15,431 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:15] "GET /socket.io/?EIO=3&transport=polling&t=1522093875410-2&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:15,436 - SurveillanceWebServer - INFO - Starting monitoringThread
+2018-03-26 19:51:15,440 - SurveillanceWebServer - INFO - {'url': 'http://192.168.178.56:8889/video.mjpg', 'camNum': 0, 'camName': 'Keuken'}
+2018-03-26 19:51:15,445 - SurveillanceWebServer - INFO - {'alert_id': 'alert_1', 'alert_message': 'Alert if Ronald was recognised in Keuken with a confidence greater than 50'}
+2018-03-26 19:51:15,445 - SurveillanceWebServer - INFO - {'alert_id': 'alert_2', 'alert_message': 'Alert if Motion detected in Keuken'}
+2018-03-26 19:51:15,447 - SurveillanceWebServer - INFO - FPS: 4.57948110255 12.1916738705
+2018-03-26 19:51:15,527 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:15] "GET /socket.io/?EIO=3&transport=polling&t=1522093875528-3&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:15,596 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:15] "GET /socket.io/?EIO=3&transport=polling&t=1522093875598-4&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:15,727 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:15] "GET /video_streamer/0 HTTP/1.1" 200 -
+2018-03-26 19:51:17,584 - SurveillanceWebServer - INFO - CPU Load: 64.7
+2018-03-26 19:51:17,587 - SurveillanceWebServer - INFO - System Memory Usage: 21.7
+2018-03-26 19:51:17,602 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:17] "GET /socket.io/?EIO=3&transport=polling&t=1522093875704-5&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:18,469 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:18] "GET /socket.io/?EIO=3&transport=polling&t=1522093877742-6&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:20,598 - SurveillanceWebServer - INFO - FPS: 5.2428985686 12.2330991888
+2018-03-26 19:51:21,132 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:21] "GET /socket.io/?EIO=3&transport=polling&t=1522093881134-7&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:21,535 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:21] "GET /socket.io/?EIO=3&transport=polling&t=1522093881384-8&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:22,649 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:22] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:51:22,732 - SurveillanceWebServer - INFO - CPU Load: 59.8
+2018-03-26 19:51:22,733 - SurveillanceWebServer - INFO - System Memory Usage: 21.7
+2018-03-26 19:51:22,765 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:22] "GET /socket.io/?EIO=3&transport=polling&t=1522093881592-9&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:23,497 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:23] "GET /socket.io/?EIO=3&transport=polling&t=1522093883044-10&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:24,518 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:24] "GET /socket.io/?EIO=3&transport=polling&t=1522093883590-11&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:25,737 - SurveillanceWebServer - INFO - FPS: 3.62808927128 9.26128397048
+2018-03-26 19:51:27,456 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:27] "GET /socket.io/?EIO=3&transport=polling&t=1522093884580-12&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:27,518 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:27] "GET /socket.io/?EIO=3&transport=polling&t=1522093887522-13&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:27,889 - SurveillanceWebServer - INFO - CPU Load: 57.5
+2018-03-26 19:51:27,890 - SurveillanceWebServer - INFO - System Memory Usage: 21.8
+2018-03-26 19:51:27,893 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:27] "GET /socket.io/?EIO=3&transport=polling&t=1522093887596-14&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:30,521 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:30] "GET /socket.io/?EIO=3&transport=polling&t=1522093888374-15&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:30,895 - SurveillanceWebServer - INFO - FPS: 3.13354516808 12.5801016053
+2018-03-26 19:51:31,493 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:31] "GET /socket.io/?EIO=3&transport=polling&t=1522093890572-16&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:33,030 - SurveillanceWebServer - INFO - CPU Load: 60.0
+2018-03-26 19:51:33,031 - SurveillanceWebServer - INFO - System Memory Usage: 21.7
+2018-03-26 19:51:33,062 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:33] "GET /socket.io/?EIO=3&transport=polling&t=1522093891564-17&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:33,566 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:33] "GET /socket.io/?EIO=3&transport=polling&t=1522093893138-18&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:35,474 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:35] "GET /socket.io/?EIO=3&transport=polling&t=1522093893600-19&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:36,037 - SurveillanceWebServer - INFO - FPS: 6.44972582194 11.8292826007
+2018-03-26 19:51:36,529 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:36] "GET /socket.io/?EIO=3&transport=polling&t=1522093896362-20&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:38,162 - SurveillanceWebServer - INFO - CPU Load: 56.8
+2018-03-26 19:51:38,167 - SurveillanceWebServer - INFO - System Memory Usage: 21.9
+2018-03-26 19:51:38,209 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:38] "GET /socket.io/?EIO=3&transport=polling&t=1522093896660-21&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:39,485 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:39] "GET /socket.io/?EIO=3&transport=polling&t=1522093898256-22&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:39,665 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:39] "GET /socket.io/?EIO=3&transport=polling&t=1522093899550-23&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:40,448 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:40] "POST /socket.io/?EIO=3&transport=polling&t=1522093900434-25&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:40,503 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:40] "GET /socket.io/?EIO=3&transport=polling&t=1522093899684-24&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:41,176 - SurveillanceWebServer - INFO - FPS: 2.81468954762 11.992024195
+2018-03-26 19:51:42,571 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:42] "GET /socket.io/?EIO=3&transport=polling&t=1522093900576-26&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:43,478 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:43] "GET /socket.io/?EIO=3&transport=polling&t=1522093902632-27&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:43,493 - SurveillanceWebServer - INFO - CPU Load: 50.5
+2018-03-26 19:51:43,494 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:51:44,598 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:44] "GET /socket.io/?EIO=3&transport=polling&t=1522093904536-28&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:45,558 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:45] "GET /socket.io/?EIO=3&transport=polling&t=1522093904738-29&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:46,497 - SurveillanceWebServer - INFO - FPS: 2.01776990527 9.97255724532
+2018-03-26 19:51:47,626 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:47] "GET /socket.io/?EIO=3&transport=polling&t=1522093905616-30&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:48,623 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:48] "GET /socket.io/?EIO=3&transport=polling&t=1522093907686-31&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:48,794 - SurveillanceWebServer - INFO - CPU Load: 58.5
+2018-03-26 19:51:48,796 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:51:51,288 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093911236-32&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:51,584 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093911356-33&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:51,705 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093911640-34&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:51,857 - SurveillanceWebServer - INFO - FPS: 2.81012433486 11.3501966521
+2018-03-26 19:51:53,985 - SurveillanceWebServer - INFO - CPU Load: 54.4
+2018-03-26 19:51:53,986 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:51:54,043 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:54] "GET /socket.io/?EIO=3&transport=polling&t=1522093911720-35&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:54,742 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:54] "GET /socket.io/?EIO=3&transport=polling&t=1522093914118-36&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:55,601 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:55] "GET /socket.io/?EIO=3&transport=polling&t=1522093914798-37&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:56,990 - SurveillanceWebServer - INFO - FPS: 2.3880027784 7.58138462128
+2018-03-26 19:51:57,786 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:57] "GET /socket.io/?EIO=3&transport=polling&t=1522093915650-38&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:59,121 - SurveillanceWebServer - INFO - CPU Load: 52.8
+2018-03-26 19:51:59,122 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:51:59,182 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:59] "GET /socket.io/?EIO=3&transport=polling&t=1522093917826-39&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:51:59,628 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:51:59] "GET /socket.io/?EIO=3&transport=polling&t=1522093919290-40&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:00,968 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:00] "GET /socket.io/?EIO=3&transport=polling&t=1522093919672-41&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:02,140 - SurveillanceWebServer - INFO - FPS: 2.36946693683 9.85182926801
+2018-03-26 19:52:03,620 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:03] "GET /socket.io/?EIO=3&transport=polling&t=1522093922422-42&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:03,952 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:03] "GET /socket.io/?EIO=3&transport=polling&t=1522093923668-43&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:04,302 - SurveillanceWebServer - INFO - CPU Load: 60.1
+2018-03-26 19:52:04,304 - SurveillanceWebServer - INFO - System Memory Usage: 21.9
+2018-03-26 19:52:04,388 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:04] "GET /socket.io/?EIO=3&transport=polling&t=1522093923968-44&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:05,601 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:05] "POST /socket.io/?EIO=3&transport=polling&t=1522093925598-46&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:05,621 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:05] "GET /socket.io/?EIO=3&transport=polling&t=1522093924458-45&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:06,959 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:06] "GET /socket.io/?EIO=3&transport=polling&t=1522093925646-47&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:07,325 - SurveillanceWebServer - INFO - FPS: 2.89489943818 11.7389912252
+2018-03-26 19:52:07,602 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:07] "GET /socket.io/?EIO=3&transport=polling&t=1522093927002-48&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:09,455 - SurveillanceWebServer - INFO - CPU Load: 48.5
+2018-03-26 19:52:09,456 - SurveillanceWebServer - INFO - System Memory Usage: 21.9
+2018-03-26 19:52:09,478 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:09] "GET /socket.io/?EIO=3&transport=polling&t=1522093927658-49&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:09,983 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:09] "GET /socket.io/?EIO=3&transport=polling&t=1522093929550-50&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:11,672 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:11] "GET /socket.io/?EIO=3&transport=polling&t=1522093930022-51&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:12,463 - SurveillanceWebServer - INFO - FPS: 4.0937552309 5.21464011645
+2018-03-26 19:52:13,001 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:13] "GET /socket.io/?EIO=3&transport=polling&t=1522093932212-52&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:14,830 - SurveillanceWebServer - INFO - CPU Load: 62.2
+2018-03-26 19:52:14,832 - SurveillanceWebServer - INFO - System Memory Usage: 22.5
+2018-03-26 19:52:14,839 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:14] "GET /socket.io/?EIO=3&transport=polling&t=1522093933030-53&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:15,625 - SurveillanceWebServer - INFO - {'confidence': 68, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:13PM', 'identity': 'Ronald'}
+2018-03-26 19:52:15,677 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:15] "GET /socket.io/?EIO=3&transport=polling&t=1522093934890-54&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:15,740 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:15] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:15,863 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:15] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:15,975 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:15] "GET /socket.io/?EIO=3&transport=polling&t=1522093935748-55&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:17,846 - SurveillanceWebServer - INFO - FPS: 1.42226401872 9.95546238513
+2018-03-26 19:52:18,995 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:18] "GET /socket.io/?EIO=3&transport=polling&t=1522093936030-56&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:19,632 - SurveillanceWebServer - INFO - {'confidence': 68, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:13PM', 'identity': 'Ronald'}
+2018-03-26 19:52:19,671 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:19] "GET /socket.io/?EIO=3&transport=polling&t=1522093939064-57&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:19,731 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:19] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:19,994 - SurveillanceWebServer - INFO - CPU Load: 52.1
+2018-03-26 19:52:19,995 - SurveillanceWebServer - INFO - System Memory Usage: 22.5
+2018-03-26 19:52:20,011 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:20] "GET /socket.io/?EIO=3&transport=polling&t=1522093939742-58&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:21,786 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:21] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:22,049 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:22] "GET /socket.io/?EIO=3&transport=polling&t=1522093941678-59&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:22,997 - SurveillanceWebServer - INFO - FPS: 3.503027622 11.1142014042
+2018-03-26 19:52:23,639 - SurveillanceWebServer - INFO - {'confidence': 68, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:13PM', 'identity': 'Ronald'}
+2018-03-26 19:52:23,678 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:23] "GET /socket.io/?EIO=3&transport=polling&t=1522093942144-60&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:23,795 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:23] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:23,838 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:23] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:25,170 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:25] "GET /socket.io/?EIO=3&transport=polling&t=1522093943736-61&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:25,178 - SurveillanceWebServer - INFO - CPU Load: 44.7
+2018-03-26 19:52:25,178 - SurveillanceWebServer - INFO - System Memory Usage: 22.6
+2018-03-26 19:52:25,223 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:25] "GET /socket.io/?EIO=3&transport=polling&t=1522093945194-62&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:27,647 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:27,826 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:27] "GET /socket.io/?EIO=3&transport=polling&t=1522093945282-63&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:27,877 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:27] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:27,885 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:27] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:28,208 - SurveillanceWebServer - INFO - FPS: 1.54512220003 19.6377256723
+2018-03-26 19:52:28,211 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:28] "GET /socket.io/?EIO=3&transport=polling&t=1522093947880-64&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:30,635 - SurveillanceWebServer - INFO - CPU Load: 30.9
+2018-03-26 19:52:30,636 - SurveillanceWebServer - INFO - System Memory Usage: 22.6
+2018-03-26 19:52:30,686 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:30] "GET /socket.io/?EIO=3&transport=polling&t=1522093948400-65&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:30,974 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:30] "POST /socket.io/?EIO=3&transport=polling&t=1522093950978-66&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:30,985 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:30] "GET /socket.io/?EIO=3&transport=polling&t=1522093950988-67&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:31,193 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:31] "GET /socket.io/?EIO=3&transport=polling&t=1522093951118-68&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:31,781 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:31,809 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:31] "GET /socket.io/?EIO=3&transport=polling&t=1522093951270-69&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:31,874 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:31] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:31,948 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:31] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:33,643 - SurveillanceWebServer - INFO - FPS: 5.95235762647 10.9550353727
+2018-03-26 19:52:34,211 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:34] "GET /socket.io/?EIO=3&transport=polling&t=1522093951828-70&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:35,785 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:35,794 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:35] "GET /socket.io/?EIO=3&transport=polling&t=1522093954262-71&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:35,837 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:35] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:35,845 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:35] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:35,857 - SurveillanceWebServer - INFO - CPU Load: 58.0
+2018-03-26 19:52:35,859 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 19:52:35,870 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:35] "GET /socket.io/?EIO=3&transport=polling&t=1522093955844-72&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:37,227 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:37] "GET /socket.io/?EIO=3&transport=polling&t=1522093955920-73&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:38,868 - SurveillanceWebServer - INFO - FPS: 1.9404031604 314.92078747
+2018-03-26 19:52:39,802 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:39,857 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:39] "GET /socket.io/?EIO=3&transport=polling&t=1522093957260-74&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:40,522 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:40] "GET /socket.io/?EIO=3&transport=polling&t=1522093960520-75&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:40,530 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:40] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:40,941 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:40] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:41,079 - SurveillanceWebServer - INFO - CPU Load: 48.3
+2018-03-26 19:52:41,080 - SurveillanceWebServer - INFO - System Memory Usage: 22.6
+2018-03-26 19:52:41,090 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:41] "GET /socket.io/?EIO=3&transport=polling&t=1522093960732-76&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:43,438 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:43] "GET /socket.io/?EIO=3&transport=polling&t=1522093961182-77&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:43,807 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:43,873 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:43] "GET /socket.io/?EIO=3&transport=polling&t=1522093963460-78&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:43,967 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:43] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:43,977 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:43] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:44,085 - SurveillanceWebServer - INFO - FPS: 3.0341724769 8.09518662743
+2018-03-26 19:52:46,294 - SurveillanceWebServer - INFO - CPU Load: 57.0
+2018-03-26 19:52:46,294 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 19:52:46,386 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:46] "GET /socket.io/?EIO=3&transport=polling&t=1522093963908-79&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:46,443 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:46] "GET /socket.io/?EIO=3&transport=polling&t=1522093966408-80&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:47,810 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:47,822 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:47] "GET /socket.io/?EIO=3&transport=polling&t=1522093966462-81&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:47,898 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:47] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:47,951 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:47] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:49,302 - SurveillanceWebServer - INFO - FPS: 3.08839958275 11.9862736536
+2018-03-26 19:52:49,550 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:49] "GET /socket.io/?EIO=3&transport=polling&t=1522093967896-82&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:51,702 - SurveillanceWebServer - INFO - CPU Load: 51.5
+2018-03-26 19:52:51,704 - SurveillanceWebServer - INFO - System Memory Usage: 22.6
+2018-03-26 19:52:51,740 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093970414-83&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:51,831 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:52:25PM', 'identity': 'Ronald'}
+2018-03-26 19:52:51,832 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:51] "GET /socket.io/?EIO=3&transport=polling&t=1522093971770-84&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:51,844 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:51] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:51,911 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:51] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:52:52,528 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:52:52] "GET /socket.io/?EIO=3&transport=polling&t=1522093971852-85&sid=6bb922884c3b473bb06376c7b5485adf HTTP/1.1" 200 -
+2018-03-26 19:52:54,713 - SurveillanceWebServer - INFO - FPS: 2.72121063687 11.1075083327
+2018-03-26 19:59:17,166 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 19:59:17,166 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 19:59:23,263 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:23] "GET /home HTTP/1.1" 302 -
+2018-03-26 19:59:23,372 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:23] "GET / HTTP/1.1" 200 -
+2018-03-26 19:59:23,944 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:23] "GET /static/plugins/iCheck/square/blue.css HTTP/1.1" 304 -
+2018-03-26 19:59:24,111 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/dist/css/AdminLTE.min.css HTTP/1.1" 304 -
+2018-03-26 19:59:24,122 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/plugins/iCheck/icheck.min.js HTTP/1.1" 304 -
+2018-03-26 19:59:24,130 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 304 -
+2018-03-26 19:59:24,166 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/plugins/jQuery/jquery-2.2.3.min.js HTTP/1.1" 304 -
+2018-03-26 19:59:24,176 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 -
+2018-03-26 19:59:24,490 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 304 -
+2018-03-26 19:59:24,885 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:24] "GET /static/plugins/iCheck/square/blue.png HTTP/1.1" 304 -
+2018-03-26 19:59:30,045 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:30] "POST / HTTP/1.1" 302 -
+2018-03-26 19:59:30,572 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:30] "GET /home HTTP/1.1" 200 -
+2018-03-26 19:59:34,278 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:34] "GET /socket.io/?EIO=3&transport=polling&t=1522094374232-0 HTTP/1.1" 200 -
+2018-03-26 19:59:34,702 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:34] "POST /socket.io/?EIO=3&transport=polling&t=1522094374598-1&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:34,702 - SurveillanceWebServer - INFO - client connected
+2018-03-26 19:59:34,756 - SurveillanceWebServer - INFO - Starting alarmStateThread
+2018-03-26 19:59:34,757 - SurveillanceWebServer - INFO - Starting facesUpdateThread
+2018-03-26 19:59:34,760 - SurveillanceWebServer - INFO - Starting monitoringThread
+2018-03-26 19:59:34,762 - SurveillanceWebServer - INFO - {'url': 'http://192.168.178.56:8889/video.mjpg', 'camNum': 0, 'camName': 'Keuken'}
+2018-03-26 19:59:34,766 - SurveillanceWebServer - INFO - FPS: 5.24004164411 12.0506031186
+2018-03-26 19:59:34,768 - SurveillanceWebServer - INFO - {'alert_id': 'alert_1', 'alert_message': 'Alert if Ronald was recognised in Keuken with a confidence greater than 50'}
+2018-03-26 19:59:34,773 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:34] "GET /socket.io/?EIO=3&transport=polling&t=1522094374614-2&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:34,773 - SurveillanceWebServer - INFO - {'alert_id': 'alert_2', 'alert_message': 'Alert if Motion detected in Keuken'}
+2018-03-26 19:59:34,833 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:34] "GET /socket.io/?EIO=3&transport=polling&t=1522094374818-3&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:34,982 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:34] "GET /video_streamer/0 HTTP/1.1" 200 -
+2018-03-26 19:59:36,901 - SurveillanceWebServer - INFO - CPU Load: 58.2
+2018-03-26 19:59:36,914 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:59:36,990 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:36] "GET /socket.io/?EIO=3&transport=polling&t=1522094374922-4&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:37,800 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:37] "GET /socket.io/?EIO=3&transport=polling&t=1522094377140-5&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:38,672 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:38] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 19:59:38,770 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:38] "GET /socket.io/?EIO=3&transport=polling&t=1522094377870-6&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:39,926 - SurveillanceWebServer - INFO - FPS: 3.03056610904 12.5262707091
+2018-03-26 19:59:40,792 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:40] "GET /socket.io/?EIO=3&transport=polling&t=1522094378836-7&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:42,143 - SurveillanceWebServer - INFO - CPU Load: 64.1
+2018-03-26 19:59:42,143 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 19:59:42,235 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:42] "GET /socket.io/?EIO=3&transport=polling&t=1522094380902-8&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:42,813 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:42] "GET /socket.io/?EIO=3&transport=polling&t=1522094382264-9&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:43,822 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:43] "GET /socket.io/?EIO=3&transport=polling&t=1522094382834-10&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:45,261 - SurveillanceWebServer - INFO - FPS: 2.28163430204 108.337956864
+2018-03-26 19:59:46,864 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:46] "GET /socket.io/?EIO=3&transport=polling&t=1522094384074-11&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:47,484 - SurveillanceWebServer - INFO - CPU Load: 59.1
+2018-03-26 19:59:47,484 - SurveillanceWebServer - INFO - System Memory Usage: 22.1
+2018-03-26 19:59:47,530 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:47] "GET /socket.io/?EIO=3&transport=polling&t=1522094386964-12&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:49,904 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:49] "GET /socket.io/?EIO=3&transport=polling&t=1522094387606-13&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:50,499 - SurveillanceWebServer - INFO - FPS: 2.4049928942 22.7353266408
+2018-03-26 19:59:52,258 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:52] "GET /socket.io/?EIO=3&transport=polling&t=1522094392170-14&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:52,625 - SurveillanceWebServer - INFO - CPU Load: 73.0
+2018-03-26 19:59:52,625 - SurveillanceWebServer - INFO - System Memory Usage: 22.6
+2018-03-26 19:59:52,639 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:52] "GET /socket.io/?EIO=3&transport=polling&t=1522094392344-15&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:52,856 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:52] "GET /socket.io/?EIO=3&transport=polling&t=1522094392666-16&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:54,837 - SurveillanceWebServer - INFO - {'confidence': 57, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:59:51PM', 'identity': 'Ronald'}
+2018-03-26 19:59:54,884 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:54] "GET /socket.io/?EIO=3&transport=polling&t=1522094392894-17&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:54,976 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:54] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:59:55,033 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:55] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:59:55,634 - SurveillanceWebServer - INFO - FPS: 3.92941738946 11.3462603878
+2018-03-26 19:59:55,894 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:55] "GET /socket.io/?EIO=3&transport=polling&t=1522094394942-18&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:57,776 - SurveillanceWebServer - INFO - CPU Load: 45.8
+2018-03-26 19:59:57,777 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 19:59:57,800 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:57] "GET /socket.io/?EIO=3&transport=polling&t=1522094395914-19&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:58,842 - SurveillanceWebServer - INFO - {'confidence': 57, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:59:51PM', 'identity': 'Ronald'}
+2018-03-26 19:59:58,854 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:58] "GET /socket.io/?EIO=3&transport=polling&t=1522094397864-20&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:58,993 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:58] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:59:59,025 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:59] "GET /socket.io/?EIO=3&transport=polling&t=1522094398996-21&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:59,155 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:59] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 19:59:59,699 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:59] "POST /socket.io/?EIO=3&transport=polling&t=1522094399696-23&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 19:59:59,745 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 19:59:59] "GET /socket.io/?EIO=3&transport=polling&t=1522094399076-22&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:00,831 - SurveillanceWebServer - INFO - FPS: 2.78584643731 10.9541999286
+2018-03-26 20:00:01,931 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:01] "GET /socket.io/?EIO=3&transport=polling&t=1522094399786-24&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:02,845 - SurveillanceWebServer - INFO - {'confidence': 57, 'thumbnailNum': 1, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 09:59:51PM', 'identity': 'Ronald'}
+2018-03-26 20:00:02,868 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:02] "GET /socket.io/?EIO=3&transport=polling&t=1522094401950-25&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:02,966 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:02] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:03,034 - SurveillanceWebServer - INFO - CPU Load: 53.3
+2018-03-26 20:00:03,035 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:03,072 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:03] "GET /socket.io/?EIO=3&transport=polling&t=1522094402950-26&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:03,123 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:03] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:04,898 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:04] "GET /socket.io/?EIO=3&transport=polling&t=1522094403094-27&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:06,047 - SurveillanceWebServer - INFO - FPS: 4.35101975469 12.2394247829
+2018-03-26 20:00:06,851 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:06,891 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:06] "GET /socket.io/?EIO=3&transport=polling&t=1522094405542-28&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:06,950 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:06] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:07,087 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:07] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:07,947 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:07] "GET /socket.io/?EIO=3&transport=polling&t=1522094406934-29&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:08,230 - SurveillanceWebServer - INFO - CPU Load: 59.8
+2018-03-26 20:00:08,234 - SurveillanceWebServer - INFO - System Memory Usage: 22.6
+2018-03-26 20:00:08,248 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:08] "GET /socket.io/?EIO=3&transport=polling&t=1522094407988-30&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:10,877 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:10,922 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:10] "GET /socket.io/?EIO=3&transport=polling&t=1522094408274-31&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:11,053 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:11] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:11,113 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:11] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:11,241 - SurveillanceWebServer - INFO - FPS: 2.73675309151 10.9864280038
+2018-03-26 20:00:13,402 - SurveillanceWebServer - INFO - CPU Load: 53.0
+2018-03-26 20:00:13,402 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:13,404 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:13] "GET /socket.io/?EIO=3&transport=polling&t=1522094410972-32&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:14,926 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:15,828 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:15] "GET /socket.io/?EIO=3&transport=polling&t=1522094415658-33&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:15,926 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:15] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:16,167 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:16] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:16,418 - SurveillanceWebServer - INFO - FPS: 2.29770613077 10.0537889059
+2018-03-26 20:00:16,940 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:16] "GET /socket.io/?EIO=3&transport=polling&t=1522094415922-34&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:18,634 - SurveillanceWebServer - INFO - CPU Load: 57.1
+2018-03-26 20:00:18,636 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:18,654 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:18] "GET /socket.io/?EIO=3&transport=polling&t=1522094416960-35&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:18,932 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:18,960 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:18] "GET /socket.io/?EIO=3&transport=polling&t=1522094418682-36&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:19,038 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:19] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:19,076 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:19] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:20,058 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:20] "GET /socket.io/?EIO=3&transport=polling&t=1522094419000-37&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:21,639 - SurveillanceWebServer - INFO - FPS: 1.70932090391 11.0285000592
+2018-03-26 20:00:22,952 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:23,006 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:23] "GET /socket.io/?EIO=3&transport=polling&t=1522094420084-38&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:23,083 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:23] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:23,153 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:23] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:23,811 - SurveillanceWebServer - INFO - CPU Load: 59.4
+2018-03-26 20:00:23,813 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:23,876 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:23] "GET /socket.io/?EIO=3&transport=polling&t=1522094423034-39&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:24,835 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:24] "POST /socket.io/?EIO=3&transport=polling&t=1522094424814-41&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:24,874 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:24] "GET /socket.io/?EIO=3&transport=polling&t=1522094423940-40&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:26,030 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:26] "GET /socket.io/?EIO=3&transport=polling&t=1522094424916-42&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:26,838 - SurveillanceWebServer - INFO - FPS: 1.70040603677 11.3150087001
+2018-03-26 20:00:26,963 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:27,979 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:27] "GET /socket.io/?EIO=3&transport=polling&t=1522094427976-43&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:28,206 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:28] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:28,220 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:28] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:28,967 - SurveillanceWebServer - INFO - CPU Load: 54.5
+2018-03-26 20:00:28,983 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:28,985 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:28] "GET /socket.io/?EIO=3&transport=polling&t=1522094428172-44&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:29,044 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:29] "GET /socket.io/?EIO=3&transport=polling&t=1522094429016-45&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:30,970 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:31,011 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:31] "GET /socket.io/?EIO=3&transport=polling&t=1522094429090-46&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:31,071 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:31] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:31,109 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:31] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:32,017 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:32] "GET /socket.io/?EIO=3&transport=polling&t=1522094431034-47&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:32,058 - SurveillanceWebServer - INFO - FPS: 1.81176868838 12.1308275957
+2018-03-26 20:00:34,255 - SurveillanceWebServer - INFO - CPU Load: 56.1
+2018-03-26 20:00:34,256 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:34,291 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:34] "GET /socket.io/?EIO=3&transport=polling&t=1522094432060-48&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:34,977 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:35,021 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:35] "GET /socket.io/?EIO=3&transport=polling&t=1522094434384-49&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:35,148 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:35] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:35,199 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:35] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:37,309 - SurveillanceWebServer - INFO - FPS: 1.78628738375 11.0950384912
+2018-03-26 20:00:38,021 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:38] "GET /socket.io/?EIO=3&transport=polling&t=1522094435054-50&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:38,985 - SurveillanceWebServer - INFO - {'confidence': 83, 'thumbnailNum': 2, 'prediction': 'Ronald', 'camera': 0, 'timeD': 'Monday 26 March 2018 10:00:06PM', 'identity': 'Ronald'}
+2018-03-26 20:00:39,032 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:39] "GET /socket.io/?EIO=3&transport=polling&t=1522094438218-51&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:00:39,122 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:39] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:39,187 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:39] "GET /get_faceimg/Ronald_0 HTTP/1.1" 200 -
+2018-03-26 20:00:39,480 - SurveillanceWebServer - INFO - CPU Load: 56.9
+2018-03-26 20:00:39,480 - SurveillanceWebServer - INFO - System Memory Usage: 22.7
+2018-03-26 20:00:39,511 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:00:39] "GET /socket.io/?EIO=3&transport=polling&t=1522094439066-52&sid=bccf0b849a5641b884903a088fad7b15 HTTP/1.1" 200 -
+2018-03-26 20:05:45,203 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 20:05:45,206 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018-03-26 20:05:45,676 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:45] "GET /socket.io/?EIO=3&transport=polling&t=1522094745668-96 HTTP/1.1" 200 -
+2018-03-26 20:05:45,696 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:45] "POST /socket.io/?EIO=3&transport=polling&t=1522094745682-97&sid=c8d588df375e4c6184b656419425d4d8 HTTP/1.1" 200 -
+2018-03-26 20:05:45,697 - SurveillanceWebServer - INFO - client connected
+2018-03-26 20:05:45,708 - SurveillanceWebServer - INFO - Starting alarmStateThread
+2018-03-26 20:05:45,711 - SurveillanceWebServer - INFO - Starting facesUpdateThread
+2018-03-26 20:05:45,715 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:45] "GET /socket.io/?EIO=3&transport=polling&t=1522094745692-98&sid=c8d588df375e4c6184b656419425d4d8 HTTP/1.1" 200 -
+2018-03-26 20:05:45,719 - SurveillanceWebServer - INFO - Starting monitoringThread
+2018-03-26 20:05:45,722 - SurveillanceWebServer - INFO - {'url': 'http://192.168.178.56:8889/video.mjpg', 'camNum': 0, 'camName': 'Keuken'}
+2018-03-26 20:05:45,723 - SurveillanceWebServer - INFO - {'alert_id': 'alert_1', 'alert_message': 'Alert if Ronald was recognised in Keuken with a confidence greater than 50'}
+2018-03-26 20:05:45,724 - SurveillanceWebServer - INFO - {'alert_id': 'alert_2', 'alert_message': 'Alert if Motion detected in Keuken'}
+2018-03-26 20:05:45,730 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:45] "GET /socket.io/?EIO=3&transport=polling&t=1522094745720-99&sid=c8d588df375e4c6184b656419425d4d8 HTTP/1.1" 200 -
+2018-03-26 20:05:45,721 - SurveillanceWebServer - INFO - FPS: 0 315.020128583
+2018-03-26 20:05:45,801 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:45] "GET /socket.io/?EIO=3&transport=polling&t=1522094745748-100&sid=c8d588df375e4c6184b656419425d4d8 HTTP/1.1" 200 -
+2018-03-26 20:05:46,870 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:46] "GET /home HTTP/1.1" 302 -
+2018-03-26 20:05:46,988 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:46] "GET / HTTP/1.1" 200 -
+2018-03-26 20:05:47,474 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:47] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 304 -
+2018-03-26 20:05:47,486 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:47] "GET /static/dist/css/AdminLTE.min.css HTTP/1.1" 304 -
+2018-03-26 20:05:47,492 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:47] "GET /static/plugins/iCheck/square/blue.css HTTP/1.1" 304 -
+2018-03-26 20:05:47,506 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:47] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 -
+2018-03-26 20:05:47,507 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:47] "GET /static/plugins/jQuery/jquery-2.2.3.min.js HTTP/1.1" 304 -
+2018-03-26 20:05:47,514 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:47] "GET /static/plugins/iCheck/icheck.min.js HTTP/1.1" 304 -
+2018-03-26 20:05:47,981 - SurveillanceWebServer - INFO - CPU Load: 40.9
+2018-03-26 20:05:47,983 - SurveillanceWebServer - INFO - System Memory Usage: 22.3
+2018-03-26 20:05:48,035 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:48] "GET /socket.io/?EIO=3&transport=polling&t=1522094745820-101&sid=c8d588df375e4c6184b656419425d4d8 HTTP/1.1" 200 -
+2018-03-26 20:05:50,989 - SurveillanceWebServer - INFO - FPS: 3.67807082185 12.5659755781
+2018-03-26 20:05:51,646 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:51] "GET /static/plugins/iCheck/square/blue.png HTTP/1.1" 304 -
+2018-03-26 20:05:51,676 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:51] "GET /static/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 304 -
+2018-03-26 20:05:53,116 - SurveillanceWebServer - INFO - CPU Load: 41.5
+2018-03-26 20:05:53,149 - SurveillanceWebServer - INFO - System Memory Usage: 22.3
+2018-03-26 20:05:53,761 - werkzeug - INFO - 192.168.178.60 - - [26/Mar/2018 20:05:53] "GET /favicon.ico HTTP/1.1" 404 -
+2018-03-26 20:05:56,178 - SurveillanceWebServer - INFO - FPS: 4.78797271715 12.2921101743
+2018-03-26 20:05:58,336 - SurveillanceWebServer - INFO - CPU Load: 35.6
+2018-03-26 20:05:58,336 - SurveillanceWebServer - INFO - System Memory Usage: 22.3
+2018-03-26 20:06:01,343 - SurveillanceWebServer - INFO - FPS: 5.39849962449 12.585703509
+2018-03-26 20:06:03,468 - SurveillanceWebServer - INFO - CPU Load: 37.2
+2018-03-26 20:06:03,470 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 20:06:06,477 - SurveillanceWebServer - INFO - FPS: 5.82937999341 12.3455272636
+2018-03-26 20:06:08,601 - SurveillanceWebServer - INFO - CPU Load: 37.9
+2018-03-26 20:06:08,602 - SurveillanceWebServer - INFO - System Memory Usage: 22.0
+2018-03-26 20:06:11,618 - SurveillanceWebServer - INFO - FPS: 5.9766494383 11.9103240884
+2018-03-26 20:07:14,790 - werkzeug - WARNING - WebSocket transport not available. Install eventlet or gevent and gevent-websocket for improved performance.
+2018-03-26 20:07:14,791 - werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)

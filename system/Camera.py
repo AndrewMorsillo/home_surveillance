@@ -30,6 +30,7 @@ import logging
 import SurveillanceSystem
 import MotionDetector
 import FaceDetector
+from ConfigParser import SafeConfigParser
 
 #logging.basicConfig(level=logging.DEBUG,
 #                    format='(%(threadName)-10s) %(message)s',
@@ -49,7 +50,13 @@ parser.add_argument('--imgDim', type=int,
 parser.add_argument('--cuda', action='store_true')
 args = parser.parse_args()
 
-CAPTURE_HZ = 30.0 # Determines frame rate at which frames are captured from IP camera
+#RdL Load Params from HSConfig.cfg
+hsconfigparser = SafeConfigParser()
+hsconfigparser.read('HSConfig.cfg')
+param_capture_hz = int(hsconfigparser.get('MACHINERY', 'frequency'))
+
+
+CAPTURE_HZ = param_capture_hz # Determines frame rate at which frames are captured from IP camera
 
 class IPCamera(object):
 	"""The IPCamera object continually captures frames
