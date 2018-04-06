@@ -66,8 +66,10 @@ import ConfigParser
 import urllib2
 import io
 import shutil
+import base64
 import MQTTClient
 import Presence
+
 
 
 # Get paths for models
@@ -134,8 +136,12 @@ class SurveillanceSystem(object):
         self.alarmTriggerd = False
         self.alerts = [] # Holds all system alerts
         self.cameras = [] # Holds all system cameras
+        self.channels = [] # Holds MQTT Channels
+        self.channelshost = [] # Holds the host address of the channel
+        self.kerberos = [] # Holds kerberos io cameras
         self.camerasLock  = threading.Lock() # Used to block concurrent access of cameras []
         self.cameraProcessingThreads = []
+        self.kerberosThreads = []
         self.peopleDB = []
 	self.BroadcastDB = []
         self.confidenceThreshold = 20 # Used as a threshold to classify a person as unknown
@@ -149,6 +155,10 @@ class SurveillanceSystem(object):
         self.param_mqttbroker = hsconfigparser.get('MQTT', 'broker')
         self.param_mqttport = hsconfigparser.get('MQTT', 'port')
         self.param_mqttcamerachannel = hsconfigparser.get('MQTT', 'publishcamera')
+        #self.param_mqttchannel = hsconfigparser.get('MQTT', 'mqttchannel')
+        self.param_event_rememberstate = hsconfigparser.get('MACHINERY', 'rememberstate')
+        self.param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
+        self.param_kerberospullinterval = int(hsconfigparser.get('MACHINERY', 'kerberospullinterval'))
 
         self.MQTTClient = MQTTClient.MQTTClient("1",self.param_mqttbroker,self.param_mqttport)
 
@@ -186,22 +196,58 @@ class SurveillanceSystem(object):
         
     
 	#RdL Add cameras from Cameras.cfg
-        cameraparser = SafeConfigParser()
-	cameraparser.read('Cameras.cfg')
-        for each_section in cameraparser.sections():
-          camname = cameraparser.get(each_section, 'camname')
-          camurl = cameraparser.get(each_section, 'url')
-          camfunction = cameraparser.get(each_section, 'function')
-          camDlibDetection = cameraparser.get(each_section, 'DlibDetection')
-          camfpsTweak = cameraparser.get(each_section, 'fpsTweak')
-          if camurl[:4] == "http":
-	     ret = urllib2.urlopen(camurl)
-	     if ret.code == 200:
-                #print(ret.code)
-	        self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
-                #print('Camera added: '+camurl)  
-          else:
-             self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak))    
+        if self.param_cameramode == 'stream':
+           cameraparser = SafeConfigParser()
+	   cameraparser.read('Cameras.cfg')
+           for each_section in cameraparser.sections():
+             camname = cameraparser.get(each_section, 'camname')
+             camurl = cameraparser.get(each_section, 'url')
+             camfunction = cameraparser.get(each_section, 'function')
+             camDlibDetection = cameraparser.get(each_section, 'DlibDetection')
+             camfpsTweak = cameraparser.get(each_section, 'fpsTweak')
+             if camurl[:4] == "http":
+	        ret = urllib2.urlopen(camurl)
+	        if ret.code == 200:
+                   #print(ret.code)
+	           self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
+                   #print('Camera added: '+camurl)  
+             else:
+                self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak))    
+
+
+        #RdL Add channels from Channels.cfg
+        if self.param_cameramode == 'mqtt':
+           channelparser = SafeConfigParser()
+	   channelparser.read('Channels.cfg')
+           for each_section in channelparser.sections():
+             channelname = channelparser.get(each_section, 'channelname')
+             mqttchannel = channelparser.get(each_section, 'mqttchannel')
+             channelfunction = channelparser.get(each_section, 'function')
+             channelDlibDetection = channelparser.get(each_section, 'DlibDetection')
+             channelfpsTweak = channelparser.get(each_section, 'fpsTweak')
+             channelhost = channelparser.get(each_section, 'channelhost')
+             self.cameras.append(Camera.IPCamera(channelname, "testing/iphoneVideos/Countdown.mp4", channelfunction, channelDlibDetection, channelfpsTweak)) 
+             self.channels.append(mqttchannel)
+             self.channelshost.append(channelhost)
+
+        #RdL Add cameras from Kerberos.cfg
+        if self.param_cameramode == 'kerberos':
+           kerberosparser = SafeConfigParser()
+	   kerberosparser.read('Kerberos.cfg')
+           for each_section in kerberosparser.sections():
+             instancename = kerberosparser.get(each_section, 'instancename')
+             kerberoshost = kerberosparser.get(each_section, 'kerberoshost')
+             kerberosusername = kerberosparser.get(each_section, 'username')
+             kerberospassword = kerberosparser.get(each_section, 'password')
+             kerberosfunction = kerberosparser.get(each_section, 'function')
+             kerberosDlibDetection = kerberosparser.get(each_section, 'DlibDetection')
+             kerberosfpsTweak = kerberosparser.get(each_section, 'fpsTweak')
+             self.cameras.append(Camera.IPCamera(instancename, "testing/iphoneVideos/Countdown.mp4", kerberosfunction, kerberosDlibDetection, kerberosfpsTweak)) 
+             kerberostemp = []
+             kerberostemp.append(kerberoshost)
+             kerberostemp.append(kerberosusername)
+             kerberostemp.append(kerberospassword)
+             self.kerberos.append(kerberostemp)
 
         #RdL Add alerts from Alerts.cfg
 	alertparser = SafeConfigParser()
@@ -218,8 +264,17 @@ class SurveillanceSystem(object):
           emailAddress = alertparser.get(each_section, 'emailAddress')
           confidence = alertparser.get(each_section, 'confidence')
           actions = {'push_alert': action_push_alert , 'email_alert':action_email_alert , 'trigger_alarm':action_trigger_alarm , 'notify_police':action_notify_police}
-	  camname = self.cameras[int(camera)].camName
+	  #camname = self.cameras[int(camera)].camName
+          camname = "TO BE CORRECTED"
 	  self.alerts.append(Alert(alarmstate,camera, event, person, actions, emailAddress, int(confidence),camname)) 
+
+        # Initialization of kerberos processing threads
+        if self.param_cameramode == 'kerberos':
+           for i, kerberoscam in enumerate(self.kerberos):
+              thread = threading.Thread(name='kerberos_process_thread_' + str(i),target=self.kerberospull,args=(kerberoscam[0],kerberoscam[1],kerberoscam[2],i))
+              thread.daemon = False
+              self.kerberosThreads.append(thread)
+              thread.start()
 
 
 
@@ -319,20 +374,60 @@ class SurveillanceSystem(object):
 
 
    def update_cameras_cfg(self):
-        parser = SafeConfigParser()
-        parser.read('Cameras.cfg')
-        for each_section in parser.sections():
-          parser.remove_section(each_section)
-        for i, cam in enumerate(self.cameras):
-          parser.add_section('Camera_'+str(i))
-          parser.set('Camera_'+str(i), 'camname', cam.camName)
-          parser.set('Camera_'+str(i), 'url', cam.url)
-          parser.set('Camera_'+str(i), 'function', cam.cameraFunction)
-          parser.set('Camera_'+str(i), 'DlibDetection', cam.dlibDetection)
-          parser.set('Camera_'+str(i), 'fpsTweak', cam.fpsTweak)
-        new_config_file = open('Cameras.cfg', 'w')
-        parser.write(new_config_file)
-        new_config_file.close()
+        if self.param_cameramode == 'stream':
+           parser = SafeConfigParser()
+           parser.read('Cameras.cfg')
+           for each_section in parser.sections():
+             parser.remove_section(each_section)
+           for i, cam in enumerate(self.cameras):
+             parser.add_section('Camera_'+str(i))
+             parser.set('Camera_'+str(i), 'camname', cam.camName)
+             parser.set('Camera_'+str(i), 'url', cam.url)
+             parser.set('Camera_'+str(i), 'function', cam.cameraFunction)
+             parser.set('Camera_'+str(i), 'DlibDetection', cam.dlibDetection)
+             parser.set('Camera_'+str(i), 'fpsTweak', cam.fpsTweak)
+           new_config_file = open('Cameras.cfg', 'w')
+           parser.write(new_config_file)
+           new_config_file.close()
+
+   def update_channels_cfg(self):
+        if self.param_cameramode == 'mqtt':
+           parser = SafeConfigParser()
+           parser.read('Channels.cfg')
+           for each_section in parser.sections():
+             parser.remove_section(each_section)
+           for i, cam in enumerate(self.cameras):
+             parser.add_section('Channel_'+str(i))
+             parser.set('Channel_'+str(i), 'channelname', cam.camName)
+             parser.set('Channel_'+str(i), 'mqttchannel', self.channels[i])
+             parser.set('Channel_'+str(i), 'function', cam.cameraFunction)
+             parser.set('Channel_'+str(i), 'DlibDetection', cam.dlibDetection)
+             parser.set('Channel_'+str(i), 'fpsTweak', cam.fpsTweak)
+             parser.set('Channel_'+str(i), 'channelhost', self.channelshost[i])
+
+           new_config_file = open('Channels.cfg', 'w')
+           parser.write(new_config_file)
+           new_config_file.close()
+
+   def update_kerberos_cfg(self):
+        if self.param_cameramode == 'kerberos':
+           parser = SafeConfigParser()
+           parser.read('Kerberos.cfg')
+           for each_section in parser.sections():
+             parser.remove_section(each_section)
+           for i, cam in enumerate(self.cameras):
+             parser.add_section('Kerberos_'+str(i))
+             parser.set('Kerberos_'+str(i), 'instancename', cam.camName)
+             parser.set('Kerberos_'+str(i), 'username', self.kerberos[i][1])
+             parser.set('Kerberos_'+str(i), 'password', kerberos[i][2])
+             parser.set('Kerberos_'+str(i), 'kerberoshost', self.kerberos[i][0])
+             parser.set('Kerberos_'+str(i), 'function', cam.cameraFunction)
+             parser.set('Kerberos_'+str(i), 'DlibDetection', cam.dlibDetection)
+             parser.set('Kerberos_'+str(i), 'fpsTweak', cam.fpsTweak)
+           new_config_file = open('Kerberos.cfg', 'w')
+           parser.write(new_config_file)
+           new_config_file.close()
+
 
    def update_alerts_cfg(self):
         parser = SafeConfigParser()
@@ -370,6 +465,46 @@ class SurveillanceSystem(object):
         self.cameraProcessingThreads.append(thread)
         thread.start()
         
+   def add_channel(self, camera, mqttchannel, channelHost):
+        """Adds new channel to the System and generates a 
+        frame processing thread"""
+        
+        self.cameras.append(camera)
+        self.channels.append(mqttchannel)
+        self.channelshost.append(channelHost)
+        self.update_channels_cfg()
+        thread = threading.Thread(name='frame_process_thread_' + 
+                                 str(len(self.cameras)),
+                                 target=self.process_frame,
+                                 args=(self.cameras[-1],))
+        thread.daemon = False
+        self.cameraProcessingThreads.append(thread)
+        thread.start()
+        
+   def add_kerberos(self, camera, kerberosHost,kerberosUser,kerberosPassword):
+        """Adds new Kerberos Camera to the System and generates a 
+        frame processing thread"""
+        self.cameras.append(camera)
+        kerberostemp = []
+        kerberostemp.append(kerberosHost)
+        kerberostemp.append(kerberosUser)
+        kerberostemp.append(kerberosPassword)
+        self.kerberos.append(kerberostemp)
+        thread = threading.Thread(name='kerberos_process_thread_' + str(len(self.cameras)),target=self.kerberospull,args=(kerberostemp[0],kerberostemp[1],kerberostemp[2],len(self.cameras)-1))
+        thread.daemon = False
+        self.kerberosThreads.append(thread)
+        thread.start()
+        self.update_kerberos_cfg()
+
+        thread = threading.Thread(name='frame_process_thread_' + 
+                                 str(len(self.cameras)),
+                                 target=self.process_frame,
+                                 args=(self.cameras[-1],))
+        thread.daemon = False
+        self.cameraProcessingThreads.append(thread)
+        thread.start()
+        
+
 
    def remove_camera(self, camID):
         """remove a camera to the System and kill its processing thread"""
@@ -383,6 +518,34 @@ class SurveillanceSystem(object):
         self.cameraProcessingThreads.pop(iCam)
         self.update_cameras_cfg()
 
+   def remove_channel(self, camID):
+        """remove a channel from the System when in mqtt mode and kill its processing thread"""
+        logger.info('Removing channel from the cam array by popping id:' + camID)
+        iCam = int(camID)
+        # we need to set flag captureThread to false for the thread capturing
+        self.cameras[iCam].captureThread.stop = True
+        self.cameraProcessingThreads[iCam].stop = True
+
+        self.cameras.pop(iCam)
+        self.cameraProcessingThreads.pop(iCam)
+        self.channels.pop(iCam)
+        self.channelshost.pop(iCam)
+        self.update_channels_cfg()
+
+   def remove_kerberos(self, camID):
+        """remove a Kerberos Cam from the System when in kerberos mode and kill its processing thread"""
+        logger.info('Removing kerberos Cam from the cam array by popping id:' + camID)
+        iCam = int(camID)
+        # we need to set flag captureThread to false for the thread capturing
+        self.cameras[iCam].captureThread.stop = True
+        self.cameraProcessingThreads[iCam].stop = True
+
+        self.cameras.pop(iCam)
+        self.cameraProcessingThreads.pop(iCam)
+        self.kerberos.pop(iCam)
+        self.kerberosThreads.pop(iCam)
+        self.update_kerberos_cfg()
+
 
    def process_frame(self,camera):
         """This function performs all the frame proccessing.
@@ -395,8 +558,11 @@ class SurveillanceSystem(object):
         FPSstart = time.time()
         start = time.time()
         stop = camera.captureThread.stop
-        
-        while not camera.captureThread.stop:
+        lastposition = 1
+        while not camera.captureThread.stop: 
+             if self.param_cameramode == 'stream': #check if live IP Camera connection with stream is still alive, otherwise reconnect
+                if not camera.video.isOpened():
+			camera.video.open()
              frame_count +=1
              logger.debug("Reading Frame")
              frame = camera.read_frame()
@@ -884,7 +1050,50 @@ class SurveillanceSystem(object):
                     if self.drawing == True:
                        frame = ImageUtils.draw_boxes(frame, camera.faceBoxes, camera.dlibDetection)
                     camera.processing_frame = frame
-                                   
+             
+   def kerberospull(self,kerberoshost,kerberosusername,kerberospassword, kerberosnum):
+      url = kerberoshost+"/api/v1/images/latest_sequence"
+      username = kerberosusername
+      password = kerberospassword
+      basicAuth = base64.b64encode('%s:%s' % (username, password))
+      headers = {"Authorization": "Basic " + basicAuth, "Content-Type": "application/json"}
+      kerberossrc = 'start'
+      kerberoslastsrc = 'start'
+      kerberostype = ''
+      kerberosinstancename = ''
+      while not self.cameras[kerberosnum].captureThread.stop:
+         time.sleep(self.param_kerberospullinterval)
+         #Call REST API
+         try:
+            response = requests.get(url, headers=headers)
+            jsonmessage = json.loads(response.text)
+            print(len(jsonmessage))
+            lastrecord = len(jsonmessage)-1
+            kerberostype = jsonmessage[lastrecord]['type'] 
+            kerberossrc = jsonmessage[lastrecord]['src']
+            kerberosinstancename = jsonmessage[lastrecord]['metadata']['instanceName'] 
+            kerberoscameranum = kerberosnum
+            print(kerberostype)
+            print(kerberossrc)
+            print(kerberosinstancename)
+         except requests.ConnectionError:
+            print('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost)
+         kerberosurl = kerberossrc
+         if kerberostype == 'video':
+            if kerberosurl != kerberoslastsrc: 
+               try:
+                  print('load kerberos last video')
+                  self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+                  if not self.cameras[kerberoscameranum].video.isOpened():
+                     self.cameras[kerberoscameranum].video.open()
+                  kerberoslastsrc = kerberosurl
+               except TypeError:
+                  print('video file could not be loaded') 
+            else:
+                  print('no new video found')
+         else:
+               print('last file is not video but ' + kerberostype)
+                      
    def alert_engine(self):  
         """check alarm state -> check camera -> check event -> 
         either look for motion or look for detected faces -> take action"""
@@ -904,7 +1113,7 @@ class SurveillanceSystem(object):
                     else:
                         alert.event_occurred = self.check_camera_events(alert)
                 else:
-                    if (time.time() - alert.eventTime) > 300: # Reinitialize event 5 min after event accured
+                    if (time.time() - alert.eventTime) > int(self.param_event_rememberstate): # Reinitialize event x seconds after event accured
                         logger.info( "reinitiallising alert: " + alert.id)
                         alert.reinitialise()
                     continue 
@@ -917,6 +1126,7 @@ class SurveillanceSystem(object):
 
         if alert.camera != 'All':  # Check cameras   
             logger.info( "alertTest" + alert.camera)
+            alert.camname = self.cameras[int(alert.camera)].camName
             if alert.event == 'Recognition': #Check events
                 logger.info(  "checkingalertconf "+ str(alert.confidence) + " : " + alert.person)
                 for person in self.cameras[int(alert.camera)].people.values():
@@ -938,6 +1148,7 @@ class SurveillanceSystem(object):
             else:
                 logger.info( "alertTest4" + alert.camera)
                 if self.cameras[int(alert.camera)].motion == True: # Has motion been detected
+                       
                        logger.info( "alertTest5" + alert.camera)
                        cv2.imwrite("notification/image.png", self.cameras[int(alert.camera)].processing_frame)#
                        self.take_action(alert)
@@ -951,6 +1162,8 @@ class SurveillanceSystem(object):
                 for camera in cameras: # Look through all cameras
                     for person in camera.people.values():
                         if alert.person == person.identity: # Has person been detected
+                            alert.camname = camera.camName
+                            print('Testing AlertCamera: '+ alert.camname)
                             if alert.person == "unknown" and (100 - person.confidence) >= alert.confidence:
                                 cv2.imwrite("notification/image.png", camera.processing_frame)#
                                 self.take_action(alert)
@@ -966,6 +1179,7 @@ class SurveillanceSystem(object):
                 with  self.camerasLock :
                     for camera in self.cameras: # Look through all cameras
                         if camera.motion == True: # Has motion been detected
+                            alert.camname = camera.camName
                             cv2.imwrite("notification/image.png", camera.processing_frame)#
                             self.take_action(alert)
                             return True
@@ -974,7 +1188,13 @@ class SurveillanceSystem(object):
 
    def take_action(self,alert): 
         """Sends email alert and/or triggers the alarm"""
+        if  alert.event == 'Motion':
+            alert.alertString = "Motion detected in " + alert.camname
+            alert.alertString2 = "Motion@" + alert.camname 
 
+        else:
+            alert.alertString = alert.person + " was recognised in " + alert.camname + " with a confidence greater than " + str(alert.confidence)
+            alert.alertString2 = alert.person + "@" +alert.camname
         #logger.info( "Taking action: ==" + alert.actions)
         if alert.action_taken == False: # Only take action if alert hasn't accured - Alerts reinitialise every 5 min for now
             alert.eventTime = time.time()  
@@ -1208,6 +1428,7 @@ class Alert(object):
         self.person = person
         self.confidence = confidence
         self.actions = actions
+        self.camname = camname
         if emailAddress == None:
             self.emailAddress = "bjjoffe@gmail.com"
         else:

@@ -32,6 +32,7 @@ import sys
 import cv2
 import psutil
 from ConfigParser import SafeConfigParser
+from flask_mqtt import Mqtt
 
 LOG_FILE = 'logs/WebApp.log'
 
@@ -56,7 +57,55 @@ configure_uploads(app, photos)
 hsconfigparser = SafeConfigParser()
 hsconfigparser.read('HSConfig.cfg')
 param_readprocessed = hsconfigparser.get('MACHINERY', 'readprocessed')
+param_mqttbroker = hsconfigparser.get('MQTT', 'broker')
+param_mqttport = hsconfigparser.get('MQTT', 'port')
+#param_mqttchannel = hsconfigparser.get('MQTT', 'mqttchannel')
+param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
 
+if param_cameramode == 'mqtt':
+   indexfile = 'indexmqtt.html'
+elif param_cameramode == 'kerberos':
+   indexfile = 'indexkerberos.html'
+else:
+   indexfile = 'index.html'
+
+# MQTT SUBSCRIBE CONFIG
+app.config['MQTT_BROKER_URL'] = param_mqttbroker
+app.config['MQTT_BROKER_PORT'] = param_mqttport
+app.config['MQTT_REFRESH_TIME'] = 1.0  # refresh time in seconds
+mqtt = Mqtt(app)
+
+@mqtt.on_connect()
+def handle_connect(client, userdata, flags, rc):
+    for channel in HomeSurveillance.channels:
+       mqtt.subscribe(channel)
+       print(channel)
+
+@mqtt.on_message()
+def handle_mqtt_message(client, userdata, message):
+    print(message.topic)
+    #print(str(message.payload))
+    print(HomeSurveillance.channels)
+    channelnum = HomeSurveillance.channels.index(message.topic)
+    channelhost = HomeSurveillance.channelshost[channelnum]
+    jsonmessage = json.loads(message.payload)
+    print(jsonmessage['pathToVideo'])
+    channelurl = channelhost+'/capture/'+jsonmessage['pathToVideo']
+    
+    #channelurl = 'https://www.whitehouse.gov/wp-content/uploads/2017/12/44_barack_obama1.jpg'
+    print('ChannelURL: ' + channelurl)
+    print('ChannelNum: ' + str(channelnum))
+    #channelurl = "testing/iphoneVideos/peopleTest.m4v"
+    channelnametemp = message.topic.split("/")
+    channelname = channelnametemp[1]
+    print('Channelname ' + channelname)
+    try:
+       #HomeSurveillance.cameras[channelnum].video.release()
+       HomeSurveillance.cameras[channelnum].video = cv2.VideoCapture(channelurl)
+       if not HomeSurveillance.cameras[channelnum].video.isOpened():
+          HomeSurveillance.cameras[channelnum].video.open()
+    except TypeError:
+       print('video file could not be loaded') 
 
 @app.route('/', methods=['GET','POST'])
 def login():
@@ -74,7 +123,7 @@ def login():
 @app.route('/home')
 def home():
     if g.user:
-        return render_template('index.html')
+        return render_template(indexfile)
     return redirect(url_for('login'))
 
 @app.before_request
@@ -97,9 +146,9 @@ def upload():
         except:
              message = "file upload unsuccessfull"
 
-        return render_template('index.html', message = message)
+        return render_template(indexfile, message = message)
     if g.user:
-        return render_template('index.html')
+        return render_template(indexfile)
     else:
         return redirect(url_for('login'))
 
@@ -111,6 +160,7 @@ def gen(camera):
     however slows down streaming and therefore read_jpg()
     is recommended"""
     while True:
+        
         if param_readprocessed == 'false':
            frame = camera.read_jpg()    # read_jpg()  # read_processed()    
            yield (b'--frame\r\n'
@@ -174,7 +224,49 @@ def add_camera():
         app.logger.info(fpsTweak)
         return jsonify(data)
         
-    return render_template('index.html')
+    return render_template(indexfile)
+
+@app.route('/add_channel', methods = ['GET','POST'])
+def add_channel():
+    """Adds channels new channel to SurveillanceSystem's cameras array when in mqtt mode"""
+    if request.method == 'POST':  
+        channelName = request.form.get('channelName')
+        mqttchannel = request.form.get('mqttchannel')
+        application = request.form.get('application')
+        detectionMethod = request.form.get('detectionMethod')
+        fpsTweak = request.form.get('fpstweak')
+        channelHost = request.form.get('channelHost')
+        with HomeSurveillance.camerasLock :
+            HomeSurveillance.add_channel(SurveillanceSystem.Camera.IPCamera(channelName, "testing/iphoneVideos/Countdown.mp4",application,detectionMethod,fpsTweak),mqttchannel,channelHost)
+        mqtt.subscribe(mqttchannel)
+        data = {"camNum": len(HomeSurveillance.cameras) -1}
+        app.logger.info("Addding a new channel with mqttchannel: ")
+        app.logger.info(mqttchannel)
+        app.logger.info(fpsTweak)
+        return jsonify(data)
+        
+    return render_template(indexfile)
+
+@app.route('/add_kerberos', methods = ['GET','POST'])
+def add_kerberos():
+    """Adds Kerberos new Camera to SurveillanceSystem's cameras array when in Kerberos mode"""
+    if request.method == 'POST':  
+        kerberosName = request.form.get('kerberosName')
+        kerberosHost = request.form.get('kerberosHost')
+        application = request.form.get('application')
+        detectionMethod = request.form.get('detectionMethod')
+        fpsTweak = request.form.get('fpstweak')
+        kerberosUser = request.form.get('kerberosUser')
+        kerberosPassword = request.form.get('kerberosPassword')
+        with HomeSurveillance.camerasLock :
+            HomeSurveillance.add_kerberos(SurveillanceSystem.Camera.IPCamera(kerberosName, "testing/iphoneVideos/Countdown.mp4",application,detectionMethod,fpsTweak),kerberosHost,kerberosUser,kerberosPassword)
+        data = {"camNum": len(HomeSurveillance.kerberos) -1}
+        app.logger.info("Addding a new cam with Kerberos Host: ")
+        app.logger.info(kerberosHost)
+        app.logger.info(fpsTweak)
+        return jsonify(data)
+        
+    return render_template(indexfile)
 
 @app.route('/remove_camera', methods = ['GET','POST'])
 def remove_camera():
@@ -188,7 +280,37 @@ def remove_camera():
         app.logger.info("Removing camera number : " + str(camID))
         message = "Camera removed succesfully"
     #socketio.emit('refresh', json.dumps(data), namespace='/surveillance', broadcast=True)
-    return render_template('index.html', message=message)
+    return render_template(indexfile, message=message)
+
+@app.route('/remove_channel', methods = ['GET','POST'])
+def remove_channel():
+    if request.method == 'POST':
+        camID = request.form.get('camID')
+        app.logger.info("Removing channel: ")
+        app.logger.info(camID)
+        data = {"camNum": len(HomeSurveillance.cameras) - 1}
+        mqtt.unsubscribe(HomeSurveillance.channels[int(camID)])
+        with HomeSurveillance.camerasLock:
+            HomeSurveillance.remove_channel(camID)
+        app.logger.info("Removing channel number : " + str(camID))
+        message = "Channel removed succesfully"
+    #socketio.emit('refresh', json.dumps(data), namespace='/surveillance', broadcast=True)
+    return render_template(indexfile, message=message)
+
+@app.route('/remove_kerberos', methods = ['GET','POST'])
+def remove_kerberos():
+    if request.method == 'POST':
+        camID = request.form.get('camID')
+        app.logger.info("Removing Kerberos Cam: ")
+        app.logger.info(camID)
+        data = {"camNum": len(HomeSurveillance.cameras) - 1}
+        with HomeSurveillance.camerasLock:
+            HomeSurveillance.remove_kerberos(camID)
+        app.logger.info("Removing Kerberos Cam number : " + str(camID))
+        message = "Kerberos Cam removed succesfully"
+    #socketio.emit('refresh', json.dumps(data), namespace='/surveillance', broadcast=True)
+    return render_template(indexfile, message=message)
+
 
 @app.route('/create_alert', methods = ['GET','POST'])
 def create_alert():
@@ -214,7 +336,7 @@ def create_alert():
         HomeSurveillance.alerts[-1].id 
         data = {"alert_id": HomeSurveillance.alerts[-1].id, "alert_message": "Alert if " + HomeSurveillance.alerts[-1].alertString}
         return jsonify(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/remove_alert', methods = ['GET','POST'])
 def remove_alert():
@@ -229,7 +351,7 @@ def remove_alert():
            
         data = {"alert_status": "removed"}
         return jsonify(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/get_persondetails', methods = ['GET','POST'])
 def get_persondetails():
@@ -238,7 +360,7 @@ def get_persondetails():
         data = {"fullname": HomeSurveillance.peopleDB[personID][1] , "macaddress": HomeSurveillance.peopleDB[personID][2]}
         #print(data)
         return json.dumps(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/delete_person', methods = ['GET','POST'])
 def delete_person():
@@ -249,7 +371,7 @@ def delete_person():
         HomeSurveillance.remove_person(personname)
         data = {"person_status": "removed from database"}
         return json.dumps(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/update_person', methods = ['GET','POST'])
 def update_person():
@@ -261,7 +383,7 @@ def update_person():
         HomeSurveillance.update_person(personID, personName, personFullname, personMacaddress)
         data = {"person_status": "person details updated in DB"}
         return json.dumps(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/get_person_images', methods = ['GET','POST'])
 def get_person_images():
@@ -271,7 +393,7 @@ def get_person_images():
         imagedata = {'personimages': data}
         #print(imagedata)
         return json.dumps(imagedata)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/update_person_images', methods = ['GET','POST'])
 def update_person_images():
@@ -281,7 +403,7 @@ def update_person_images():
         data = "Person Images Updated"
         print(data)
         return data
-    return render_template('index.html')
+    return render_template(indexfile)
 
 
 @app.route('/remove_face', methods = ['GET','POST'])
@@ -300,7 +422,7 @@ def remove_face():
 
         data = {"face_removed":  'true'}
         return jsonify(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/add_face', methods = ['GET','POST'])
 def add_face():
@@ -331,7 +453,7 @@ def add_face():
            
         data = {"face_added":  wriitenToDir}
         return jsonify(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/retrain_classifier', methods = ['GET','POST'])
 def retrain_classifier():
@@ -343,7 +465,7 @@ def retrain_classifier():
         data = {"finished":  retrained}
         app.logger.info("Finished re-training")
         return jsonify(data)
-    return render_template('index.html')
+    return render_template(indexfile)
 
 @app.route('/get_faceimg/<name>')
 def get_faceimg(name):  
@@ -468,8 +590,8 @@ def connect():
             #print alertData
             app.logger.info(alertData)
             alerts.append(alertData)
-   
-    systemData = {'camNum': len(HomeSurveillance.cameras) , 'people': HomeSurveillance.peopleDB, 'cameras': cameras, 'alerts': alerts, 'onConnect': True}
+
+    systemData = {'camNum': len(HomeSurveillance.cameras) , 'people': HomeSurveillance.peopleDB, 'channels': HomeSurveillance.channels, 'kerberos': HomeSurveillance.kerberos, 'cameras': cameras, 'alerts': alerts, 'onConnect': True}
     socketio.emit('system_data', json.dumps(systemData) ,namespace='/surveillance')
 
 @socketio.on('disconnect', namespace='/surveillance')

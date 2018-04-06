@@ -95,7 +95,8 @@ class IPCamera(object):
 	 	self.url = camURL
                 self.camName = camName
 		if not self.video.isOpened():
-			self.video.open()
+		#   raise Exception("could not open camera or channelinput " + camurl)
+                   self.video.open()
 		logger.info("Video feed open.")
 		self.dump_video_info()  # logging every specs of the video feed
 		# Start a thread to continuously capture frames.
@@ -116,11 +117,16 @@ class IPCamera(object):
 		warmup = 0
 		#fpsTweak = 0  # set that to 1 if you want to enable Brandon's fps tweak. that break most video feeds so recommend not to
 		FPSstart = time.time()
-
+                lastposition = 0
 		while not self.captureThread.stop:
-			success, frame = self.video.read()
+                        success, frame = self.video.read()
 			self.captureEvent.clear() 
-			if success:		
+                        currentposition = self.video.get(cv.CV_CAP_PROP_POS_MSEC)
+	                if lastposition == currentposition:
+                           continue
+                        lastposition = currentposition
+                        #print(str(currentposition))
+                        if success:		
 				self.captureFrame  = frame
 				self.captureEvent.set() 
 

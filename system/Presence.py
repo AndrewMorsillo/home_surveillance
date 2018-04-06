@@ -17,6 +17,8 @@ hsconfigparser.read('HSConfig.cfg')
 param_mqttbroker = hsconfigparser.get('MQTT', 'broker')
 param_mqttport = hsconfigparser.get('MQTT', 'port')
 param_mqttnetworkchannel = hsconfigparser.get('MQTT', 'publishnetwork')
+param_networkscan_rememberstate = hsconfigparser.get('NETWORKSCAN', 'rememberstate')
+
 
 
 # Function that gets name from all Persona.cfg files in the /aligned-images folder
@@ -173,9 +175,9 @@ def whosHere(i):
                 counter[i] = 0
                 sleep(900)
             else:
-                # If a stream's already been sent, just wait for 15 minutes
+                # If a stream's already been sent, just wait for x seconds
                 counter[i] = 0
-                sleep(900)
+                sleep(int(param_networkscan_rememberstate))
         # If a listed device address is not present, print and stream
         else:
             print(occupant[i] + "'s device is not present")

@@ -1463,7 +1463,41 @@
                         });
 
 
-                     
+                       socket.on('add_mqtt_event', function(json) {
+                       
+                       var cam = JSON.parse(json);
+                       alertstyle = "alert-success";
+                       cam.camNum = cam.camNum +1;
+
+                       var icon = '<i class="fa fa-video-camera fa-3x" aria-hidden="true"></i>'
+                       var icondiv = '<div class="product-info">' + icon  +'</div>'
+                       var camdiv = document.createElement("div");
+                                        camdiv.setAttribute("class","alert alert-dismissable " + alertstyle);   
+                                        var btn = document.createElement("BUTTON");        
+                                        btn.setAttribute("type","button");    
+                                        btn.setAttribute("class", "close"); 
+                                        btn.setAttribute("data-dismiss", "alert");  
+                                        btn.setAttribute("aria-hidden","true"); 
+                                        btn.setAttribute("onclick","removeCamera(" + cam.camNum + ")");
+                                        btn.setAttribute("id","camera_" + cam.camNum);
+                                        btn.innerHTML = "&times;";
+                                        camdiv.innerHTML = '<div class="text-center"><span>' + icon + '<div><strong>Camera '+ cam.camNum + ' Name:'+ cam.camName +' FPS: <strong id="camera_' + cam.camNum+ '_fps">' + "Loading... </strong></div><div>" +'<font size="0.9">' + cam.camURL+'<font></span></div>';
+                                        camdiv.appendChild(btn);
+                                        document.getElementById("system-cameras").appendChild(camdiv);
+
+                                        var viddiv = document.createElement("div");
+                                        viddiv.setAttribute("class","col-md-4 col-sm-6 col-xs-12");  
+                                        var vidstream = document.createElement("img");
+                                        vidstream.setAttribute("class","img-thumbnail panel panel-default"); 
+                                        vidstream.setAttribute("id",cam.camNum); 
+                                        vidstream.setAttribute("src","/video_streamer/" + cam.camNum); 
+                                        vidstream.setAttribute("width","540"); 
+                                         vidstream.setAttribute("height","320");
+                                        viddiv.appendChild(vidstream);
+                                        document.getElementById("surveillance_panel").appendChild(viddiv);
+
+                                        $('#addcam').html('Add Camera');
+                       });
 
                        socket.on('system_monitoring', function(json) {   
 
