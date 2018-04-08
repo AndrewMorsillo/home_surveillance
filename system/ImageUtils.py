@@ -89,7 +89,9 @@ param_imagewidth = int(hsconfigparser.get('MACHINERY', 'resizewidth'))
     
 def resize(frame):
     r = param_imagewidth / frame.shape[1]
-    dim = (param_imagewidth, int(frame.shape[0] * r))
+    #dim = (param_imagewidth, int(frame.shape[0] * r))
+    dim = (param_imagewidth, param_imageheight)
+
     # Resize frame to be processed
     frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)    
     return frame 

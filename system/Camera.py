@@ -102,10 +102,15 @@ class IPCamera(object):
 		# Start a thread to continuously capture frames.
 		# The capture thread ensures the frames being processed are up to date and are not old
 		self.captureLock = threading.Lock() # Sometimes used to prevent concurrent access
-		self.captureThread = threading.Thread(name='video_captureThread',target=self.get_frame)
+		self.captureThread = threading.Thread(name='video_captureThread '+camURL,target=self.get_frame)
 		self.captureThread.daemon = True
 		self.captureThread.stop = False
                 self.captureThread.start()
+                #RdL Load Params from HSConfig.cfg
+                hsconfigparser = SafeConfigParser()
+	        hsconfigparser.read('HSConfig.cfg')
+                self.param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
+                print(self.param_cameramode)
 		
 
 	def __del__(self):
@@ -115,6 +120,7 @@ class IPCamera(object):
 		logger.debug('Getting Frames')
 		FPScount = 0
 		warmup = 0
+                countnotsucces = 0
 		#fpsTweak = 0  # set that to 1 if you want to enable Brandon's fps tweak. that break most video feeds so recommend not to
 		FPSstart = time.time()
                 lastposition = 0
@@ -122,14 +128,23 @@ class IPCamera(object):
                         success, frame = self.video.read()
 			self.captureEvent.clear() 
                         currentposition = self.video.get(cv.CV_CAP_PROP_POS_MSEC)
-	                if lastposition == currentposition:
-                           continue
+	                if self.param_cameramode != 'stream':
+                           if lastposition == currentposition:
+                              continue
                         lastposition = currentposition
                         #print(str(currentposition))
                         if success:		
 				self.captureFrame  = frame
 				self.captureEvent.set() 
-
+                                countnotsucces = 0
+                        if not success:
+                                countnotsucces = countnotsucces +1
+                                print(str(countnotsucces))
+                                if countnotsucces > 15000:
+                                   print("disconnected.....trying to reconnect")
+                                   self.video.release()
+                                   time.sleep(5)
+                                   self.video = cv2.VideoCapture(self.url)
 			FPScount += 1 
 
 			if FPScount == 5:

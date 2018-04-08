@@ -159,7 +159,7 @@ class SurveillanceSystem(object):
         self.param_event_rememberstate = hsconfigparser.get('MACHINERY', 'rememberstate')
         self.param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
         self.param_kerberospullinterval = int(hsconfigparser.get('MACHINERY', 'kerberospullinterval'))
-
+        self.param_kerberosrepeat = int(hsconfigparser.get('MACHINERY', 'kerberosrepeat'))
         self.MQTTClient = MQTTClient.MQTTClient("1",self.param_mqttbroker,self.param_mqttport)
 
 
@@ -285,6 +285,27 @@ class SurveillanceSystem(object):
           self.cameraProcessingThreads.append(thread)
           thread.start()
 
+        #Initiate Watchdog
+        #self.wdThread = threading.Thread(name='Watchdog_thread_',target=self.Watchdog,args=())
+        #self.wdThread.daemon = False
+        #self.wdThread.start()
+
+
+
+
+
+   def Watchdog(self): #function to monitor the threads and re-initiate when needed
+        while True:
+           for i, cam in enumerate(self.cameras):       
+              print(' <=========================== Watchdog for Camera ' + str(i)+' =================================>')      
+              print(str(cam.video.isOpened())) 
+              #for thread in threading.enumerate():
+              #   print(thread.name)
+              
+              print(str(self.cameraProcessingThreads[i].isAlive()))
+              (grabbed, frame) = cam.video.read()
+              
+              print(str('Can still Read: ' + str(grabbed)))
 
    def broadcast_message_log(self,broadcastmessage):
 	temp = broadcastmessage.split("@")
@@ -419,7 +440,7 @@ class SurveillanceSystem(object):
              parser.add_section('Kerberos_'+str(i))
              parser.set('Kerberos_'+str(i), 'instancename', cam.camName)
              parser.set('Kerberos_'+str(i), 'username', self.kerberos[i][1])
-             parser.set('Kerberos_'+str(i), 'password', kerberos[i][2])
+             parser.set('Kerberos_'+str(i), 'password', self.kerberos[i][2])
              parser.set('Kerberos_'+str(i), 'kerberoshost', self.kerberos[i][0])
              parser.set('Kerberos_'+str(i), 'function', cam.cameraFunction)
              parser.set('Kerberos_'+str(i), 'DlibDetection', cam.dlibDetection)
@@ -539,11 +560,21 @@ class SurveillanceSystem(object):
         # we need to set flag captureThread to false for the thread capturing
         self.cameras[iCam].captureThread.stop = True
         self.cameraProcessingThreads[iCam].stop = True
-
+        print('checkA')
         self.cameras.pop(iCam)
         self.cameraProcessingThreads.pop(iCam)
+        #self.kerberos.pop(iCam)
+        print('checkB')
+        print(self.kerberos[iCam])
+        self.kerberos[iCam].pop()
+        self.kerberos[iCam].pop()
+        self.kerberos[iCam].pop()
         self.kerberos.pop(iCam)
+        print(len(self.kerberos))
+        print('checkC')
+        #print(self.kerberos[iCam])
         self.kerberosThreads.pop(iCam)
+        print('checkD')
         self.update_kerberos_cfg()
 
 
@@ -1061,39 +1092,62 @@ class SurveillanceSystem(object):
       kerberoslastsrc = 'start'
       kerberostype = ''
       kerberosinstancename = ''
-      while not self.cameras[kerberosnum].captureThread.stop:
-         time.sleep(self.param_kerberospullinterval)
-         #Call REST API
-         try:
-            response = requests.get(url, headers=headers)
-            jsonmessage = json.loads(response.text)
-            print(len(jsonmessage))
-            lastrecord = len(jsonmessage)-1
-            kerberostype = jsonmessage[lastrecord]['type'] 
-            kerberossrc = jsonmessage[lastrecord]['src']
-            kerberosinstancename = jsonmessage[lastrecord]['metadata']['instanceName'] 
-            kerberoscameranum = kerberosnum
-            print(kerberostype)
-            print(kerberossrc)
-            print(kerberosinstancename)
-         except requests.ConnectionError:
-            print('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost)
-         kerberosurl = kerberossrc
-         if kerberostype == 'video':
-            if kerberosurl != kerberoslastsrc: 
-               try:
-                  print('load kerberos last video')
-                  self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
-                  if not self.cameras[kerberoscameranum].video.isOpened():
-                     self.cameras[kerberoscameranum].video.open()
-                  kerberoslastsrc = kerberosurl
-               except TypeError:
-                  print('video file could not be loaded') 
+      repeatcount = 0
+      waittime = self.param_kerberospullinterval
+      try:
+         while not self.cameras[kerberosnum].captureThread.stop:
+            time.sleep(waittime)
+            #Call REST API
+            try:
+               response = requests.get(url, headers=headers)
+               jsonmessage = json.loads(response.text)
+               print(len(jsonmessage))
+               lastrecord = len(jsonmessage)-1
+               kerberostype = jsonmessage[lastrecord]['type'] 
+               kerberossrc = jsonmessage[lastrecord]['src']
+               kerberosinstancename = jsonmessage[lastrecord]['metadata']['instanceName'] 
+               kerberoscameranum = kerberosnum
+               print(kerberostype)
+               print(kerberossrc)
+               print(kerberosinstancename)
+            except requests.ConnectionError:
+               print('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost)
+            kerberosurl = kerberossrc
+            if kerberostype == 'video':
+               if kerberosurl != kerberoslastsrc: 
+                  try:
+                     print('load kerberos last video')
+                     self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+                     print(self.cameras[kerberoscameranum].video.get(cv.CV_CAP_PROP_FRAME_COUNT))
+                     print(self.cameras[kerberoscameranum].video.get(cv2.cv.CV_CAP_PROP_FPS))
+
+                     if not self.cameras[kerberoscameranum].video.isOpened():
+                        self.cameras[kerberoscameranum].video.open()
+                     kerberoslastsrc = kerberosurl
+                     repeatcount = 0
+                     waittime = 30
+                  except TypeError:
+                     print('video file could not be loaded') 
+               else:
+                  print('Kerberosrepeat: '+ str(repeatcount))
+                  if repeatcount < self.param_kerberosrepeat:      
+                     try:
+                        print('repeat kerberos last known video')
+                        self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+                        if not self.cameras[kerberoscameranum].video.isOpened():
+                           self.cameras[kerberoscameranum].video.open()
+                        repeatcount = repeatcount +1
+                     except TypeError:
+                        print('video file could not be loaded')
+                  else:
+                     print('No new video found')  
+                     waittime = self.param_kerberospullinterval 
             else:
-                  print('no new video found')
-         else:
-               print('last file is not video but ' + kerberostype)
-                      
+                  print('last file is not video but ' + kerberostype)
+      except IndexError(e):
+         print('Kerberos Cam Thread Stopped') 
+         print(e)
+                
    def alert_engine(self):  
         """check alarm state -> check camera -> check event -> 
         either look for motion or look for detected faces -> take action"""
