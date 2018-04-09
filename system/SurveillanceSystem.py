@@ -206,11 +206,13 @@ class SurveillanceSystem(object):
              camDlibDetection = cameraparser.get(each_section, 'DlibDetection')
              camfpsTweak = cameraparser.get(each_section, 'fpsTweak')
              if camurl[:4] == "http":
-	        ret = urllib2.urlopen(camurl)
-	        if ret.code == 200:
-                   #print(ret.code)
-	           self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
-                   #print('Camera added: '+camurl)  
+	        try:
+                   ret = urllib2.urlopen(camurl)
+	           if ret.code == 200:
+	              self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak)) 
+                      logger.info('At Initiation Camera attempting to ad: '+camurl) 
+                except urllib2.URLError:
+                   logger.debug('IP Camera Host not reachable at setup, skipping: ' + camurl) 
              else:
                 self.cameras.append(Camera.IPCamera(camname, camurl, camfunction, camDlibDetection, camfpsTweak))    
 
@@ -285,39 +287,16 @@ class SurveillanceSystem(object):
           self.cameraProcessingThreads.append(thread)
           thread.start()
 
-        #Initiate Watchdog
-        #self.wdThread = threading.Thread(name='Watchdog_thread_',target=self.Watchdog,args=())
-        #self.wdThread.daemon = False
-        #self.wdThread.start()
-
-
-
-
-
-   def Watchdog(self): #function to monitor the threads and re-initiate when needed
-        while True:
-           for i, cam in enumerate(self.cameras):       
-              print(' <=========================== Watchdog for Camera ' + str(i)+' =================================>')      
-              print(str(cam.video.isOpened())) 
-              #for thread in threading.enumerate():
-              #   print(thread.name)
-              
-              print(str(self.cameraProcessingThreads[i].isAlive()))
-              (grabbed, frame) = cam.video.read()
-              
-              print(str('Can still Read: ' + str(grabbed)))
-
    def broadcast_message_log(self,broadcastmessage):
 	temp = broadcastmessage.split("@")
 	person = temp[0]
 	camera = temp[1]
-	print person
-	print camera
+	logger.info('Broadcasted: ' + person + ' detected @ ' + camera)
 	mqttmessage = {'person':person,'camera':camera}
 	self.MQTTClient.publish(self.param_mqttcamerachannel,json.dumps(mqttmessage), True)
 	#client.close()
         broadcastmessage = datetime.now().strftime("%b %d %Y %H:%M") +": "+broadcastmessage+"\n"	
-	#print(broadcastmessage)	
+	logger.info('Broadcast Message send to MQTT: ' + broadcastmessage)	
 	#broadcastmessage = "This is a test broadcast"
 	if not os.path.exists('broadcast.log'):
     	  with open('broadcast.log', 'w'): pass
@@ -330,11 +309,11 @@ class SurveillanceSystem(object):
     	   f.write(line)
 	f.close()
 	self.get_Broadcast_messages()
+	logger.info('Broadcast Message send to Internal System: ' + broadcastmessage)	
 
    def get_Broadcast_messages(self):
 	with open('broadcast.log') as my_file:
            self.BroadcastDB = my_file.readlines()
-	#print(self.BroadcastDB)
    
    def create_persona(self,personname):
         parser = SafeConfigParser()
@@ -538,6 +517,8 @@ class SurveillanceSystem(object):
         self.cameras.pop(iCam)
         self.cameraProcessingThreads.pop(iCam)
         self.update_cameras_cfg()
+        logger.info('Camera removed from IP Stream system')
+
 
    def remove_channel(self, camID):
         """remove a channel from the System when in mqtt mode and kill its processing thread"""
@@ -552,6 +533,8 @@ class SurveillanceSystem(object):
         self.channels.pop(iCam)
         self.channelshost.pop(iCam)
         self.update_channels_cfg()
+        logger.info('Camera removed from MQTT Channel system')
+
 
    def remove_kerberos(self, camID):
         """remove a Kerberos Cam from the System when in kerberos mode and kill its processing thread"""
@@ -560,23 +543,15 @@ class SurveillanceSystem(object):
         # we need to set flag captureThread to false for the thread capturing
         self.cameras[iCam].captureThread.stop = True
         self.cameraProcessingThreads[iCam].stop = True
-        print('checkA')
         self.cameras.pop(iCam)
         self.cameraProcessingThreads.pop(iCam)
-        #self.kerberos.pop(iCam)
-        print('checkB')
-        print(self.kerberos[iCam])
         self.kerberos[iCam].pop()
         self.kerberos[iCam].pop()
         self.kerberos[iCam].pop()
         self.kerberos.pop(iCam)
-        print(len(self.kerberos))
-        print('checkC')
-        #print(self.kerberos[iCam])
         self.kerberosThreads.pop(iCam)
-        print('checkD')
         self.update_kerberos_cfg()
-
+        logger.info('Camera removed from Kerberos system')
 
    def process_frame(self,camera):
         """This function performs all the frame proccessing.
@@ -1101,52 +1076,45 @@ class SurveillanceSystem(object):
             try:
                response = requests.get(url, headers=headers)
                jsonmessage = json.loads(response.text)
-               print(len(jsonmessage))
                lastrecord = len(jsonmessage)-1
                kerberostype = jsonmessage[lastrecord]['type'] 
                kerberossrc = jsonmessage[lastrecord]['src']
                kerberosinstancename = jsonmessage[lastrecord]['metadata']['instanceName'] 
                kerberoscameranum = kerberosnum
-               print(kerberostype)
-               print(kerberossrc)
-               print(kerberosinstancename)
             except requests.ConnectionError:
-               print('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost)
+               logger.debug('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost)
             kerberosurl = kerberossrc
             if kerberostype == 'video':
                if kerberosurl != kerberoslastsrc: 
                   try:
-                     print('load kerberos last video')
+                     logger.info('Load kerberos last video')
                      self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
-                     print(self.cameras[kerberoscameranum].video.get(cv.CV_CAP_PROP_FRAME_COUNT))
-                     print(self.cameras[kerberoscameranum].video.get(cv2.cv.CV_CAP_PROP_FPS))
-
                      if not self.cameras[kerberoscameranum].video.isOpened():
                         self.cameras[kerberoscameranum].video.open()
                      kerberoslastsrc = kerberosurl
                      repeatcount = 0
                      waittime = 30
                   except TypeError:
-                     print('video file could not be loaded') 
+                     logger.debug('Kerberos video file could not be loaded') 
                else:
-                  print('Kerberosrepeat: '+ str(repeatcount))
+                  #print('Kerberosrepeat: '+ str(repeatcount))
                   if repeatcount < self.param_kerberosrepeat:      
                      try:
-                        print('repeat kerberos last known video')
+                        logger.info('Repeat Kerberos last known video: ' + str(repeatcount))
                         self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
                         if not self.cameras[kerberoscameranum].video.isOpened():
                            self.cameras[kerberoscameranum].video.open()
                         repeatcount = repeatcount +1
                      except TypeError:
-                        print('video file could not be loaded')
+                        logger.debug('Kerberos video file could not be loaded')
                   else:
-                     print('No new video found')  
+                     logger.info('No new Kerberos video found')  
                      waittime = self.param_kerberospullinterval 
             else:
-                  print('last file is not video but ' + kerberostype)
+                  logger.info('Last Kerberos file is not video but ' + kerberostype)
       except IndexError(e):
-         print('Kerberos Cam Thread Stopped') 
-         print(e)
+         logger.debug('Kerberos Cam Thread Stopped') 
+       
                 
    def alert_engine(self):  
         """check alarm state -> check camera -> check event -> 
@@ -1217,7 +1185,7 @@ class SurveillanceSystem(object):
                     for person in camera.people.values():
                         if alert.person == person.identity: # Has person been detected
                             alert.camname = camera.camName
-                            print('Testing AlertCamera: '+ alert.camname)
+                            #print('Testing AlertCamera: '+ alert.camname)
                             if alert.person == "unknown" and (100 - person.confidence) >= alert.confidence:
                                 cv2.imwrite("notification/image.png", camera.processing_frame)#
                                 self.take_action(alert)

@@ -135,7 +135,7 @@ class FaceRecogniser(object):
 
         logger.info("Recognition took {} seconds.".format(time.time() - start))
         logger.info("Recognized {} with {:.2f} confidence.".format(person1, confidence1))
-        print("MQTT PLACEHOLDER => Recognized {} with {:.2f} confidence.".format(person1, confidence1))
+        #print("MQTT PLACEHOLDER => Recognized {} with {:.2f} confidence.".format(person1, confidence1))
 
         persondict = {'name': person1, 'confidence': confidence1, 'rep':rep1}
         return persondict

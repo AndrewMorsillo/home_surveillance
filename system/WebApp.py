@@ -79,33 +79,33 @@ mqtt = Mqtt(app)
 def handle_connect(client, userdata, flags, rc):
     for channel in HomeSurveillance.channels:
        mqtt.subscribe(channel)
-       print(channel)
+       app.logger.info('Subscribed to MQTT Channel: ' + channel)
 
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
-    print(message.topic)
+    app.logger.info('MQTT Message received on topic: ' + message.topic)
     #print(str(message.payload))
-    print(HomeSurveillance.channels)
+    #print(HomeSurveillance.channels)
     channelnum = HomeSurveillance.channels.index(message.topic)
     channelhost = HomeSurveillance.channelshost[channelnum]
     jsonmessage = json.loads(message.payload)
-    print(jsonmessage['pathToVideo'])
+    #print(jsonmessage['pathToVideo'])
     channelurl = channelhost+'/capture/'+jsonmessage['pathToVideo']
     
     #channelurl = 'https://www.whitehouse.gov/wp-content/uploads/2017/12/44_barack_obama1.jpg'
-    print('ChannelURL: ' + channelurl)
-    print('ChannelNum: ' + str(channelnum))
+    #print('ChannelURL: ' + channelurl)
+    #print('ChannelNum: ' + str(channelnum))
     #channelurl = "testing/iphoneVideos/peopleTest.m4v"
     channelnametemp = message.topic.split("/")
     channelname = channelnametemp[1]
-    print('Channelname ' + channelname)
+    #print('Channelname ' + channelname)
     try:
        #HomeSurveillance.cameras[channelnum].video.release()
        HomeSurveillance.cameras[channelnum].video = cv2.VideoCapture(channelurl)
        if not HomeSurveillance.cameras[channelnum].video.isOpened():
           HomeSurveillance.cameras[channelnum].video.open()
     except TypeError:
-       print('video file could not be loaded') 
+       app.logger.info('MQTT received video file could not be loaded') 
 
 @app.route('/', methods=['GET','POST'])
 def login():
@@ -401,7 +401,7 @@ def update_person_images():
         personImages = request.form.get('person_images')
         dummy = HomeSurveillance.update_person_images(personImages)
         data = "Person Images Updated"
-        print(data)
+        #print(data)
         return data
     return render_template(indexfile)
 

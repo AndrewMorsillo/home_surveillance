@@ -110,7 +110,7 @@ class IPCamera(object):
                 hsconfigparser = SafeConfigParser()
 	        hsconfigparser.read('HSConfig.cfg')
                 self.param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
-                print(self.param_cameramode)
+                logger.info('Video Feed opened in mode: '+ self.param_cameramode)
 		
 
 	def __del__(self):
@@ -139,9 +139,9 @@ class IPCamera(object):
                                 countnotsucces = 0
                         if not success:
                                 countnotsucces = countnotsucces +1
-                                print(str(countnotsucces))
+                                #print(str(countnotsucces))
                                 if countnotsucces > 15000:
-                                   print("disconnected.....trying to reconnect")
+                                   logger.debug("Camera Disconnected.....trying to reconnect")
                                    self.video.release()
                                    time.sleep(5)
                                    self.video = cv2.VideoCapture(self.url)
