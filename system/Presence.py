@@ -108,8 +108,9 @@ def arpnetworkscan():
            # Make output global so the threads can see it
            #global output
            # Assign list of devices on the network to "output"
-           output = subprocess.check_output("sudo arp-scan -l", shell=True)
-           #print(output)
+           interface = subprocess.check_output("/sbin/route -n | grep '^0.0.0.0' | rev | cut -d' ' -f1 | rev", shell=True)
+           command = "sudo arp-scan -l --interface="+interface
+           output = subprocess.check_output(command, shell=True)
            # Wait 30 seconds between scans
            sleep(30)
    except KeyboardInterrupt:
