@@ -33,6 +33,8 @@ import cv2
 import psutil
 from ConfigParser import SafeConfigParser
 from flask_mqtt import Mqtt
+import numpy as np
+
 
 LOG_FILE = 'logs/WebApp.log'
 
@@ -84,21 +86,12 @@ def handle_connect(client, userdata, flags, rc):
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
     app.logger.info('MQTT Message received on topic: ' + message.topic)
-    #print(str(message.payload))
-    #print(HomeSurveillance.channels)
     channelnum = HomeSurveillance.channels.index(message.topic)
     channelhost = HomeSurveillance.channelshost[channelnum]
     jsonmessage = json.loads(message.payload)
-    #print(jsonmessage['pathToVideo'])
-    channelurl = channelhost+'/capture/'+jsonmessage['pathToVideo']
-    
-    #channelurl = 'https://www.whitehouse.gov/wp-content/uploads/2017/12/44_barack_obama1.jpg'
-    #print('ChannelURL: ' + channelurl)
-    #print('ChannelNum: ' + str(channelnum))
-    #channelurl = "testing/iphoneVideos/peopleTest.m4v"
+    channelurl = jsonmessage['VideoUrl']
     channelnametemp = message.topic.split("/")
     channelname = channelnametemp[1]
-    #print('Channelname ' + channelname)
     try:
        #HomeSurveillance.cameras[channelnum].video.release()
        HomeSurveillance.cameras[channelnum].video = cv2.VideoCapture(channelurl)
@@ -106,6 +99,31 @@ def handle_mqtt_message(client, userdata, message):
           HomeSurveillance.cameras[channelnum].video.open()
     except TypeError:
        app.logger.info('MQTT received video file could not be loaded') 
+
+@app.route('/api/getfacesonimage', methods=['POST'])
+def getfacesonimage():
+    response = []
+    facename = []
+    faceconf = []
+    r = request
+    # convert string of image data to uint8
+    nparr = np.fromstring(r.data, np.uint8)
+    # decode image
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+    # getfaces
+    data = HomeSurveillance.getfacesfromimage(img)
+    #print(len(data))
+    #print(data[0]['name'])
+    # build a response dict to send back to client
+    # encode response to json
+    
+    for i in range (0,len(data)):
+       response.append({'Name': data[i]['name'], 'Confidence': str(data[i]['confidence'])})
+    #response = {'message': 'image received. size={}x{}'.format(img.shape[1], img.shape[0])}
+    #print(response)
+    response_json = json.dumps(response) 
+    return response_json
 
 @app.route('/', methods=['GET','POST'])
 def login():

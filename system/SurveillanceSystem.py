@@ -55,6 +55,7 @@ import json
 from openface.data import iterImgs
 import Camera
 import FaceRecogniser
+import FaceDetector
 import openface
 import aligndlib
 import ImageUtils
@@ -286,6 +287,23 @@ class SurveillanceSystem(object):
           thread.daemon = False
           self.cameraProcessingThreads.append(thread)
           thread.start()
+
+   def getfacesfromimage(self,image):
+        faceDetector = FaceDetector.FaceDetector()
+        faceBoxes = None
+        dlibDetection = True
+        faceBoxes = faceDetector.detect_faces(image,dlibDetection)
+        faces =[]
+        for face_bb in faceBoxes: 
+           # Used to reduce false positives from opencv haar cascade detector.
+           # If face isn't detected using more rigorous paramters in the detectMultiscale() function read the next frame               
+           if dlibDetection == False:
+              x, y, w, h = face_bb
+              face_bb = dlib.rectangle(long(x), long(y), long(x+w), long(y+h))
+              faceimg = ImageUtils.crop(image, face_bb, dlibRect = True)
+           predictions, alignedFace = self.recogniser.make_prediction(image,face_bb)
+           faces.append(predictions)
+        return faces
 
    def broadcast_message_log(self,broadcastmessage):
 	temp = broadcastmessage.split("@")

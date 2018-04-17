@@ -60,14 +60,14 @@ def arpnetworkscan():
    #MQTTClient = MQTTClient.MQTTClient("2","192.168.178.100")
    global occupant 
    occupant = get_names()
-   print occupant
+   #print occupant
 
    # MAC addresses for our phones
    #address = ["xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx","xx:xx:xx:xx:xx:xx"]
    #address = ["78:88:6d:26:24:12"]
    global address 
    address = get_macs()
-   print address
+   #print address
    # Sleep once right when this script is called to give the Pi enough time
    # to connect to the network
    #sleep(60)
@@ -109,6 +109,7 @@ def arpnetworkscan():
            #global output
            # Assign list of devices on the network to "output"
            output = subprocess.check_output("sudo arp-scan -l", shell=True)
+           #print(output)
            # Wait 30 seconds between scans
            sleep(30)
    except KeyboardInterrupt:
@@ -120,8 +121,8 @@ def broadcast_message_log(broadcastmessage):
    temp = broadcastmessage.split("@")
    person = temp[0]
    network = temp[1]
-   print person
-   print network
+   #print person
+   #print network
    mqttmessage = {'person':person,'network':network}
    ARPMQTTClient.publish(param_mqttnetworkchannel,json.dumps(mqttmessage), True)
    #client.close()
@@ -150,19 +151,19 @@ def whosHere(i):
 
         # Exits thread if Keyboard Interrupt occurs
         if stop == True:
-            print "Exiting Thread"
+            #print "Exiting Thread"
             exit()
         else:
             pass
 
         # If a listed device address is present print and stream
         if address[i] in output:
-            print(occupant[i] + "'s device is connected to your network")
+            #print(occupant[i] + "'s device is connected to your network")
             if presentSent[i] == 0:
                 # Stream that device is present
                 # streamer.log(occupant[i],":office:")
                 # streamer.flush()
-                print(occupant[i] + " present streamed")
+                #print(occupant[i] + " present streamed")
                 broadcast_message_log(occupant[i]+"@Connected")
 		#mqttmessage = {'person':occupant[i],'network':"Present"}
 		#ARPMQTTClient.publish("homesurveillance/network", json.dumps(mqttmessage), True)
@@ -173,14 +174,14 @@ def whosHere(i):
                 presentSent[i] = 1
                 notPresentSent[i] = 0
                 counter[i] = 0
-                sleep(900)
+                sleep(int(param_networkscan_rememberstate))
             else:
                 # If a stream's already been sent, just wait for x seconds
                 counter[i] = 0
                 sleep(int(param_networkscan_rememberstate))
         # If a listed device address is not present, print and stream
         else:
-            print(occupant[i] + "'s device is not present")
+            #print(occupant[i] + "'s device is not present")
             # Only consider a device offline if it's counter has reached 30
             # This is the same as 15 minutes passing
             if counter[i] == 30 or firstRun[i] == 1:
@@ -189,7 +190,7 @@ def whosHere(i):
                     # Stream that device is not present
                     # streamer.log(occupant[i],":no_entry_sign::office:")
                     # streamer.flush()
-                    print(occupant[i] + " not present streamed")
+                    #print(occupant[i] + " not present streamed")
                     broadcast_message_log(occupant[i]+"@Disconnected")
                     #mqttmessage = {'person':occupant[i],'network':"NOT Present"}
 		    #ARPMQTTClient.publish("homesurveillance/network", json.dumps(mqttmessage), True)
@@ -206,7 +207,7 @@ def whosHere(i):
             # disappeared from the network
             else:
                 counter[i] = counter[i] + 1
-                print(occupant[i] + "'s counter at " + str(counter[i]))
+                #print(occupant[i] + "'s counter at " + str(counter[i]))
                 sleep(30)
 
 
