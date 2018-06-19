@@ -16980,3 +16980,10 @@ NameError: global name 'true' is not defined
 (Thread-14 ) 2018-06-18 22:06:41,585 - werkzeug - INFO - 192.168.178.92 - - [18/Jun/2018 22:06:41] "POST /facebox/check HTTP/1.1" 200 -
 (Thread-15 ) 2018-06-18 22:06:52,883 - werkzeug - INFO - 192.168.178.92 - - [18/Jun/2018 22:06:52] "POST /facebox/check HTTP/1.1" 200 -
 (Thread-16 ) 2018-06-18 22:07:04,299 - werkzeug - INFO - 192.168.178.92 - - [18/Jun/2018 22:07:04] "POST /facebox/check HTTP/1.1" 200 -
+(MainThread) 2018-06-19 09:37:57,387 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db
+(MainThread) 2018-06-19 09:38:14,479 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db
+(MainThread) 2018-06-19 09:38:30,299 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db
+(MainThread) 2018-06-19 09:38:46,103 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db
+(MainThread) 2018-06-19 09:39:02,047 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db
+(MainThread) 2018-06-19 09:40:49,916 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db
+(MainThread) 2018-06-19 09:41:31,759 - FaceRecogniser - INFO - Opening classifier.pkl to load existing known faces db

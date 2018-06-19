@@ -2,11 +2,13 @@ import requests
 import json
 import time
 import os
+import logging
 
 addr = 'http://localhost:5000'
 test_url = addr + '/api/gethssstatus'
 response = ""
 notrunningcount = 0
+#LOG_FILE = 'logs/WebApp.log'
 # send http request with image and receive response
 while True:
    try:
@@ -20,7 +22,7 @@ while True:
       response = json.loads(response1)
    if response['status'] == "NOT running":
       notrunningcount = notrunningcount +1
-      print notrunningcount
+      print('WebApp not reacheable. Attempt (out of 4 before restarting): '+ str(notrunningcount))
    time.sleep(3)
 
    if notrunningcount > 3:
