@@ -70,7 +70,7 @@ import shutil
 import base64
 import MQTTClient
 import Presence
-
+import datetime as dt
 
 
 # Get paths for models
@@ -156,13 +156,17 @@ class SurveillanceSystem(object):
         self.param_mqttbroker = hsconfigparser.get('MQTT', 'broker')
         self.param_mqttport = hsconfigparser.get('MQTT', 'port')
         self.param_mqttcamerachannel = hsconfigparser.get('MQTT', 'publishcamera')
+        self.param_sendmqttimage = hsconfigparser.get('MQTT', 'sendmqttimage')
+        self.param_sendmqttimageinterval = int(hsconfigparser.get('MQTT', 'sendmqttimageinterval'))
+     
         #self.param_mqttchannel = hsconfigparser.get('MQTT', 'mqttchannel')
         self.param_event_rememberstate = hsconfigparser.get('MACHINERY', 'rememberstate')
         self.param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
         self.param_kerberospullinterval = int(hsconfigparser.get('MACHINERY', 'kerberospullinterval'))
         self.param_kerberosrepeat = int(hsconfigparser.get('MACHINERY', 'kerberosrepeat'))
+        self.param_readprocessed = hsconfigparser.get('MACHINERY', 'readprocessed')
         self.MQTTClient = MQTTClient.MQTTClient("1",self.param_mqttbroker,self.param_mqttport)
-
+        
 
 
         # Initialization of alert processing thread 
@@ -581,6 +585,7 @@ class SurveillanceSystem(object):
         FPScount = 0 # Used to calculate frame rate at which frames are being processed
         FPSstart = time.time()
         start = time.time()
+        lastmqttimagesend = dt.datetime.now()
         stop = camera.captureThread.stop
         lastposition = 1
         while not camera.captureThread.stop: 
@@ -604,6 +609,22 @@ class SurveillanceSystem(object):
 
              FPScount += 1
              camera.tempFrame = frame
+
+             ##################################################################################################################################################
+             #<##########################################################> SEND MQTT PICTURE <################################################################>
+             ##################################################################################################################################################
+             if self.param_sendmqttimage == 'true':
+                if (dt.datetime.now()-lastmqttimagesend).total_seconds() > self.param_sendmqttimageinterval:
+                   #byteFrame = bytes(frame)                                     # convert to byte string
+                   #jsonFrame = json.loads(frame)
+                   #convertedframe = cv2.imencode(".jpg",frame)[1].tostring()
+                   if self.param_readprocessed == 'false':
+                      convertedframe = camera.read_jpg()    # read_jpg()  # read_processed()    
+                   else:
+                      convertedframe = camera.read_processed()    # read_jpg()  # read_processed()    
+                   self.MQTTClient.publish("hss/camera/"+camera.camName,convertedframe, True)
+                   lastmqttimagesend = dt.datetime.now()
+                
         
              ##################################################################################################################################################
              #<###########################################################> MOTION DETECTION <################################################################>

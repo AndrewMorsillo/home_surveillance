@@ -34,6 +34,7 @@ import psutil
 from ConfigParser import SafeConfigParser
 from flask_mqtt import Mqtt
 import numpy as np
+import base64
 
 
 LOG_FILE = 'logs/WebApp.log'
@@ -100,30 +101,43 @@ def handle_mqtt_message(client, userdata, message):
     except TypeError:
        app.logger.info('MQTT received video file could not be loaded') 
 
-@app.route('/api/getfacesonimage', methods=['POST'])
+@app.route('/facebox/check', methods=['POST'])
+#FACEBOX EMULATOR API TO CHECK AN IMAGE ON KNOWN FACES
+#POST DATA SHOULD BE PART OF JSON LIKE {'base64': imagedata}
 def getfacesonimage():
     response = []
     facename = []
     faceconf = []
+    faces = []
+    matched = False
+    app.loger.info("FaceBox Emulator API requested")
     r = request
+    originimg =base64.b64decode(r.get_json()['base64'])
     # convert string of image data to uint8
-    nparr = np.fromstring(r.data, np.uint8)
+    nparr = np.fromstring(originimg, np.uint8)
     # decode image
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
     # getfaces
     data = HomeSurveillance.getfacesfromimage(img)
-    #print(len(data))
-    #print(data[0]['name'])
     # build a response dict to send back to client
     # encode response to json
-    
     for i in range (0,len(data)):
-       response.append({'Name': data[i]['name'], 'Confidence': str(data[i]['confidence'])})
-    #response = {'message': 'image received. size={}x{}'.format(img.shape[1], img.shape[0])}
-    #print(response)
+       if data[i]['name'] == "Unknown":
+          matched = False
+       else: matched = True
+       faces.append({'name': data[i]['name'], 'matched':matched,'confidence': float(int(data[i]['confidence']))/100})
+    response = {'success': True,'facesCount': len(data),'faces':faces}
     response_json = json.dumps(response) 
     return response_json
+
+@app.route('/api/gethssstatus', methods=['GET'])
+def gethssstatus():
+    #response = []
+    response = {"status": "running"}
+    response_json = json.dumps(response)
+    #print(response_json) 
+    return response_json
+
 
 @app.route('/', methods=['GET','POST'])
 def login():

@@ -1,8 +1,8 @@
 import requests
 import json
 
-addr = 'http://localhost:5000'
-test_url = addr + '/api/getfacesonimage'
+addr = 'http://localhost:1880'
+test_url = addr + '/facebox/check'
 
 # prepare headers for http request
 content_type = 'image/jpeg'

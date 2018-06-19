@@ -111,6 +111,7 @@ class IPCamera(object):
 	        hsconfigparser.read('HSConfig.cfg')
                 self.param_cameramode = hsconfigparser.get('MACHINERY', 'cameramode')
                 logger.info('Video Feed opened in mode: '+ self.param_cameramode)
+                print('Video Feed opened in mode: '+ self.param_cameramode)
 		
 
 	def __del__(self):
@@ -128,7 +129,11 @@ class IPCamera(object):
                         success, frame = self.video.read()
 			self.captureEvent.clear() 
                         currentposition = self.video.get(cv.CV_CAP_PROP_POS_MSEC)
-	                if self.param_cameramode != 'stream':
+	                try:
+                           if self.param_cameramode != 'stream':
+                              if lastposition == currentposition:
+                                 continue
+                        except AttributeError as error:
                            if lastposition == currentposition:
                               continue
                         lastposition = currentposition
