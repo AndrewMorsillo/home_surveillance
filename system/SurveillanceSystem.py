@@ -53,6 +53,7 @@ from email import encoders
 import requests
 import json
 from openface.data import iterImgs
+import itertools
 import Camera
 import FaceRecogniser
 import FaceDetector
@@ -581,6 +582,9 @@ class SurveillanceSystem(object):
         resizes them, and performs 1 of 5 functions"""
         logger.debug('Processing Frames')
         state = 1
+        unknowncount = 0
+        lastalignedFace = None
+        equaltolastFace = False
         frame_count = 0;  
         FPScount = 0 # Used to calculate frame rate at which frames are being processed
         FPSstart = time.time()
@@ -671,7 +675,21 @@ class SurveillanceSystem(object):
 
                         # returns a dictionary that contains name, confidence and representation and an alignedFace (numpy array)
                         predictions, alignedFace = self.recogniser.make_prediction(frame,face_bb) 
+                        if lastalignedFace == None:
+                           lastalignedFace = alignedFace
+                        #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
+                        #########If smaller then 0.7 this means that the last face is most likely equal to the current face##############################
+			#########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
+			#########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
+                        d = self.recogniser.getRep(alignedFace) - self.recogniser.getRep(lastalignedFace)
+                        if np.dot(d, d) > 0.7:
+                           equaltolastFace = False
+                        else:
+                           equaltolastFace = True
 
+                        if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
+                           unknowncount = unknowncount +1
+                           predictions['name'] = 'unknown'+str(unknowncount)
                         with camera.peopleDictLock:
                           # If the person has already been detected and his new confidence is greater update persons details, otherwise create a new person
                           if camera.people.has_key(predictions['name']): 
@@ -685,11 +703,12 @@ class SurveillanceSystem(object):
                                   camera.people[predictions['name']].add_to_thumbnails(alignedFace)  
                                   camera.people[predictions['name']].set_time()
                           else: 
-                              if predictions['confidence'] > self.confidenceThreshold:
+			     if equaltolastFace == False: #only check if face is different from last face and as such a new unknwon person is identified
+ 	                       if predictions['confidence'] > self.confidenceThreshold:
                                   camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                              else: 
-                                  camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, "unknown")
-                   
+                               else: 
+                                  camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
+                    lastalignedFace = alignedFace
                     camera.processing_frame = frame # Used for streaming proccesed frames to client and email alerts, but mainly used for testing purposes
 
               ##################################################################################################################################################
@@ -745,7 +764,21 @@ class SurveillanceSystem(object):
                                         continue
 
                             predictions, alignedFace = self.recogniser.make_prediction(frame,face_bb)
+                            if lastalignedFace == None:
+                               lastalignedFace = alignedFace
+                            #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
+                            #########If smaller then 0.7 this means that the last face is most likely equal to the current face##############################
+			    #########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
+			    #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
+                            d = self.recogniser.getRep(alignedFace) - self.recogniser.getRep(lastalignedFace)
+                            if np.dot(d, d) > 0.7:
+                               equaltolastFace = False
+                            else:
+                               equaltolastFace = True
 
+                            if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
+                               unknowncount = unknowncount +1
+                               predictions['name'] = 'unknown'+str(unknowncount)
                             with camera.peopleDictLock:
                               if camera.people.has_key(predictions['name']):
                                   if camera.people[predictions['name']].confidence < predictions['confidence']:
@@ -758,11 +791,12 @@ class SurveillanceSystem(object):
                                       camera.people[predictions['name']].add_to_thumbnails(alignedFace) 
                                       camera.people[predictions['name']].set_time()
                               else: 
-                                  if predictions['confidence'] > self.confidenceThreshold:
+			        if equaltolastFace == False: #only check if face is different from last face and as such a new unknwon person is identified
+ 	                           if predictions['confidence'] > self.confidenceThreshold:
                                       camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                                  else: 
-                                      camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, "unknown")
-
+                                   else: 
+                                      camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
+			lastalignedFace = alignedFace
                         start = time.time() # Used to go back to motion detection state of 30s of not finding a face
                         camera.processing_frame = frame
 
@@ -776,7 +810,7 @@ class SurveillanceSystem(object):
                     # the frame and face detection is performed on a much smaller image. This 
                     # improves proccessing performance but is highly dependent upon the accuracy of 
                     # the background model generated by the MotionDetector object.
-
+                    
                     training_blocker = self.trainingEvent.wait()       
                     camera.motion, peopleRects  = camera.motionDetector.detect_movement(frame, get_rects = True)   
 
@@ -809,9 +843,22 @@ class SurveillanceSystem(object):
                                     if len(camera.faceDetector.detect_cascadeface_accurate(faceimg)) == 0:
                                           continue
                               logger.info('/// Proccessing Detected faces ///')
-
                               predictions, alignedFace = self.recogniser.make_prediction(personimg,face_bb)
+                              if lastalignedFace == None:
+                                 lastalignedFace = alignedFace
+                              #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
+                              #########If smaller then 0.99 this means that the last face is most likely equal to the current face##############################
+			      #########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
+			      #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
+                              d = self.recogniser.getRep(alignedFace) - self.recogniser.getRep(lastalignedFace)
+                              if np.dot(d, d) > 0.99:
+                                 equaltolastFace = False
+                              else:
+                                 equaltolastFace = True
 
+                              if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
+                                 unknowncount = unknowncount +1
+                                 predictions['name'] = 'unknown'+str(unknowncount)
                               with camera.peopleDictLock:
                                 if camera.people.has_key(predictions['name']):
                                     if camera.people[predictions['name']].confidence < predictions['confidence']:
@@ -820,14 +867,14 @@ class SurveillanceSystem(object):
                                         camera.people[predictions['name']].add_to_thumbnails(alignedFace) 
                                         camera.people[predictions['name']].set_time()
                                 else: 
-                                    if predictions['confidence'] > self.confidenceThreshold:
-                                        camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                                    else: 
-                                        camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, "unknown")
-              
-              ############################################################################################################################################################################
-              #<#####################################>  MOTION DETECTION OBJECT SEGMENTAION FOLLOWED BY FACE DETECTION, RECOGNITION AND TRACKING <#####################################>
-              #############################################################################################################################################################################
+                                    if equaltolastFace == False: #only check if face is different from last face and as such a new unknwon person is identified
+                                       if predictions['confidence'] > self.confidenceThreshold:
+                                           camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
+                                       else: 
+                                           camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
+                              lastalignedFace = alignedFace ############################################################################################################################################################################
+#<#####################################>  MOTION DETECTION OBJECT SEGMENTAION FOLLOWED BY FACE DETECTION, RECOGNITION AND TRACKING <#####################################>
+#############################################################################################################################################################################
 
              elif camera.cameraFunction == "detect_recognise_track":
                 # This approach incorporates background subtraction to perform person tracking 
@@ -1396,7 +1443,8 @@ class Person(object):
         if "unknown" not in name: # Used to include unknown-N from Database
             self.identity = name
         else:
-            self.identity = "unknown"
+            #self.identity = "unknown"
+            self.identity = name
        
         self.count = Person.person_count
         self.confidence = confidence  

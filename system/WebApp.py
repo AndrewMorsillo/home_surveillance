@@ -122,7 +122,7 @@ def getfacesonimage():
     # build a response dict to send back to client
     # encode response to json
     for i in range (0,len(data)):
-       if data[i]['name'] == "Unknown":
+       if data[i]['name'] == "unknown":
           matched = False
        else: matched = True
        faces.append({'name': data[i]['name'], 'matched':matched,'confidence': float(int(data[i]['confidence']))/100})
