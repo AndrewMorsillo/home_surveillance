@@ -110,7 +110,7 @@ def getfacesonimage():
     faceconf = []
     faces = []
     matched = False
-    app.loger.info("FaceBox Emulator API requested")
+    app.logger.info("FaceBox Emulator API requested")
     r = request
     originimg =base64.b64decode(r.get_json()['base64'])
     # convert string of image data to uint8
@@ -127,7 +127,8 @@ def getfacesonimage():
        else: matched = True
        faces.append({'name': data[i]['name'], 'matched':matched,'confidence': float(int(data[i]['confidence']))/100})
     response = {'success': True,'facesCount': len(data),'faces':faces}
-    response_json = json.dumps(response) 
+    response_json = json.dumps(response)
+    #print(response_json) 
     return response_json
 
 @app.route('/api/gethssstatus', methods=['GET'])
