@@ -584,6 +584,7 @@ class SurveillanceSystem(object):
         state = 1
         unknowncount = 0
         lastalignedFace = None
+        lastalignedFacerep = None
         equaltolastFace = False
         frame_count = 0;  
         FPScount = 0 # Used to calculate frame rate at which frames are being processed
@@ -675,13 +676,13 @@ class SurveillanceSystem(object):
 
                         # returns a dictionary that contains name, confidence and representation and an alignedFace (numpy array)
                         predictions, alignedFace = self.recogniser.make_prediction(frame,face_bb) 
-                        if lastalignedFace == None:
-                           lastalignedFace = alignedFace
+                        if lastalignedFacerep == None:
+                           lastalignedFacerep = predictions['rep']
                         #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
                         #########If smaller then 0.7 this means that the last face is most likely equal to the current face##############################
 			#########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
 			#########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
-                        d = self.recogniser.getRep(alignedFace) - self.recogniser.getRep(lastalignedFace)
+                        d = predictions['rep'] - lastalignedFacerep
                         if np.dot(d, d) > 0.7:
                            equaltolastFace = False
                         else:
@@ -708,7 +709,7 @@ class SurveillanceSystem(object):
                                   camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
                                else: 
                                   camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                    lastalignedFace = alignedFace
+                    lastalignedFacerep = predictions['rep']
                     camera.processing_frame = frame # Used for streaming proccesed frames to client and email alerts, but mainly used for testing purposes
 
               ##################################################################################################################################################
@@ -764,13 +765,13 @@ class SurveillanceSystem(object):
                                         continue
 
                             predictions, alignedFace = self.recogniser.make_prediction(frame,face_bb)
-                            if lastalignedFace == None:
-                               lastalignedFace = alignedFace
+                            if lastalignedFacerep == None:
+                               lastalignedFacerep = predictions['rep']
                             #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
                             #########If smaller then 0.7 this means that the last face is most likely equal to the current face##############################
 			    #########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
 			    #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
-                            d = self.recogniser.getRep(alignedFace) - self.recogniser.getRep(lastalignedFace)
+                            d = predictions['rep'] - lastalignedFacerep
                             if np.dot(d, d) > 0.7:
                                equaltolastFace = False
                             else:
@@ -796,7 +797,7 @@ class SurveillanceSystem(object):
                                       camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
                                    else: 
                                       camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-			lastalignedFace = alignedFace
+			lastalignedFacerep = predictions['rep']
                         start = time.time() # Used to go back to motion detection state of 30s of not finding a face
                         camera.processing_frame = frame
 
@@ -844,23 +845,24 @@ class SurveillanceSystem(object):
                                           continue
                               logger.info('/// Proccessing Detected faces ///')
                               predictions, alignedFace = self.recogniser.make_prediction(personimg,face_bb)
-                              if lastalignedFace == None:
-                                 lastalignedFace = alignedFace
+                              if lastalignedFacerep == None:
+                                 lastalignedFacerep = predictions['rep']
                               #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
                               #########If smaller then 0.99 this means that the last face is most likely equal to the current face##############################
 			      #########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
 			      #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
-                              d = self.recogniser.getRep(alignedFace) - self.recogniser.getRep(lastalignedFace)
+                              d = predictions['rep'] - lastalignedFacerep
                               if np.dot(d, d) > 0.99:
-                                 equaltolastFace = False
+                                equaltolastFace = False
                               else:
-                                 equaltolastFace = True
+                                equaltolastFace = True
 
                               if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
                                  unknowncount = unknowncount +1
                                  predictions['name'] = 'unknown'+str(unknowncount)
                               with camera.peopleDictLock:
                                 if camera.people.has_key(predictions['name']):
+                                    camera.people[predictions['name']].set_timelastseen()
                                     if camera.people[predictions['name']].confidence < predictions['confidence']:
                                         camera.people[predictions['name']].confidence = predictions['confidence']
                                         camera.people[predictions['name']].set_thumbnail(alignedFace)  
@@ -872,7 +874,7 @@ class SurveillanceSystem(object):
                                            camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
                                        else: 
                                            camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                              lastalignedFace = alignedFace ############################################################################################################################################################################
+                              lastalignedFacerep = predictions['rep'] ############################################################################################################################################################################
 #<#####################################>  MOTION DETECTION OBJECT SEGMENTAION FOLLOWED BY FACE DETECTION, RECOGNITION AND TRACKING <#####################################>
 #############################################################################################################################################################################
 
@@ -1240,13 +1242,14 @@ class SurveillanceSystem(object):
                 for person in self.cameras[int(alert.camera)].people.values():
                     logger.info( "checkingalertconf "+ str(alert.confidence )+ " : " + alert.person + " : " + person.identity)
                     if alert.person == person.identity: # Has person been detected
-                       
-                        if alert.person == "unknown" and (100 - person.confidence) >= alert.confidence:
-                            logger.info( "alertTest2" + alert.camera)
-                            cv2.imwrite("notification/image.png", self.cameras[int(alert.camera)].processing_frame)#
-                            self.take_action(alert)
-                            return True
-                        elif person.confidence >= alert.confidence:
+                       #print(time.time() - person.timelastseen)
+                       if (time.time() - person.timelastseen) < (int(self.param_event_rememberstate)*0.9): #if last timelastseen has been longer then the threshold set * 0.9 
+                          if alert.person == "unknown" and (100 - person.confidence) >= alert.confidence:
+                             logger.info( "alertTest2" + alert.camera)
+                             cv2.imwrite("notification/image.png", self.cameras[int(alert.camera)].processing_frame)#
+                             self.take_action(alert)
+                             return True
+                          elif person.confidence >= alert.confidence:
                             logger.info( "alertTest3" + alert.camera)
                             cv2.imwrite("notification/image.png", self.cameras[int(alert.camera)].processing_frame)#
                             self.take_action(alert)
@@ -1272,14 +1275,16 @@ class SurveillanceSystem(object):
                         if alert.person == person.identity: # Has person been detected
                             alert.camname = camera.camName
                             #print('Testing AlertCamera: '+ alert.camname)
-                            if alert.person == "unknown" and (100 - person.confidence) >= alert.confidence:
-                                cv2.imwrite("notification/image.png", camera.processing_frame)#
-                                self.take_action(alert)
-                                return True
-                            elif person.confidence >= alert.confidence:
-                                cv2.imwrite("notification/image.png", camera.processing_frame)#
-                                self.take_action(alert)
-                                return True
+                            #print(time.time() - person.timelastseen)
+                            if (time.time() - person.timelastseen) < (int(self.param_event_rememberstate)*0.9): #if last timelastseen has been longer then the threshold set * 0.9
+                               if alert.person == "unknown" and (100 - person.confidence) >= alert.confidence:
+                                  cv2.imwrite("notification/image.png", camera.processing_frame)#
+                                  self.take_action(alert)
+                                  return True
+                               elif person.confidence >= alert.confidence:
+                                  cv2.imwrite("notification/image.png", camera.processing_frame)#
+                                  self.take_action(alert)
+                                  return True
                
                 return False # Person has not been detected check next alert   
 
@@ -1458,6 +1463,7 @@ class Person(object):
         Person.person_count += 1 
         now = datetime.now() + timedelta(hours=2)
         self.time = now.strftime("%A %d %B %Y %I:%M:%S%p")
+        self.timelastseen = time.time()
         self.istracked = False
    
     def set_rep(self, rep):
@@ -1469,6 +1475,9 @@ class Person(object):
     def set_time(self): # Update time when person was detected
         now = datetime.now() + timedelta(hours=2)
         self.time = now.strftime("%A %d %B %Y %I:%M:%S%p")
+
+    def set_timelastseen(self): # Update time when person was detected
+        self.timelastseen = time.time()
 
     def set_thumbnail(self, face):
         self.face = face

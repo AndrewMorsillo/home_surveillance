@@ -270,3 +270,5 @@ class FaceRecogniser(object):
         to the same person"""
 
         d = rep1 - rep2
+        d = np.dot(d, d)
+        return d
