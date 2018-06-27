@@ -72,6 +72,7 @@ import base64
 import MQTTClient
 import Presence
 import datetime as dt
+import urllib
 
 
 # Get paths for models
@@ -585,6 +586,7 @@ class SurveillanceSystem(object):
         unknowncount = 0
         lastalignedFace = None
         lastalignedFacerep = None
+        lastalignedFacename = None
         equaltolastFace = False
         frame_count = 0;  
         FPScount = 0 # Used to calculate frame rate at which frames are being processed
@@ -676,17 +678,29 @@ class SurveillanceSystem(object):
 
                         # returns a dictionary that contains name, confidence and representation and an alignedFace (numpy array)
                         predictions, alignedFace = self.recogniser.make_prediction(frame,face_bb) 
+                        if self.drawing == True:
+                           camera.processing_frame = frame
+			   cv2.putText(camera.processing_frame,  predictions['name'] + " " + str(predictions['confidence'])+ "%", (face_bb.left(), face_bb.top() - 10),
+                                 cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.3,
+                                 color=(0, 255, 255), thickness=1)
                         if lastalignedFacerep == None:
-                           lastalignedFacerep = predictions['rep']
+                           lastalignedFacerep = predictions['rep']+predictions['rep']
+                        if lastalignedFacename == None:
+                           lastalignedFacename = "start"
+
                         #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
                         #########If smaller then 0.7 this means that the last face is most likely equal to the current face##############################
 			#########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
 			#########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
-                        d = predictions['rep'] - lastalignedFacerep
-                        if np.dot(d, d) > 0.7:
+                        if lastalignedFacename != predictions['name']:
                            equaltolastFace = False
                         else:
-                           equaltolastFace = True
+                           d = predictions['rep'] - lastalignedFacerep
+                           if np.dot(d, d) > 0.7:
+                              equaltolastFace = False
+                           else:
+                              equaltolastFace = True
+                        lastalignedFacename = predictions['name'] 
 
                         if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
                            unknowncount = unknowncount +1
@@ -709,7 +723,7 @@ class SurveillanceSystem(object):
                                   camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
                                else: 
                                   camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                    lastalignedFacerep = predictions['rep']
+                          
                     camera.processing_frame = frame # Used for streaming proccesed frames to client and email alerts, but mainly used for testing purposes
 
               ##################################################################################################################################################
@@ -765,17 +779,29 @@ class SurveillanceSystem(object):
                                         continue
 
                             predictions, alignedFace = self.recogniser.make_prediction(frame,face_bb)
+                            if self.drawing == True:
+                               camera.processing_frame = frame
+			       cv2.putText(camera.processing_frame,  predictions['name'] + " " + str(predictions['confidence'])+ "%", (face_bb.left(), face_bb.top() - 10),
+                                     cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.3,
+                                     color=(0, 255, 255), thickness=1)
                             if lastalignedFacerep == None:
-                               lastalignedFacerep = predictions['rep']
+                               lastalignedFacerep = predictions['rep']+predictions['rep']
+                            if lastalignedFacename == None:
+                               lastalignedFacename = "start"
+                
                             #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
                             #########If smaller then 0.7 this means that the last face is most likely equal to the current face##############################
 			    #########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
 			    #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
-                            d = predictions['rep'] - lastalignedFacerep
-                            if np.dot(d, d) > 0.7:
+                            if lastalignedFacename != predictions['name']:
                                equaltolastFace = False
                             else:
-                               equaltolastFace = True
+                               d = predictions['rep'] - lastalignedFacerep
+                               if np.dot(d, d) > 0.7:
+                                  equaltolastFace = False
+                               else:
+                                  equaltolastFace = True
+                            lastalignedFacename = predictions['name'] 
 
                             if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
                                unknowncount = unknowncount +1
@@ -818,14 +844,16 @@ class SurveillanceSystem(object):
                     if camera.motion == False:
                        camera.processing_frame = frame
                        logger.debug('////-- NO MOTION DETECTED --////')
+                       #print('////-- NO MOTION DETECTED --////')
                        continue
 
                     logger.debug('///// MOTION DETECTED /////')
+                    #print('//// MOTION DETECTED ////')
                     if self.drawing == True:
                         frame = ImageUtils.draw_boxes(frame, peopleRects, False)
 
                     for x, y, w, h in peopleRects:
-                      
+                        #print('//// Proccessing People Segmented Areas ///')
                         logger.debug('//// Proccessing People Segmented Areas ///')
                         bb = dlib.rectangle(long(x), long(y), long(x+w), long(y+h)) 
                         personimg = ImageUtils.crop(frame, bb, dlibRect = True)
@@ -843,19 +871,32 @@ class SurveillanceSystem(object):
                                     faceimg = ImageUtils.crop(personimg, face_bb, dlibRect = True)
                                     if len(camera.faceDetector.detect_cascadeface_accurate(faceimg)) == 0:
                                           continue
+                              #print('/// Proccessing Detected faces ///')
                               logger.info('/// Proccessing Detected faces ///')
                               predictions, alignedFace = self.recogniser.make_prediction(personimg,face_bb)
+                              if self.drawing == True:
+                                 camera.processing_frame = frame
+			         cv2.putText(camera.processing_frame,  predictions['name'] + " " + str(predictions['confidence'])+ "%", (face_bb.left(), face_bb.top() - 10),
+                                       cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.3,
+                                       color=(0, 255, 255), thickness=1)
+                              
                               if lastalignedFacerep == None:
                                  lastalignedFacerep = predictions['rep']
+                              if lastalignedFacename == None:
+                               lastalignedFacename = "start"
                               #########Find the correlation between the last Faceimage and the current Faceimage                 ##############################
                               #########If smaller then 0.99 this means that the last face is most likely equal to the current face##############################
 			      #########The outcome is used when an unknown face is found to avoid hundreds of unknown matches    ##############################
 			      #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
-                              d = predictions['rep'] - lastalignedFacerep
-                              if np.dot(d, d) > 0.99:
-                                equaltolastFace = False
+                              if lastalignedFacename != predictions['name']:
+                                 equaltolastFace = False
                               else:
-                                equaltolastFace = True
+                                 d = predictions['rep'] - lastalignedFacerep
+                                 if np.dot(d, d) > 0.7:
+                                    equaltolastFace = False
+                                 else:
+                                    equaltolastFace = True
+                              lastalignedFacename = predictions['name'] 
 
                               if predictions['name'] == 'unknown': # when unknown face, unique unknown identifier is added to avoid all unknowns under 1 label
                                  unknowncount = unknowncount +1
@@ -874,7 +915,9 @@ class SurveillanceSystem(object):
                                            camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
                                        else: 
                                            camera.people[predictions['name']] = Person(predictions['rep'],predictions['confidence'], alignedFace, predictions['name'])
-                              lastalignedFacerep = predictions['rep'] ############################################################################################################################################################################
+                              lastalignedFacerep = predictions['rep']
+                              camera.processing_frame = frame
+ ############################################################################################################################################################################
 #<#####################################>  MOTION DETECTION OBJECT SEGMENTAION FOLLOWED BY FACE DETECTION, RECOGNITION AND TRACKING <#####################################>
 #############################################################################################################################################################################
 
@@ -1172,11 +1215,16 @@ class SurveillanceSystem(object):
             except requests.ConnectionError:
                logger.debug('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost)
             kerberosurl = kerberossrc
+            #print(kerberosurl)
             if kerberostype == 'video':
                if kerberosurl != kerberoslastsrc: 
+                  #print("kerberosvideo_"+str(kerberoscameranum)+".mp4")
+                  urllib.urlretrieve(kerberosurl,"kerberos-videos/kerberosvideo_"+str(kerberoscameranum)+".mp4") #RDL
                   try:
                      logger.info('Load kerberos last video')
-                     self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+                     self.cameras[kerberoscameranum].video = cv2.VideoCapture("kerberos-videos/kerberosvideo_"+str(kerberoscameranum)+".mp4")
+                     #self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+
                      if not self.cameras[kerberoscameranum].video.isOpened():
                         self.cameras[kerberoscameranum].video.open()
                      kerberoslastsrc = kerberosurl
@@ -1189,7 +1237,9 @@ class SurveillanceSystem(object):
                   if repeatcount < self.param_kerberosrepeat:      
                      try:
                         logger.info('Repeat Kerberos last known video: ' + str(repeatcount))
-                        self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+                        #self.cameras[kerberoscameranum].video = cv2.VideoCapture(kerberosurl)
+                        self.cameras[kerberoscameranum].video = cv2.VideoCapture("kerberos-videos/kerberosvideo_"+str(kerberoscameranum)+".mp4")
+
                         if not self.cameras[kerberoscameranum].video.isOpened():
                            self.cameras[kerberoscameranum].video.open()
                         repeatcount = repeatcount +1
@@ -1200,9 +1250,10 @@ class SurveillanceSystem(object):
                      waittime = self.param_kerberospullinterval 
             else:
                   logger.info('Last Kerberos file is not video but ' + kerberostype)
-      except IndexError(e):
-         logger.debug('Kerberos Cam Thread Stopped') 
-       
+      #except IndexError(e):
+      #   logger.debug('Kerberos Cam Thread Stopped') 
+      except requests.ConnectionError:
+               logger.debug('Could not connect to Kerberos Camera on Kerberos Host: ' + kerberoshost) 
                 
    def alert_engine(self):  
         """check alarm state -> check camera -> check event -> 
