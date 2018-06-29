@@ -694,7 +694,7 @@ class SurveillanceSystem(object):
 			#########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
                         if lastalignedFacename != predictions['name']:
                            equaltolastFace = False
-                        else:
+                        else: #specifically to verify if an unknown is the same person => if not we need to create new hit
                            d = predictions['rep'] - lastalignedFacerep
                            if np.dot(d, d) > 0.7:
                               equaltolastFace = False
@@ -795,7 +795,7 @@ class SurveillanceSystem(object):
 			    #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
                             if lastalignedFacename != predictions['name']:
                                equaltolastFace = False
-                            else:
+                            else: #specifically to verify if an unknown is the same person => if not we need to create new hit
                                d = predictions['rep'] - lastalignedFacerep
                                if np.dot(d, d) > 0.7:
                                   equaltolastFace = False
@@ -876,7 +876,7 @@ class SurveillanceSystem(object):
                               predictions, alignedFace = self.recogniser.make_prediction(personimg,face_bb)
                               if self.drawing == True:
                                  camera.processing_frame = frame
-			         cv2.putText(camera.processing_frame,  predictions['name'] + " " + str(predictions['confidence'])+ "%", (face_bb.left(), face_bb.top() - 10),
+			         cv2.putText(camera.processing_frame,  predictions['name'] + " " + str(predictions['confidence'])+ "%", (bb.left()+face_bb.left(), bb.top()+face_bb.top() - 10),
                                        cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.3,
                                        color=(0, 255, 255), thickness=1)
                               
@@ -890,7 +890,7 @@ class SurveillanceSystem(object):
 			      #########When unknown AND equal then the unknwon face is skipped as it was already reported        ##############################
                               if lastalignedFacename != predictions['name']:
                                  equaltolastFace = False
-                              else:
+                              else: #specifically to verify if an unknown is the same person => if not we need to create new hit
                                  d = predictions['rep'] - lastalignedFacerep
                                  if np.dot(d, d) > 0.7:
                                     equaltolastFace = False
